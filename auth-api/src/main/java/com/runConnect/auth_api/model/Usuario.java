@@ -8,9 +8,6 @@ import lombok.Data;
 @Entity
 @Table(name = "USUARIO")
 public class Usuario {
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     

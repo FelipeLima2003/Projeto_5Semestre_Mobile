@@ -11,14 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 
-@RequestMapping("/runconnect")
+@RequestMapping("/usuario")
 public class LoginController {
 
     @Autowired
@@ -37,4 +40,17 @@ public class LoginController {
         }
     
     }
+
+    @PostMapping("/cadastrar")
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario novoUsuario){
+
+        if (usuarioRepository.findByEmail(novoUsuario.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+    }
+
 }
