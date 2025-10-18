@@ -1,4 +1,8 @@
 package com.runConnect.auth_api.model;
+import java.sql.Date;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.runConnect.auth_api.model.enums.Genero;
 
@@ -8,31 +12,40 @@ import lombok.Data;
 @Entity
 @Table(name = "USUARIO")
 public class Usuario {
+   
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "NOME")
+    @Column(name = "NOME",nullable = false)
     private String nome;
 
-    @Column(name = "CPF")
+  
+    @Column(name = "DATA_NASCIMENTO",nullable = false)
+    private LocalDate dataNascimento;
+
+    @Column(name = "CPF", nullable = false, unique = true)
     private String cpf;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "TELEFONE")
+    @Column(name = "TELEFONE",nullable = false)
     private String telefone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "GENERO")
+    @Column(name = "GENERO",nullable = false)
     private Genero genero;
 
     @JsonIgnore
-    @Column(name = "SENHA")
+    @Column(name = "SENHA",nullable = false)
     private String senha;
+
+    @Column(name = "IMAGEM_URL")
+    private String imagemUrl;
 
   
 }
