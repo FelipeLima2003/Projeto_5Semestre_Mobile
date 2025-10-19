@@ -1,0 +1,27 @@
+#  Build - Usando uma imagem Maven com Java 22 para compilar o projeto
+FROM maven:3.9.7-eclipse-temurin-22 AS build
+
+WORKDIR /app
+
+
+COPY pom.xml .
+
+
+RUN mvn dependency:go-offline
+
+
+COPY src ./src
+
+
+RUN mvn package -DskipTests
+
+
+FROM eclipse-temurin:22-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
