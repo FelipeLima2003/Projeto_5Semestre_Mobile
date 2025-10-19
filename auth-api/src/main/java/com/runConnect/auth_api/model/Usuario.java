@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.runConnect.auth_api.model.enums.Genero;
 
 import jakarta.persistence.*;
@@ -40,7 +41,7 @@ public class Usuario {
     @Column(name = "GENERO",nullable = false)
     private Genero genero;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "SENHA",nullable = false)
     private String senha;
 
