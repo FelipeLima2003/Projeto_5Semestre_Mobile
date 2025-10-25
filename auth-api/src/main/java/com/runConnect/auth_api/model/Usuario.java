@@ -1,9 +1,6 @@
 package com.runConnect.auth_api.model;
-import java.sql.Date;
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.runConnect.auth_api.model.enums.Genero;
 
@@ -24,7 +21,6 @@ public class Usuario {
     @Column(name = "NOME",nullable = false)
     private String nome;
 
-  
     @Column(name = "DATA_NASCIMENTO",nullable = false)
     private LocalDate dataNascimento;
 
