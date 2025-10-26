@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,14 +38,13 @@ public class Corrida {
     @Column(name = "distancia", nullable = false)
     private BigDecimal distancia;
 
+ 
     @Column(name = "tempo_inicial", nullable = false)
     private Timestamp tempoInicial;
 
+    
     @Column(name = "tempo_final", nullable = false)
     private Timestamp tempoFinal;    
-
-    @Column(name = "data_corrida")
-    private LocalDateTime dataCorrida = LocalDateTime.now();
 
     @OneToMany(mappedBy = "corrida", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PontosGps> pontosGps;
