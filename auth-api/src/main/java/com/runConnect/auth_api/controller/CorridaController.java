@@ -45,7 +45,7 @@ public class CorridaController {
         novaCorrida.setTempoInicial(dto.tempoInicial());
         novaCorrida.setTempoFinal(dto.tempoFinal());
         
-        // Conveter os DTOs de PontosGPS para entidades PontosGps
+        // Conveter os DTOs de PontosGPS para corrida
       
         List<PontosGps> listaDePontos = new ArrayList<>();
 
