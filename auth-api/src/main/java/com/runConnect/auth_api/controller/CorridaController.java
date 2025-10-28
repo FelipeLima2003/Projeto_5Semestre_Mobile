@@ -44,25 +44,8 @@ public class CorridaController {
         novaCorrida.setDistancia(dto.distancia());
         novaCorrida.setTempoInicial(dto.tempoInicial());
         novaCorrida.setTempoFinal(dto.tempoFinal());
+
         
-        // Conveter os DTOs de PontosGPS para corrida
-      
-        List<PontosGps> listaDePontos = new ArrayList<>();
-
-        if(dto.pontosGpsLista() != null){
-            for (PontosGpsDto pontoDto : dto.pontosGpsLista()) {
-                PontosGps ponto = new PontosGps();
-                ponto.setLatitude(pontoDto.latitude());
-                ponto.setLongitude(pontoDto.longitude());
-                ponto.setOrdem(pontoDto.ordem());
-                ponto.setCorrida(novaCorrida); // Associar o ponto à corrida
-                listaDePontos.add(ponto);
-            }
-        }
-
-        // Associar a lista de pontos à corrida
-        novaCorrida.setPontosGps(listaDePontos);
-
         // Salvar a corrida
 
         Corrida corridaSalva = corridaRepository.save(novaCorrida);

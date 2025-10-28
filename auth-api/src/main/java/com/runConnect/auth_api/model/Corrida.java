@@ -46,7 +46,4 @@ public class Corrida {
     @Column(name = "tempo_final", nullable = false)
     private Timestamp tempoFinal;    
 
-    @OneToMany(mappedBy = "corrida", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PontosGps> pontosGps;
-
 }
