@@ -2,12 +2,10 @@ package com.runConnect.auth_api.dto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-
-
+import com.runConnect.auth_api.model.Corrida;
 
 
 
@@ -19,7 +17,13 @@ public record CorridaRequestDto(
     Timestamp tempoInicial,
     
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Timestamp tempoFinal,
+    Timestamp tempoFinal
     
-    List<PontosGpsDto> pontosGpsLista 
-) {}
+    
+){}
+
+
+
+
+
+

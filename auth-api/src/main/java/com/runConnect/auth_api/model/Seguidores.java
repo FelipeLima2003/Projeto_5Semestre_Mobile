@@ -29,4 +29,15 @@ public class Seguidores {
     @MapsId("seguidoId")
     @JoinColumn(name = "seguido_id")
     private Usuario seguido;
+
+    // Construtor vazio
+    public Seguidores() {}
+
+    // Construtor com parâmetros
+    public Seguidores(Usuario seguidor, Usuario seguido) {
+        this.seguidor = seguidor;
+        this.seguido = seguido;
+        this.id = new SeguidoresId(seguidor.getId(), seguido.getId());
+    }
+
 }

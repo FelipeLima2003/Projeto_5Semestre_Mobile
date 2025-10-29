@@ -1,19 +1,17 @@
 package com.runConnect.auth_api.controller;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.runConnect.auth_api.dto.CorridaRequestDto;
-import com.runConnect.auth_api.dto.PontosGpsDto;
+import com.runConnect.auth_api.dto.CorridaResponseDto;
 import com.runConnect.auth_api.model.Corrida;
-import com.runConnect.auth_api.model.PontosGps;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.CorridaRepository;
 import com.runConnect.auth_api.repository.UsuarioRepository;
@@ -38,6 +36,7 @@ public class CorridaController {
         // Encontrar o usuaario que fez a corrida pela ID
         Usuario usuario = usuarioRepository.findById(dto.usuarioId())
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+ 
         // Criar a entidade Corrida
         Corrida novaCorrida = new Corrida();
         novaCorrida.setUsuario(usuario);
@@ -50,6 +49,8 @@ public class CorridaController {
 
         Corrida corridaSalva = corridaRepository.save(novaCorrida);
 
+        CorridaResponseDto responseDTO = new CorridaResponseDto(corridaSalva);
+        URI location = URI.create("/corridas/" + corridaSalva.getId());
         return ResponseEntity.status(201).body(corridaSalva);
 
     }
@@ -67,9 +68,24 @@ public class CorridaController {
         // --- Endpoint para ver os DETALHES de UMA Corrida ---
 
      @GetMapping("/{id}")
-    public ResponseEntity<Corrida> getCorridaPorId(@PathVariable Integer id) {
+    public ResponseEntity<CorridaResponseDto> getCorridaPorId(@PathVariable Integer id) {
         return corridaRepository.findById(id)
+                .map(CorridaResponseDto::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<CorridaResponseDto>> getCorridasPorUsuario(@PathVariable Integer usuarioId) {
+         if (!usuarioRepository.existsById(usuarioId)){
+            return ResponseEntity.notFound().build();
+         }
+           
+          List<CorridaResponseDto> corridasDTO = corridaRepository.findByUsuarioIdOrderByTempoFinalDesc(usuarioId)
+                .stream()
+                .map(CorridaResponseDto::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(corridasDTO);
+    }
+
 }
