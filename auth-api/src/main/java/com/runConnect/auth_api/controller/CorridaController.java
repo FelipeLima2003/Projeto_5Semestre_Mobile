@@ -4,11 +4,14 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.runConnect.auth_api.dto.CorridaRequestDto;
 import com.runConnect.auth_api.dto.CorridaResponseDto;
 import com.runConnect.auth_api.model.Corrida;
@@ -58,11 +61,17 @@ public class CorridaController {
     // Endpoint para ver o FEED de Corridas (das pessoas que sigo)
 
     @GetMapping("/feed")
-    public ResponseEntity<List<Corrida>> getFeedCorridas(
-        @RequestParam Integer meuId) {
+    public ResponseEntity<List<CorridaResponseDto>> buscarFeedCorridas(@RequestParam Integer meuId) {
+        // Verifica se o utilizador que pede o feed existe
+        if (!usuarioRepository.existsById(meuId)) {
+             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilizador não encontrado");
+        }
 
-      List<Corrida> feed = corridaRepository.findFeedCorridas(meuId);
-      return ResponseEntity.ok(feed);
+        List<CorridaResponseDto> feedDTO = corridaRepository.findFeedCorridas(meuId)
+                .stream()
+                .map(CorridaResponseDto::new) // Converte cada Corrida para DTO
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(feedDTO);
     }
     
         // --- Endpoint para ver os DETALHES de UMA Corrida ---
