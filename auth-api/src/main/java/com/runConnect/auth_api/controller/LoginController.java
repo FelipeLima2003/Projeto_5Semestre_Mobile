@@ -32,6 +32,7 @@ public class LoginController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
     private SeguidoresRepository seguidoresRepository;
      
     // Login do usuario

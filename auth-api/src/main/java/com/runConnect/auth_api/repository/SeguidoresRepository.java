@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.runConnect.auth_api.model.Seguidores;
 import com.runConnect.auth_api.model.SeguidoresId;
 import com.runConnect.auth_api.model.Usuario;
-
+@Repository
 public interface SeguidoresRepository extends JpaRepository<Seguidores, SeguidoresId> {
     
     // Método para encontrar uma relação específica (útil para verificar se já segue)
