@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -13,4 +14,21 @@
             <corners android:radius="8dp"/>
         </shape>
     </item>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#0069A1" />
+            <corners android:radius="8dp"/> </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#3DA3FF" />
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+>>>>>>> d32b7fd96d1d369145d056c1ffbc63493696e5b5
 </selector>
