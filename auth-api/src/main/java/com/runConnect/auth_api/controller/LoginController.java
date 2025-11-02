@@ -135,13 +135,14 @@ public class LoginController {
         return ResponseEntity.ok(seguindoDTO);
     }
 
-<<<<<<< HEAD
+
     
 
 
 
 }
-=======
 
-}
->>>>>>> 8b61844d577ca0bf4626ce40a293ca696ca34e14
+
+
+
+
