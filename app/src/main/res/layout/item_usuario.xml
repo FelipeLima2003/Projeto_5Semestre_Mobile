@@ -1,0 +1,72 @@
+<!-- Em res/layout/item_usuario.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="27dp"
+    android:layout_marginBottom="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="13dp"
+    android:background="@drawable/rounded_background">
+
+        <ImageView
+        android:id="@+id/iconUser"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginBottom="2dp"
+                android:text="Nome do Usuário"
+                android:textColor="#1A1A1C"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userHandle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="\@username"
+                android:textColor="#3DA3FF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/containerButtonSeguir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:background="@drawable/button_confirm_selector"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingHorizontal="19dp"
+        android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/txt_button_seguir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seguir"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+</LinearLayout>

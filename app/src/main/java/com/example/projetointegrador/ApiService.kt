@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -17,4 +18,13 @@ interface ApiService {
     suspend fun cadastrar(
         @Body cadastroRequest: CadastroRequest
     ): Response<CadastroResponse>
+
+    @GET("usuario")
+    suspend fun getUsuarios(): Response<List<UsuarioResponse>>
+
+    @POST("usuario/{idUsuario}/seguir")
+    suspend fun seguirUsuario(
+        @Path("idUsuario") idUsuarioASerSeguido: Int, // Parte do caminho (Ex: /2/)
+        @Query("seguidorId") idDoSeguidor: Int         // Parâmetro de consulta (Ex: ?seguidorId=4)
+    ): Response<Unit>
 }

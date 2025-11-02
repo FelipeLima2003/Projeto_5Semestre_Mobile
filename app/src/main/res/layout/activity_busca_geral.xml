@@ -42,6 +42,22 @@
                     android:text="VOLTAR"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Ícone do menu de três pontos -->
+                <ImageView
+                    android:id="@+id/options_menu_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_more"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:contentDescription="Opções"/>
+
             </LinearLayout>
 
             <LinearLayout

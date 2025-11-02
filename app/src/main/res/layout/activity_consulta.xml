@@ -1,586 +1,162 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud_scrollview"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/ScrollViewMain"
+    <LinearLayout
+        android:id="@+id/containerBarra"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/backgroud_scrollview">
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="11dp">
+
+        <ImageView
+            android:id="@+id/iconVoltar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="13dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/textVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VOLTAR"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_background"
+        android:orientation="vertical"
+        android:paddingVertical="15dp">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Buscar por \ncorredores"
+            android:textColor="#1A1A1C"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/containerBusca"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/backgroud_busca"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp">
 
-            <LinearLayout
-                android:id="@+id/containerBarra"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iconLupa"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="1dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="58dp"
-                android:background="#212121"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="11dp">
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Buscar por nome ou @"
+                android:inputType="text"
+                android:textColor="#3DA3FF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/iconVoltar"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="13dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_usuario" />
 
-                <TextView
-                    android:id="@+id/textVoltar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VOLTAR"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/containerMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginBottom="29dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical"
-                android:paddingVertical="15dp">
+    <LinearLayout
+        android:id="@+id/containerBotoesInferiores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingVertical="20dp">
 
-                <TextView
-                    android:id="@+id/titulo"
-                    android:layout_width="134.97027587890625dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="179dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:text="Buscar por \ncorredores"
-                    android:textColor="#1A1A1C"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+        <!-- Botão Sobre Nós -->
+        <LinearLayout
+            android:id="@+id/containerSobreNos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/button_confirm_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp">
 
-                <LinearLayout
-                    android:id="@+id/containerBusca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:background="@drawable/backgroud_busca"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="6dp">
+        <TextView
+            android:id="@+id/txt_sobreNos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sobre Nós"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/iconLupa"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="1dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
+    <!-- Botão Eventos -->
+    <LinearLayout
+        android:id="@+id/containerEventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/button_confirm_selector"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="5dp">
 
-                    <EditText
-                        android:id="@+id/searchEditText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="Buscar por nome ou @"
-                        android:inputType="text"
-                        android:textColor="#3DA3FF"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/containerUser1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="27dp"
-                android:layout_marginBottom="27dp"
-                android:background="@drawable/rounded_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="13dp">
-
-                <ImageView
-                    android:id="@+id/iconUser1"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher" />
-
-                <LinearLayout
-                    android:id="@+id/containerInfoUser1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/userName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_marginBottom="2dp"
-                        android:text="Ana Silva"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/userId1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@anasilva\n"
-                        android:textColor="#3DA8FF"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/containerButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="23dp"
-                    android:background="@drawable/button_confirm_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="19dp"
-                    android:paddingVertical="6dp">
-
-                    <TextView
-                        android:id="@+id/txt_button1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seguir"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rf29ipva20jl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginBottom="28dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/containerUser2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="14dp">
-
-                    <ImageView
-                        android:id="@+id/iconUser2"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <LinearLayout
-                        android:id="@+id/containerInfoUser2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="4dp"
-                            android:layout_marginBottom="2dp"
-                            android:text="Ana Silva"
-                            android:textColor="#1A1A1C"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/userId2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@anasilva\n"
-                            android:textColor="#3DA8FF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="22dp"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="19dp"
-                        android:paddingVertical="6dp">
-
-                        <TextView
-                            android:id="@+id/txt_button2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Seguir"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ra8nln4pxwvi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginBottom="28dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/containerUser3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="14dp">
-
-                    <ImageView
-                        android:id="@+id/iconUser3"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <LinearLayout
-                        android:id="@+id/containerInfoUser3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="4dp"
-                            android:layout_marginBottom="2dp"
-                            android:text="Ana Silva"
-                            android:textColor="#1A1A1C"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/userId3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@anasilva\n"
-                            android:textColor="#3DA8FF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="22dp"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="19dp"
-                        android:paddingVertical="6dp">
-
-                        <TextView
-                            android:id="@+id/txt_button3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Seguir"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rcbuz0bosyd7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginBottom="28dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/containerUser4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="14dp">
-
-                    <ImageView
-                        android:id="@+id/iconUser4"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <LinearLayout
-                        android:id="@+id/containerInfoUser4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="4dp"
-                            android:layout_marginBottom="2dp"
-                            android:text="Ana Silva"
-                            android:textColor="#1A1A1C"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/userId4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@anasilva\n"
-                            android:textColor="#3DA8FF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerButton4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="22dp"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="19dp"
-                        android:paddingVertical="6dp">
-
-                        <TextView
-                            android:id="@+id/txt_button4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Seguir"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rtyn0cmeoz1s"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginBottom="56dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/containerUser5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="14dp">
-
-                    <ImageView
-                        android:id="@+id/iconUser5"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <LinearLayout
-                        android:id="@+id/containerInfoUser5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="4dp"
-                            android:layout_marginBottom="2dp"
-                            android:text="Ana Silva"
-                            android:textColor="#1A1A1C"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/userId5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@anasilva\n"
-                            android:textColor="#3DA8FF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerButton5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="22dp"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="19dp"
-                        android:paddingVertical="6dp">
-
-                        <TextView
-                            android:id="@+id/txt_button5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Seguir"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/containerOptionsButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="87dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/rk44283z1u9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/containerSobreNos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="52dp"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="7dp"
-                        android:paddingVertical="5dp">
-
-                        <TextView
-                            android:id="@+id/rhteg4hklq3w"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sobre Nós"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerEventos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/button_confirm_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="15dp"
-                        android:paddingVertical="5dp">
-
-                        <TextView
-                            android:id="@+id/rborl8y7xeah"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Eventos"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/containerButtonConfirmar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="90dp"
-                android:layout_marginBottom="100dp"
-                android:background="@drawable/button_confirm_selector"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mudar fonte"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <TextView
+        android:id="@+id/txt_eventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eventos"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
 </LinearLayout>
-
-

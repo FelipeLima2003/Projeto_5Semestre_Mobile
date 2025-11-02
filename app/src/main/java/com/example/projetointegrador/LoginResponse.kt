@@ -13,5 +13,8 @@ data class LoginResponse(
     val usuarioEmail: String,
 
     @SerializedName("cpf")
-    val usuarioCpf: String
+    val usuarioCpf: String,
+
+    @SerializedName("token")
+    val token: String
 )

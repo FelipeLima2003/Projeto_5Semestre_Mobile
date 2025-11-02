@@ -1,25 +1,160 @@
+// Em ConsultaActivity.kt
 package com.example.projetointegrador
+
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projetointegrador.databinding.ActivityConsultaBinding
+import kotlinx.coroutines.launch
 
 class ConsultaActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityConsultaBinding
+    private lateinit var usuarioAdapter: UsuarioAdapter
+
+    private val listaCompletaDeUsuarios = mutableListOf<UsuarioResponse>()
+
+    private var loggedInUserId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_consulta)
+        binding = ActivityConsultaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 1. Encontre o botão pelo ID
-        val button = findViewById<LinearLayout>(R.id.containerButtonConfirmar)
+        loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
 
-        // 2. Configure o listener de clique para mostrar o diálogo
-        button.setOnClickListener {
-            val dialog = FontSizeDialogFragment()
-            dialog.show(supportFragmentManager, FontSizeDialogFragment.TAG)
+        if (loggedInUserId == -1) {
+            Toast.makeText(this, "Erro: ID do usuário não encontrado. Faça o login novamente.", Toast.LENGTH_LONG).show()
+            finish()
+            return
         }
 
+        // Configura os listeners dos componentes da tela
+        setupListeners()
+        buscarUsuarios()
     }
 
+    private fun setupListeners() {
+        // *** LISTENER DO BOTÃO VOLTAR ***
+        // Adicionamos o listener tanto para o ícone quanto para o texto
+        binding.iconVoltar.setOnClickListener {
+            finish() // Fecha a atividade atual e volta para a anterior
+        }
+        binding.textVoltar.setOnClickListener {
+            finish() // O mesmo para o texto
+        }
 
+        // Listener do campo de busca
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filtrarLista(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Listener do botão "Sobre Nós"
+        binding.containerSobreNos.setOnClickListener {
+            val intent = Intent(this, SobreNosActivity::class.java)
+            intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+            startActivity(intent)
+        }
+
+        // Listener do botão "Eventos"
+        binding.containerEventos.setOnClickListener {
+            val intent = Intent(this, BuscaGeralActivity::class.java)
+            intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+            startActivity(intent)
+        }
+    }
+
+    private fun filtrarLista(textoBusca: String) {
+        if (textoBusca.isEmpty()) {
+            if (::usuarioAdapter.isInitialized) {
+                usuarioAdapter.updateList(listaCompletaDeUsuarios)
+            }
+            return
+        }
+
+        val listaFiltrada = listaCompletaDeUsuarios.filter { usuario ->
+            val handle = "@${usuario.nome.toLowerCase().replace(" ", "")}"
+            usuario.nome.contains(textoBusca, ignoreCase = true) || handle.contains(textoBusca, ignoreCase = true)
+        }
+        if (::usuarioAdapter.isInitialized) {
+            usuarioAdapter.updateList(listaFiltrada)
+        }
+    }
+
+    private fun buscarUsuarios() {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.getUsuarios()
+                if (response.isSuccessful) {
+                    val listaDaApi = response.body()
+                    if (!listaDaApi.isNullOrEmpty()) {
+                        listaCompletaDeUsuarios.clear()
+                        listaCompletaDeUsuarios.addAll(listaDaApi.filter { it.id != loggedInUserId })
+                        setupRecyclerView(listaCompletaDeUsuarios)
+                    } else {
+                        Toast.makeText(this@ConsultaActivity, "Nenhum usuário encontrado", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Log.e("ConsultaActivity", "Erro ao buscar usuários: ${response.code()}")
+                    Toast.makeText(this@ConsultaActivity, "Erro ao carregar lista", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("ConsultaActivity", "Falha na chamada de rede", e)
+                Toast.makeText(this@ConsultaActivity, "Falha na conexão", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupRecyclerView(usuarios: List<UsuarioResponse>) {
+        if (!::usuarioAdapter.isInitialized) {
+            usuarioAdapter = UsuarioAdapter(usuarios.toMutableList()) { usuarioClicado ->
+                seguirUsuario(usuarioClicado)
+            }
+            binding.recyclerViewUsuarios.apply {
+                layoutManager = LinearLayoutManager(this@ConsultaActivity)
+                adapter = usuarioAdapter
+            }
+        } else {
+            usuarioAdapter.updateList(usuarios)
+        }
+    }
+
+    private fun seguirUsuario(usuarioASeguir: UsuarioResponse) {
+        if (loggedInUserId == -1) { return }
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.seguirUsuario(
+                    idUsuarioASerSeguido = usuarioASeguir.id,
+                    idDoSeguidor = loggedInUserId
+                )
+
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ConsultaActivity, "Agora você está seguindo ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
+                    listaCompletaDeUsuarios.remove(usuarioASeguir)
+                    filtrarLista(binding.searchEditText.text.toString())
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("ConsultaActivity", "Erro ao seguir usuário (${response.code()}): $errorBody")
+                    if (response.code() == 409 || (response.code() == 400 && errorBody?.contains("already follows", ignoreCase = true) == true)) {
+                        Toast.makeText(this@ConsultaActivity, "Você já segue ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@ConsultaActivity, "Não foi possível seguir o usuário: $errorBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ConsultaActivity", "Falha de rede ou parsing ao seguir", e)
+                Toast.makeText(this@ConsultaActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }

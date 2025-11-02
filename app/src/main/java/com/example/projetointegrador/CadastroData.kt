@@ -1,6 +1,6 @@
 package com.example.projetointegrador
 import com.google.gson.annotations.SerializedName
-import java.util.Date
+
 enum class Genero(val valor: String) {
     @SerializedName("MASCULINO")
     MASCULINO("masculino"),
@@ -17,7 +17,6 @@ data class CadastroRequest(
     @SerializedName("nome")
     val nome: String,
 
-    // Alterado para String para evitar erros de conversão e formato.
     @SerializedName("dataNascimento")
     val dataNascimento: String,
 
@@ -31,7 +30,7 @@ data class CadastroRequest(
     val telefone: String,
 
     @SerializedName("genero")
-    val genero: Genero, // O tipo continua sendo o enum
+    val genero: Genero,
 
     @SerializedName("senha")
     val senha: String

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_login) // Assume que o layout de login é activity_login.xml
 
         emailEditText = findViewById(R.id.edit_email)
         passwordEditText = findViewById(R.id.edit_senha)
@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val email = emailEditText.text.toString().trim()
         val senha = passwordEditText.text.toString().trim()
 
+        if (email.isEmpty() || senha.isEmpty()) {
+            Toast.makeText(this, "Por favor, preencha o e-mail e a senha.", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         lifecycleScope.launch {
             try {
@@ -39,17 +43,25 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val loginResponseList = response.body()
                     if (!loginResponseList.isNullOrEmpty()) {
-
                         val loginData = loginResponseList[0]
-                        Log.d("MainActivity", "Login bem-sucedido para o usuário ID:")
+
+                        val loggedInUserId = loginData.usuarioId
+                        val loggedInUserName = loginData.usuarioNome
+
+                        Log.d("MainActivity", "Login bem-sucedido para o usuário ID: $loggedInUserId")
+
                         val intent = Intent(this@MainActivity, ConsultaActivity::class.java)
-                        intent.putExtra("USER_NOME", loginData.usuarioNome)
+
+                        intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+                        intent.putExtra("LOGGED_IN_USER_NAME", loggedInUserName)
+
                         startActivity(intent)
-                        finish()
                     } else {
                         Toast.makeText(this@MainActivity, "Usuário ou senha inválidos", Toast.LENGTH_LONG).show()
                     }
                 } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("MainActivity", "Erro de login (${response.code()}): $errorBody")
                     Toast.makeText(this@MainActivity, "Usuário ou senha inválidos", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
@@ -57,6 +69,5 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Falha na conexão: Verifique sua internet", Toast.LENGTH_LONG).show()
             }
         }
-
     }
 }
