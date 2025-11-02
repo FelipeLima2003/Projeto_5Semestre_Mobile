@@ -12,12 +12,9 @@ class UsuarioAdapter(
     private val onFollowClick: (UsuarioResponse) -> Unit
 ) : RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder>() {
 
-    // ... (onCreateViewHolder, onBindViewHolder, getItemCount e UsuarioViewHolder permanecem os mesmos) ...
-
-    // *** NOVO MÉTODO PARA ATUALIZAR A LISTA ***
     fun updateList(novaLista: List<UsuarioResponse>) {
         this.usuarios = novaLista
-        notifyDataSetChanged() // Notifica o RecyclerView que a lista inteira mudou
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
