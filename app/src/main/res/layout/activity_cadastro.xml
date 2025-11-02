@@ -98,7 +98,7 @@
                 android:paddingHorizontal="10dp"
                 android:inputType="date"
                 android:singleLine="true"
-                android:hint="DD/MM/AAAA"
+                android:hint="AAAA-MM-DD"
                 android:textSize="16sp" />
 
             <TextView
