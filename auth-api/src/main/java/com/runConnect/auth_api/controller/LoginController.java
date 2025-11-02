@@ -38,7 +38,7 @@ public class LoginController {
     // Login do usuario
     @GetMapping("/login")
     public ResponseEntity<List<Usuario>> login(
-     @RequestParam("usuario") String email,
+     @RequestParam("email") String email,
      @RequestParam("senha") String senha) 
      {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmailAndSenha(email, senha);
