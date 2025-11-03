@@ -1,4 +1,3 @@
-// Em app/src/main/java/com/example/projetointegrador/BaseActivity.kt
 package com.example.projetointegrador
 
 import android.content.Context
