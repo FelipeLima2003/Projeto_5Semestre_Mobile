@@ -1,4 +1,4 @@
-package com.example.seuprojeto.model;
+package com.runConnect.auth_api.model;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
