@@ -1,5 +1,4 @@
-package com.example.seuprojeto.controller;
-
+package com.runConnect.auth_api.controller;
 import com.example.seuprojeto.model.PontoGeografico;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
