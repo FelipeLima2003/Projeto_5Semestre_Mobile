@@ -43,6 +43,9 @@ public class Usuario {
 
     @Column(name = "IMAGEM_URL")
     private String imagemUrl;
-
+    
+    @Column(name = "descricao")
+    private String descricao;
   
+
 }
