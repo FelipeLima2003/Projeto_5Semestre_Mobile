@@ -24,8 +24,8 @@ public record UsuarioPublicoDto(
                 usuario.getEmail(),
                 usuario.getTelefone(),
                 usuario.getGenero()!= null ? usuario.getGenero().toString() : null,
-                usuario.getImagemUrl()
-                usuario.getDecricao()
+                usuario.getImagemUrl(),
+                usuario.getDescricao()
         );
     }
 }

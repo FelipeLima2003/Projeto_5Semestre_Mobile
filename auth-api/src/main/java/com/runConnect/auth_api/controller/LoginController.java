@@ -12,6 +12,7 @@ import com.runConnect.auth_api.repository.UsuarioRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -135,6 +137,21 @@ public class LoginController {
         return ResponseEntity.ok(seguindoDTO);
     }
 
+    // --- Endpoint para atualizar descrição ---
+    @PutMapping("/{id}/descricao")
+    public ResponseEntity<UsuarioPublicoDto> atualizarDescricao(
+            @PathVariable Integer id,
+            @RequestBody Map<String, String> request) {
+        String novaDescricao = request.get("descricao");
+        
+        return usuarioRepository.findById(id)
+                .map(usuario -> {
+                    usuario.setDescricao(novaDescricao);
+                    Usuario usuarioAtualizado = usuarioRepository.save(usuario);
+                    return ResponseEntity.ok(new UsuarioPublicoDto(usuarioAtualizado));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     
 
