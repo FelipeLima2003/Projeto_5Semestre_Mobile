@@ -11,7 +11,8 @@ public record UsuarioPublicoDto(
         String email,
         String telefone,
         String genero, 
-        String imagemUrl
+        String imagemUrl,
+        String descricao
     ) 
      
 {
@@ -24,6 +25,7 @@ public record UsuarioPublicoDto(
                 usuario.getTelefone(),
                 usuario.getGenero()!= null ? usuario.getGenero().toString() : null,
                 usuario.getImagemUrl()
+                usuario.getDecricao()
         );
     }
 }
