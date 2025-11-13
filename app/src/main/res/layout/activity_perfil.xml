@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".PerfilActivity">
+
+    <!-- Barra Superior "VOLTAR" -->
+    <LinearLayout
+        android:id="@+id/header_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="11dp">
+
+        <ImageView
+            android:id="@+id/icon_voltar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="13dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/text_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="VOLTAR"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Conteúdo do Perfil -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Avatar e Nome -->
+            <ImageView
+                android:id="@+id/img_perfil_avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/txt_perfil_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="Nome do Usuário" />
+
+            <TextView
+                android:id="@+id/txt_perfil_genero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:textSize="16sp"
+                tools:text="Masculino"/>
+
+            <!-- Campo de Descrição (Biografia) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Sobre mim:"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <!-- CAMPO DE EDIÇÃO (Para o dono do perfil) -->
+            <EditText
+                android:id="@+id/edit_perfil_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_black"
+                android:gravity="top"
+                android:hint="Escreva um pouco sobre você..."
+                android:inputType="textMultiLine"
+                android:minHeight="120dp"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- CAMPO DE VISUALIZAÇÃO (Para visitantes) -->
+            <TextView
+                android:id="@+id/txt_perfil_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                tools:text="Esta é a minha biografia. Eu gosto de correr aos domingos e participar de maratonas pela cidade."
+                tools:visibility="gone" />
+
+            <!-- Botão Salvar (Para o dono do perfil) -->
+            <Button
+                android:id="@+id/btn_salvar_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/black"
+                android:text="Salvar Alterações"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

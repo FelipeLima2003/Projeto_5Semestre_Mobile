@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,4 +28,15 @@ interface ApiService {
         @Path("idUsuario") idUsuarioASerSeguido: Int, // Parte do caminho (Ex: /2/)
         @Query("seguidorId") idDoSeguidor: Int         // Parâmetro de consulta (Ex: ?seguidorId=4)
     ): Response<Unit>
+
+    @GET("usuario/{id}")
+    suspend fun getUsuarioById(@Path("id") userId: Int): Response<PerfilUsuarioResponse>
+
+
+    @PUT("usuario/{id}")
+    suspend fun updateDescricao(
+        @Path("id") userId: Int,
+        @Body request: UpdateDescricaoRequest
+    ): Response<Unit>
+
 }

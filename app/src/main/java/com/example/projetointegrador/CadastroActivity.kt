@@ -3,6 +3,8 @@ package com.example.projetointegrador
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.projetointegrador.databinding.ActivityCadastroBinding
@@ -17,6 +19,19 @@ class CadastroActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val iconVoltar: ImageView = findViewById(R.id.icon_voltar)
+        val textVoltar: TextView = findViewById(R.id.text_voltar)
+
+        iconVoltar.setOnClickListener {
+            finish()
+        }
+
+        textVoltar.setOnClickListener {
+            finish() //
+        }
+
+
         binding.containerButtonConfirmar.setOnClickListener {
             realizarCadastro()
         }
@@ -56,10 +71,18 @@ class CadastroActivity : BaseActivity() {
         }
 
         val dataNascimentoFormatada = try {
-            nascimentoStr.split("/").reversed().joinToString("-")
+            // Verifica se a data está no formato brasileiro DD/MM/AAAA
+            val partes = nascimentoStr.split("/")
+            if (partes.size != 3 || partes[0].length != 2 || partes[1].length != 2 || partes[2].length != 4) {
+                throw IllegalArgumentException("Formato de data inválido")
+            }
+            // Converte de ["DD", "MM", "AAAA"] para "AAAA-MM-DD"
+            "${partes[2]}-${partes[1]}-${partes[0]}"
         } catch (e: Exception) {
-            Toast.makeText(this, "Formato de data inválido. Use AAAA/MM/DD", Toast.LENGTH_SHORT).show()
-            return
+            // Se a conversão falhar, mostra um erro claro para o usuário
+            Toast.makeText(this, "Formato de data inválido. Use DD/MM/AAAA", Toast.LENGTH_LONG).show()
+            binding.editNascimento.error = "Use o formato DD/MM/AAAA"
+            return // Impede o prosseguimento do cadastro
         }
 
         val cadastroRequest = CadastroRequest(

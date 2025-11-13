@@ -34,22 +34,18 @@ class ConsultaActivity : BaseActivity() {
             return
         }
 
-        // Configura os listeners dos componentes da tela
         setupListeners()
         buscarUsuarios()
     }
 
     private fun setupListeners() {
-        // *** LISTENER DO BOTÃO VOLTAR ***
-        // Adicionamos o listener tanto para o ícone quanto para o texto
         binding.iconVoltar.setOnClickListener {
-            finish() // Fecha a atividade atual e volta para a anterior
+            finish()
         }
         binding.textVoltar.setOnClickListener {
-            finish() // O mesmo para o texto
+            finish()
         }
 
-        // Listener do campo de busca
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -58,20 +54,34 @@ class ConsultaActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Listener do botão "Sobre Nós"
+
         binding.containerSobreNos.setOnClickListener {
             val intent = Intent(this, SobreNosActivity::class.java)
             intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
             startActivity(intent)
         }
 
-        // Listener do botão "Eventos"
         binding.containerEventos.setOnClickListener {
             val intent = Intent(this, BuscaGeralActivity::class.java)
             intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
             startActivity(intent)
         }
+
+        binding.containerMeuPerfil.setOnClickListener {
+            // Cria um Intent para a PerfilActivity
+            val intent = Intent(this, PerfilActivity::class.java)
+
+            // CRUCIAL: Passa o ID do usuário logado como AMBOS os parâmetros.
+            // A PerfilActivity vai comparar e ver que são iguais, liberando a edição.
+            intent.putExtra("USER_PROFILE_ID", loggedInUserId)
+            intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+
+            startActivity(intent)
+        }
+
+
     }
+
 
     private fun filtrarLista(textoBusca: String) {
         if (textoBusca.isEmpty()) {
@@ -82,7 +92,7 @@ class ConsultaActivity : BaseActivity() {
         }
 
         val listaFiltrada = listaCompletaDeUsuarios.filter { usuario ->
-            val handle = "@${usuario.nome.toLowerCase().replace(" ", "")}"
+            val handle = "@${usuario.nome.replace(" ", "")}"
             usuario.nome.contains(textoBusca, ignoreCase = true) || handle.contains(textoBusca, ignoreCase = true)
         }
         if (::usuarioAdapter.isInitialized) {
@@ -113,12 +123,30 @@ class ConsultaActivity : BaseActivity() {
             }
         }
     }
+    private fun abrirPerfil(usuario: UsuarioResponse) {
+        Toast.makeText(this, "Abrindo perfil de ${usuario.nome}", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, PerfilActivity::class.java)
+
+        intent.putExtra("USER_PROFILE_ID", usuario.id)
+
+        intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+
+        startActivity(intent)
+    }
 
     private fun setupRecyclerView(usuarios: List<UsuarioResponse>) {
         if (!::usuarioAdapter.isInitialized) {
-            usuarioAdapter = UsuarioAdapter(usuarios.toMutableList()) { usuarioClicado ->
-                seguirUsuario(usuarioClicado)
-            }
+
+            usuarioAdapter = UsuarioAdapter(
+                usuarios.toMutableList(),
+                onFollowClick = { usuarioClicado ->
+                    seguirUsuario(usuarioClicado)
+                },
+                onProfileClick = { usuarioClicado ->
+                    abrirPerfil(usuarioClicado)
+                }
+            )
             binding.recyclerViewUsuarios.apply {
                 layoutManager = LinearLayoutManager(this@ConsultaActivity)
                 adapter = usuarioAdapter

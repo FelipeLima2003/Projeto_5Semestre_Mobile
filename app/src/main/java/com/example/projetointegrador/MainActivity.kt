@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +23,13 @@ class MainActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.edit_email)
         passwordEditText = findViewById(R.id.edit_senha)
         val loginButton: LinearLayout = findViewById(R.id.containerButtonConfirmar)
+
+        val textIrParaCadastro: TextView = findViewById(R.id.txt_ir_para_cadastro)
+
+        textIrParaCadastro.setOnClickListener {
+            val intent = Intent(this, CadastroActivity::class.java)
+            startActivity(intent)
+        }
 
         loginButton.setOnClickListener {
             realizarLogin()

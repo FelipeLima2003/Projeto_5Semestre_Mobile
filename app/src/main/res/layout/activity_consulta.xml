@@ -106,7 +106,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingVertical="20dp">
+        android:paddingVertical="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <!-- Botão Sobre Nós -->
         <LinearLayout
@@ -122,38 +124,62 @@
             android:paddingHorizontal="15dp"
             android:paddingVertical="5dp">
 
-        <TextView
-            android:id="@+id/txt_sobreNos"
+            <TextView
+                android:id="@+id/txt_sobreNos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sobre Nós"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerMeuPerfil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_confirm_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:id="@+id/txt_meuPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meu Perfil"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Botão Eventos -->
+        <LinearLayout
+            android:id="@+id/containerEventos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sobre Nós"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_marginStart="20dp"
+            android:background="@drawable/button_confirm_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp">
 
-    <!-- Botão Eventos -->
-    <LinearLayout
-        android:id="@+id/containerEventos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/button_confirm_selector"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="5dp">
-
-    <TextView
-        android:id="@+id/txt_eventos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eventos"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txt_eventos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eventos"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
