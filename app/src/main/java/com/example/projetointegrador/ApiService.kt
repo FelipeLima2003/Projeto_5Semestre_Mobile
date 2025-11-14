@@ -33,7 +33,7 @@ interface ApiService {
     suspend fun getUsuarioById(@Path("id") userId: Int): Response<PerfilUsuarioResponse>
 
 
-    @PUT("usuario/{id}")
+    @PUT("usuario/{id}/descricao")
     suspend fun updateDescricao(
         @Path("id") userId: Int,
         @Body request: UpdateDescricaoRequest
