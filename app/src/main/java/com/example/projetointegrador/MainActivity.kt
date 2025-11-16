@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login) // Assume que o layout de login é activity_login.xml
+        setContentView(R.layout.activity_login)
 
         emailEditText = findViewById(R.id.edit_email)
         passwordEditText = findViewById(R.id.edit_senha)
