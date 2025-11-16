@@ -156,26 +156,12 @@ public class LoginController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Integer id) {
         usuarioService.deletarUsuario(id);
-        return ResponseEntity.noContent().build(); 
+        return ResponseEntity.noContent().build();
     }
-
-    @RestController
-    @RequestMapping("/usuario")
-    public class UsuarioController {
-
-        @Autowired
-        private UsuarioRepository usuarioRepository; 
-    
-        @GetMapping("/{id}")
-        public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
-            Usuario usuario = usuarioRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            return ResponseEntity.ok(usuario);
-    }
-
 
 
 }
+
 
 
 
