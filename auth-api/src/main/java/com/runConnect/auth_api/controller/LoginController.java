@@ -152,12 +152,17 @@ public class LoginController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    
+    // --- Endpoint para deletar os dados do usuario ---
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Integer id) {
+        usuarioService.deletarUsuario(id);
+        return ResponseEntity.noContent().build(); 
+    }
 
 
 
 }
+
 
 
 
