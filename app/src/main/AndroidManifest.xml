@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Necessário para o Foreground Service em versões mais novas do Android -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -14,35 +19,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
-        <activity
-            android:name=".PerfilActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SobreNosActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CadastroActivity"
-            android:exported="true" />
-        <activity
-            android:name=".BuscaGeralActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ConsultaActivity"
-            android:exported="true" />
+        tools:targetApi="31" >
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CadastroActivity" />
+        <activity android:name=".ConsultaActivity" />
+        <activity android:name=".SobreNosActivity" />
+        <activity android:name=".BuscaGeralActivity" />
+        <activity android:name=".PerfilActivity" />
+        <activity android:name=".CorridaActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAgANmempheeWRK16sEZ-iCssW2QouRc0o"/>
+
+        <service
+            android:name=".LocationService"
+            android:foregroundServiceType="location"
+            android:exported="false"/>
+
     </application>
+
+
 
 </manifest>

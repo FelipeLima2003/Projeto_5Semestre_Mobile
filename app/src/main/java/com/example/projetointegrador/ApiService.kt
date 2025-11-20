@@ -7,6 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.DELETE
 
 interface ApiService {
     @GET("usuario/login")
@@ -25,8 +26,8 @@ interface ApiService {
 
     @POST("usuario/{idUsuario}/seguir")
     suspend fun seguirUsuario(
-        @Path("idUsuario") idUsuarioASerSeguido: Int, // Parte do caminho (Ex: /2/)
-        @Query("seguidorId") idDoSeguidor: Int         // Parâmetro de consulta (Ex: ?seguidorId=4)
+        @Path("idUsuario") idUsuarioASerSeguido: Int,
+        @Query("seguidorId") idDoSeguidor: Int
     ): Response<Unit>
 
     @GET("usuario/{id}")
@@ -38,5 +39,7 @@ interface ApiService {
         @Path("id") userId: Int,
         @Body request: UpdateDescricaoRequest
     ): Response<Unit>
+    @DELETE("usuario/{id}")
+    suspend fun excluirUsuario(@Path("id") userId: Int): Response<Unit>
 
 }

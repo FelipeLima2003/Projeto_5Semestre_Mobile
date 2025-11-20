@@ -39,7 +39,6 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <!-- Conteúdo do Perfil -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -79,7 +78,7 @@
                 android:textSize="16sp"
                 tools:text="Masculino"/>
 
-            <!-- Campo de Descrição (Biografia) -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +87,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <!-- CAMPO DE EDIÇÃO (Para o dono do perfil) -->
             <EditText
                 android:id="@+id/edit_perfil_descricao"
                 android:layout_width="match_parent"
@@ -103,7 +101,6 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <!-- CAMPO DE VISUALIZAÇÃO (Para visitantes) -->
             <TextView
                 android:id="@+id/txt_perfil_descricao"
                 android:layout_width="match_parent"
@@ -116,7 +113,6 @@
                 tools:text="Esta é a minha biografia. Eu gosto de correr aos domingos e participar de maratonas pela cidade."
                 tools:visibility="gone" />
 
-            <!-- Botão Salvar (Para o dono do perfil) -->
             <Button
                 android:id="@+id/btn_salvar_perfil"
                 android:layout_width="wrap_content"
@@ -125,6 +121,18 @@
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/black"
                 android:text="Salvar Alterações"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <Button
+                android:id="@+id/btn_excluir_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#FF4444"
+                android:text="Excluir Conta"
                 android:textColor="@android:color/white"
                 android:visibility="gone"
                 tools:visibility="visible"/>

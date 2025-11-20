@@ -2,12 +2,14 @@ package com.example.projetointegrador
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.PopupMenu // <<< IMPORTAR
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import android.Manifest
+import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-//           HERDA DE BaseActivity            IMPLEMENTA A INTERFACE DO DIÁLOGO
-//               vvvvvvvvvvvv                    vvvvvvvvvvvvvvvvvv
 class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListener {
 
     private var loggedInUserId: Int = -1
@@ -28,17 +30,42 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
     }
 
     private fun setupListeners() {
-        // Botão de voltar
         val iconVoltar: ImageView = findViewById(R.id.img_back_icon)
         val textVoltar: TextView = findViewById(R.id.text_voltar)
         iconVoltar.setOnClickListener { finish() }
         textVoltar.setOnClickListener { finish() }
 
-        // Botão do menu de opções (três pontos)
+
         val optionsMenuIcon: ImageView = findViewById(R.id.options_menu_icon)
         optionsMenuIcon.setOnClickListener { view ->
             showOptionsMenu(view)
         }
+
+        val fabIniciarCorrida: FloatingActionButton = findViewById(R.id.fab_iniciar_corrida)
+        fabIniciarCorrida.setOnClickListener { view ->
+            pedirPermissoesDeLocalizacao()
+        }
+
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+                Toast.makeText(this, "Permissão concedida. Iniciando corrida...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CorridaActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "A permissão de localização é essencial para rastrear sua corrida.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private fun pedirPermissoesDeLocalizacao() {
+        requestPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
     private fun showOptionsMenu(anchorView: android.view.View) {
@@ -48,7 +75,6 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_change_font_size -> {
-                    // Abre o diálogo para mudar a fonte
                     FontSizeDialogFragment().show(supportFragmentManager, "FontSizeDialog")
                     true
                 }
