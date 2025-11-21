@@ -1,6 +1,13 @@
 package com.runConnect.auth_api.model;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.runConnect.auth_api.model.enums.Genero;
 
@@ -9,12 +16,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "USUARIO")
-public class Usuario {
+public class Usuario implements UserDetails {
    
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+
     @Column(name = "ID")
     private Integer id;
 
@@ -22,6 +29,7 @@ public class Usuario {
     private String nome;
 
     @Column(name = "DATA_NASCIMENTO",nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     @Column(name = "CPF", nullable = false, unique = true)
@@ -46,6 +54,42 @@ public class Usuario {
     
     @Column(name = "descricao")
     private String descricao;
-  
+    
+
+     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+      
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; 
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; 
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; 
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; 
+    }
 
 }
