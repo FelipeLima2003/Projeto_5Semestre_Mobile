@@ -4,26 +4,32 @@ import com.runConnect.auth_api.model.Corrida;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class CorridaResponseDTO {
-        Integer id;
-        Integer usuarioId;
+public record CorridaResponseDTO(
+        Integer id,
+        Integer usuarioId,
         // Variavel para facilitar o nome do usuario no android studio
-        String nomeUsuario; 
-        BigDecimal distancia;
+        String nomeUsuario,
+        BigDecimal distancia,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
-        Timestamp tempoInicial;
+        Timestamp tempoInicial,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
-        Timestamp tempoFinal;
+        Timestamp tempoFinal
      
+) {
+        
 
     // Construtor usado ao criar a DTO a partir da entidade
     public CorridaResponseDTO(Corrida corrida) {
-        this.id = id;
-        this.usuarioId = usuarioId;
-        this.nomeUsuario = nomeUsuario;
-        this.distancia = distancia;
-        this.tempoInicial = tempoInicial;
-        this.tempoFinal = tempoFinal;
+        
+         this(
+            corrida.getId(),
+            corrida.getUsuario().getId(),
+            corrida.getUsuario().getNome(), // Pega o nome do usuario relacionado
+            corrida.getDistancia(),
+            corrida.getTempoInicial(),
+            corrida.getTempoFinal()
+        );
+        
     }
 
    
