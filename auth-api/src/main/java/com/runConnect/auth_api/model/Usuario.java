@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.runConnect.auth_api.model.enums.Genero;
 
 import jakarta.persistence.*;
-import lombok.Data;
-@Data
+
+
 @Entity
 @Table(name = "USUARIO")
 public class Usuario implements UserDetails {
@@ -55,7 +55,7 @@ public class Usuario implements UserDetails {
     @Column(name = "descricao")
     private String descricao;
     
-
+    
      @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
       
@@ -90,6 +90,147 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true; 
+    }
+
+
+    /**
+     * @return Integer return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @return String return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * @return LocalDate return the dataNascimento
+     */
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    /**
+     * @param dataNascimento the dataNascimento to set
+     */
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    /**
+     * @return String return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @return String return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return String return the telefone
+     */
+    public String getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return Genero return the genero
+     */
+    public Genero getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    /**
+     * @return String return the senha
+     */
+    public String getSenha() {
+        return senha;
+    }
+
+    /**
+     * @param senha the senha to set
+     */
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    /**
+     * @return String return the imagemUrl
+     */
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    /**
+     * @param imagemUrl the imagemUrl to set
+     */
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
+    /**
+     * @return String return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 }
