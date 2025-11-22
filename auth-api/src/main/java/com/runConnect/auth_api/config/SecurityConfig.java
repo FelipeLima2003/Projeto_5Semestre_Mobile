@@ -30,7 +30,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cadastrar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/{id}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuario/{idSeguido}/seguir").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuario/{idSeguido}/deixar-de-seguir").permitAll()
                         .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/usuario/{idSeguido}/seguidores").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/{idSeguido}/seguindo").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/usuario/{idSeguido}/descricao").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/{id}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/corridas").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/corridas/feed").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/corridas/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/corridas/usuario/{usuarioId}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/uploads/imagem").permitAll()
+
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adiciona nosso filtro antes do padrão
                 .build();
