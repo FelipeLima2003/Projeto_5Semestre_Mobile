@@ -1,5 +1,5 @@
 #  Build - Usando uma imagem Maven com Java 22 para compilar o projeto
-FROM maven:3.9.7-eclipse-temurin-22 AS build
+FROM maven:3.9.7-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
