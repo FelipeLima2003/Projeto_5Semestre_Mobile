@@ -1,6 +1,9 @@
 package  com.runConnect.auth_api.config;
 
+import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.UsuarioRepository;
+import com.runConnect.auth_api.services.TokenService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -29,7 +33,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (token != null) {
             var email = tokenService.validarToken(token);
-            UserDetails user = usuarioRepository.findByEmail(email);
+            Optional<Usuario> user = usuarioRepository.findByEmail(email);
 
             if (user != null) {
               

@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.runConnect.auth_api.repository.UsuarioRepository;
 
+
 public class AuthorizationService implements UserDetailsService {
-      @Autowired
+    @Autowired
     UsuarioRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 }

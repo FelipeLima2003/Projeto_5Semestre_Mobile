@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.runConnect.auth_api.model.Corrida;
 
 
 
-public record CorridaRequestDto(
+
+public record CorridaRequestDTO(
     Integer usuarioId,
     BigDecimal distancia,
     
