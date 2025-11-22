@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.runConnect.auth_api.dto.LoginResponseDTO;
-import com.runConnect.auth_api.dto.CadastroRequestDto;
+import com.runConnect.auth_api.dto.CadastroRequestDTO;
 import com.runConnect.auth_api.dto.LoginRequestDTO;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.UsuarioRepository;
@@ -48,7 +48,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid CadastroRequestDto data) {
+    public ResponseEntity<Void> cadastrar(@RequestBody @Valid CadastroRequestDTO data) {
         // Verifica se o email já existe
         if (this.usuarioRepository.findByEmail(data.email()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
