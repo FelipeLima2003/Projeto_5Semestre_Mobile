@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.runConnect.auth_api.dto.LoginResponseDTO;
-import com.runConnect.auth_api.dto.CadastroRequestDTO;
-import com.runConnect.auth_api.dto.LoginRequestDTO;
+import com.runConnect.auth_api.dto.LoginResponseDto;
+import com.runConnect.auth_api.dto.CadastroRequestDto;
+import com.runConnect.auth_api.dto.LoginRequestDto;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.UsuarioRepository;
 import com.runConnect.auth_api.services.TokenService;
@@ -38,17 +38,17 @@ public class AuthenticationController {
     private PasswordEncoder passwordEncoder;
 
        @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO data) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid CadastroRequestDTO data) {
+    public ResponseEntity<Void> cadastrar(@RequestBody @Valid CadastroRequestDto data) {
         // Verifica se o email já existe
         if (this.usuarioRepository.findByEmail(data.email()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");

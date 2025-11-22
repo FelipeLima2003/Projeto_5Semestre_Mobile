@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.runConnect.auth_api.model.enums.Genero;
 
-public record CadastroRequestDTO(
+public record CadastroRequestDto(
         String nome,
         String email,
         String senha,

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.runConnect.auth_api.model.Usuario;
 
-public record UsuarioPublicoDTO(
+public record UsuarioPublicoDto(
     Integer id,
         String nome,
         LocalDate dataNascimento,
@@ -16,7 +16,7 @@ public record UsuarioPublicoDTO(
     ) 
      
 {
-     public UsuarioPublicoDTO(Usuario usuario) {
+     public UsuarioPublicoDto(Usuario usuario) {
         this(
                 usuario.getId(),
                 usuario.getNome(),

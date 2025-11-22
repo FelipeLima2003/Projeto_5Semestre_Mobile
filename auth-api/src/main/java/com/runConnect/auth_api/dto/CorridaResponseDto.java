@@ -4,7 +4,7 @@ import com.runConnect.auth_api.model.Corrida;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public record CorridaResponseDTO(
+public record CorridaResponseDto(
         Integer id,
         Integer usuarioId,
         // Variavel para facilitar o nome do usuario no android studio
@@ -19,7 +19,7 @@ public record CorridaResponseDTO(
         
 
     // Construtor usado ao criar a DTO a partir da entidade
-    public CorridaResponseDTO(Corrida corrida) {
+    public CorridaResponseDto(Corrida corrida) {
         
          this(
             corrida.getId(),

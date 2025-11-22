@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 
-public record CorridaRequestDTO(
+public record CorridaRequestDto(
     Integer usuarioId,
     BigDecimal distancia,
     

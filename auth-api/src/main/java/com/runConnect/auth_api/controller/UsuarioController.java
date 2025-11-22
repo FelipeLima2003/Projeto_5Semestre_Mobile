@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.runConnect.auth_api.dto.UsuarioPublicoDTO;
+import com.runConnect.auth_api.dto.UsuarioPublicoDto;
 import com.runConnect.auth_api.model.Seguidores;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.SeguidoresRepository;
@@ -68,18 +68,18 @@ public class UsuarioController {
 
     // Endpoint de busca
      @GetMapping
-    public ResponseEntity<List<UsuarioPublicoDTO>> buscarTodosUsuarios() {
-        List<UsuarioPublicoDTO> usuariosDTO = usuarioRepository.findAll()
+    public ResponseEntity<List<UsuarioPublicoDto>> buscarTodosUsuarios() {
+        List<UsuarioPublicoDto> usuariosDTO = usuarioRepository.findAll()
                 .stream()
-                .map(UsuarioPublicoDTO::new) // Converte cada Usuario para DTO
+                .map(UsuarioPublicoDto::new) // Converte cada Usuario para DTO
                 .collect(Collectors.toList());
         return ResponseEntity.ok(usuariosDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioPublicoDTO> buscarUsuarioPorId(@PathVariable Integer id) {
+    public ResponseEntity<UsuarioPublicoDto> buscarUsuarioPorId(@PathVariable Integer id) {
         return usuarioRepository.findById(id)
-                .map(UsuarioPublicoDTO::new) // Converte para DTO
+                .map(UsuarioPublicoDto::new) // Converte para DTO
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -114,33 +114,33 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/seguidores")
-    public ResponseEntity<List<UsuarioPublicoDTO>> listarSeguidores(@PathVariable Integer id) {
+    public ResponseEntity<List<UsuarioPublicoDto>> listarSeguidores(@PathVariable Integer id) {
         // Verifica se o utilizador existe
         if (!usuarioRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        List<UsuarioPublicoDTO> seguidoresDTO = seguidoresRepository.findSeguidoresByUsuarioId(id)
+        List<UsuarioPublicoDto> seguidoresDTO = seguidoresRepository.findSeguidoresByUsuarioId(id)
                 .stream()
-                .map(UsuarioPublicoDTO::new)
+                .map(UsuarioPublicoDto::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(seguidoresDTO);
     }
 
     @GetMapping("/{id}/seguindo")
-    public ResponseEntity<List<UsuarioPublicoDTO>> listarSeguindo(@PathVariable Integer id) {
+    public ResponseEntity<List<UsuarioPublicoDto>> listarSeguindo(@PathVariable Integer id) {
         if (!usuarioRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        List<UsuarioPublicoDTO> seguindoDTO = seguidoresRepository.findSeguindoByUsuarioId(id)
+        List<UsuarioPublicoDto> seguindoDTO = seguidoresRepository.findSeguindoByUsuarioId(id)
                 .stream()
-                .map(UsuarioPublicoDTO::new)
+                .map(UsuarioPublicoDto::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(seguindoDTO);
     }
 
     // --- Endpoint para atualizar descrição ---
     @PutMapping("/{id}/descricao")
-    public ResponseEntity<UsuarioPublicoDTO> atualizarDescricao(
+    public ResponseEntity<UsuarioPublicoDto> atualizarDescricao(
             @PathVariable Integer id,
             @RequestBody Map<String, String> request) {
         String novaDescricao = request.get("descricao");
@@ -149,7 +149,7 @@ public class UsuarioController {
                 .map(usuario -> {
                     usuario.setDescricao(novaDescricao);
                     Usuario usuarioAtualizado = usuarioRepository.save(usuario);
-                    return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));
+                    return ResponseEntity.ok(new UsuarioPublicoDto(usuarioAtualizado));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
