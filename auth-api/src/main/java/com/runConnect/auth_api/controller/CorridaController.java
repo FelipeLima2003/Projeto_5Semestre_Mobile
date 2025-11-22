@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.runConnect.auth_api.dto.CorridaRequestDto;
-import com.runConnect.auth_api.dto.CorridaResponseDto;
+import com.runConnect.auth_api.dto.CorridaRequestDTO;
+import com.runConnect.auth_api.dto.CorridaResponseDTO;
 import com.runConnect.auth_api.model.Corrida;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.CorridaRepository;
@@ -34,7 +34,7 @@ public class CorridaController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping
-    public ResponseEntity<Corrida> registrarCorrida(@RequestBody CorridaRequestDto dto){
+    public ResponseEntity<Corrida> registrarCorrida(@RequestBody CorridaRequestDTO dto){
 
         // Encontrar o usuaario que fez a corrida pela ID
         Usuario usuario = usuarioRepository.findById(dto.usuarioId())
@@ -52,7 +52,7 @@ public class CorridaController {
 
         Corrida corridaSalva = corridaRepository.save(novaCorrida);
 
-        CorridaResponseDto responseDTO = new CorridaResponseDto(corridaSalva);
+        CorridaResponseDTO responseDTO = new CorridaResponseDTO(corridaSalva);
         URI location = URI.create("/corridas/" + corridaSalva.getId());
         return ResponseEntity.status(201).body(corridaSalva);
 
@@ -61,15 +61,15 @@ public class CorridaController {
     // Endpoint para ver o FEED de Corridas (das pessoas que sigo)
 
     @GetMapping("/feed")
-    public ResponseEntity<List<CorridaResponseDto>> buscarFeedCorridas(@RequestParam Integer meuId) {
+    public ResponseEntity<List<CorridaResponseDTO>> buscarFeedCorridas(@RequestParam Integer meuId) {
         // Verifica se o utilizador que pede o feed existe
         if (!usuarioRepository.existsById(meuId)) {
              throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilizador não encontrado");
         }
 
-        List<CorridaResponseDto> feedDTO = corridaRepository.findFeedCorridas(meuId)
+        List<CorridaResponseDTO> feedDTO = corridaRepository.findFeedCorridas(meuId)
                 .stream()
-                .map(CorridaResponseDto::new) // Converte cada Corrida para DTO
+                .map(CorridaResponseDTO::new) // Converte cada Corrida para DTO
                 .collect(Collectors.toList());
         return ResponseEntity.ok(feedDTO);
     }
@@ -77,22 +77,22 @@ public class CorridaController {
         // --- Endpoint para ver os DETALHES de UMA Corrida ---
 
      @GetMapping("/{id}")
-    public ResponseEntity<CorridaResponseDto> getCorridaPorId(@PathVariable Integer id) {
+    public ResponseEntity<CorridaResponseDTO> getCorridaPorId(@PathVariable Integer id) {
         return corridaRepository.findById(id)
-                .map(CorridaResponseDto::new)
+                .map(CorridaResponseDTO::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CorridaResponseDto>> getCorridasPorUsuario(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<CorridaResponseDTO>> getCorridasPorUsuario(@PathVariable Integer usuarioId) {
          if (!usuarioRepository.existsById(usuarioId)){
             return ResponseEntity.notFound().build();
          }
            
-          List<CorridaResponseDto> corridasDTO = corridaRepository.findByUsuarioIdOrderByTempoFinalDesc(usuarioId)
+          List<CorridaResponseDTO> corridasDTO = corridaRepository.findByUsuarioIdOrderByTempoFinalDesc(usuarioId)
                 .stream()
-                .map(CorridaResponseDto::new)
+                .map(CorridaResponseDTO::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(corridasDTO);
     }

@@ -3,13 +3,9 @@ package com.runConnect.auth_api.dto;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
-
-
-public record CorridaRequestDto(
+public record CorridaRequestDTO(
     Integer usuarioId,
     BigDecimal distancia,
     
@@ -19,8 +15,9 @@ public record CorridaRequestDto(
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Timestamp tempoFinal
     
-    
 ){}
+
+
 
 
 
