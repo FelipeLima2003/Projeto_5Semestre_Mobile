@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.runConnect.auth_api.model.enums.Genero;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "USUARIO")
 public class Usuario implements UserDetails {
@@ -50,39 +53,6 @@ public class Usuario implements UserDetails {
 
     @Column(name = "DESCRICAO")
     private String descricao;
-
-
-    public Usuario() {}
-
-    // --- GETTERS E SETTERS MANUAIS 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-
-    public LocalDate getDataNascimento() { return dataNascimento; }
-    public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
-
-    public String getCpf() { return cpf; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
-
-    public Genero getGenero() { return genero; }
-    public void setGenero(Genero genero) { this.genero = genero; }
-
-    public void setSenha(String senha) { this.senha = senha; } // Apenas Setter (Getter vem do UserDetails)
-
-    public String getImagemUrl() { return imagemUrl; }
-    public void setImagemUrl(String imagemUrl) { this.imagemUrl = imagemUrl; }
-
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao;}
 
     // --- UserDetails ---
     @Override
