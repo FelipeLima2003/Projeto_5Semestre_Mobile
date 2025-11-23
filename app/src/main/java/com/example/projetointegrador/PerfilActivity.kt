@@ -1,13 +1,14 @@
 package com.example.projetointegrador
 
+import CorridaResponse
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projetointegrador.databinding.ActivityPerfilBinding
 import kotlinx.coroutines.launch
 
@@ -18,11 +19,12 @@ class PerfilActivity : BaseActivity() {
     private var loggedInUserId: Int = -1
     private var isMyProfile: Boolean = false
 
+    private lateinit var corridaAdapter: CorridaAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPerfilBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         userProfileId = intent.getIntExtra("USER_PROFILE_ID", -1)
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
@@ -37,6 +39,7 @@ class PerfilActivity : BaseActivity() {
 
         setupListeners()
         buscarDadosDoPerfil()
+        buscarHistoricoDeCorridas()
     }
 
     private fun setupListeners() {
@@ -52,47 +55,6 @@ class PerfilActivity : BaseActivity() {
         binding.btnExcluirPerfil.setOnClickListener {
             if (isMyProfile) {
                 mostrarDialogoDeConfirmacao()
-            }
-        }
-    }
-
-    private fun mostrarDialogoDeConfirmacao() {
-        AlertDialog.Builder(this)
-            .setTitle("Excluir Conta")
-            .setMessage("Você tem certeza que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita.")
-            .setPositiveButton("Sim, Excluir") { _, _ ->
-
-                excluirConta()
-            }
-            .setNegativeButton("Cancelar", null)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show()
-    }
-
-    private fun excluirConta() {
-        lifecycleScope.launch {
-            try {
-
-                val response = RetrofitClient.apiService.excluirUsuario(loggedInUserId)
-
-                if (response.isSuccessful) {
-                    Toast.makeText(this@PerfilActivity, "Sua conta foi excluída com sucesso.", Toast.LENGTH_LONG).show()
-
-                    AppPreferences.saveFontScale(this@PerfilActivity, 1.0f)
-
-                    val intent = Intent(this@PerfilActivity, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("PerfilActivity", "Erro ao excluir conta (${response.code()}): $errorBody")
-                    Toast.makeText(this@PerfilActivity, "Não foi possível excluir a conta: $errorBody", Toast.LENGTH_LONG).show()
-                }
-            } catch (e: Exception) {
-                Log.e("PerfilActivity", "Falha de rede ao tentar excluir", e)
-                Toast.makeText(this@PerfilActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -113,6 +75,39 @@ class PerfilActivity : BaseActivity() {
                 Log.e("PerfilActivity", "Falha na chamada de rede", e)
                 Toast.makeText(this@PerfilActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun buscarHistoricoDeCorridas() {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.getCorridasDoUsuario(userProfileId)
+                if (response.isSuccessful) {
+                    val listaDeCorridas = response.body()
+
+
+                    if (!listaDeCorridas.isNullOrEmpty()) {
+                        setupRecyclerViewCorridas(listaDeCorridas)
+                    } else {
+
+                        Log.d("PerfilActivity", "Nenhum histórico de corridas encontrado para o usuário $userProfileId")
+                    }
+                } else {
+                    Log.e("PerfilActivity", "Erro ao buscar histórico de corridas: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("PerfilActivity", "Falha de rede ao buscar histórico de corridas", e)
+            }
+        }
+    }
+
+
+    private fun setupRecyclerViewCorridas(corridas: List<CorridaResponse>) {
+        corridaAdapter = CorridaAdapter(corridas)
+        binding.recyclerViewCorridas.apply {
+            layoutManager = LinearLayoutManager(this@PerfilActivity)
+            adapter = corridaAdapter
+            isNestedScrollingEnabled = false
         }
     }
 
@@ -151,6 +146,42 @@ class PerfilActivity : BaseActivity() {
                 }
             } catch (e: Exception) {
                 Log.e("PerfilActivity", "Falha de rede ao salvar", e)
+                Toast.makeText(this@PerfilActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun mostrarDialogoDeConfirmacao() {
+        AlertDialog.Builder(this)
+            .setTitle("Excluir Conta")
+            .setMessage("Você tem certeza que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita.")
+            .setPositiveButton("Sim, Excluir") { _, _ ->
+                excluirConta()
+            }
+            .setNegativeButton("Cancelar", null)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show()
+    }
+
+    private fun excluirConta() {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.excluirUsuario(loggedInUserId)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@PerfilActivity, "Sua conta foi excluída com sucesso.", Toast.LENGTH_LONG).show()
+                    AppPreferences.saveFontScale(this@PerfilActivity, 1.0f)
+
+                    val intent = Intent(this@PerfilActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("PerfilActivity", "Erro ao excluir conta (${response.code()}): $errorBody")
+                    Toast.makeText(this@PerfilActivity, "Não foi possível excluir a conta: $errorBody", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Log.e("PerfilActivity", "Falha de rede ao tentar excluir", e)
                 Toast.makeText(this@PerfilActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
             }
         }

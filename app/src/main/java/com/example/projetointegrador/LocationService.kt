@@ -6,30 +6,41 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.location.Location
+import android.os.Binder
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.*
 
 class LocationService : Service() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-    private var startTime = 0L
-    private var totalDistance = 0.0
-    private var lastLocation: Location? = null
+
     private val handler = Handler(Looper.getMainLooper())
     private var isServiceRunning = false
+    private var startTime = 0L
+
+    private var totalDistance = 0.0
+    private var lastLocation: Location? = null
+
+    // Binder para comunicação (padrão recomendado)
+    inner class LocalBinder : Binder() {
+        fun getService(): LocationService = this@LocationService
+    }
+    private val binder = LocalBinder()
 
     companion object {
-        const val ACTION_LOCATION_UPDATE = "action_location_update"
-        const val EXTRA_LATITUDE = "extra_latitude"
-        const val EXTRA_LONGITUDE = "extra_longitude"
-        const val EXTRA_DISTANCE = "extra_distance"
-        const val EXTRA_DURATION = "extra_duration"
+        // LiveData para expor os dados para a Activity.
+        // Eles são "observáveis".
+        val locationData = MutableLiveData<Location>()
+        val distanceData = MutableLiveData<Double>()
+        val durationData = MutableLiveData<Long>()
+
         const val NOTIFICATION_ID = 123
         const val CHANNEL_ID = "corridas_channel"
     }
@@ -38,21 +49,17 @@ class LocationService : Service() {
         super.onCreate()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Configura o callback para receber atualizações do GPS
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { currentLocation ->
-                    // 1. Calcula distância
+                    // Atualiza os LiveData com os novos valores
+                    locationData.postValue(currentLocation)
+
                     if (lastLocation != null) {
-                        totalDistance += lastLocation!!.distanceTo(currentLocation) // metros
+                        totalDistance += lastLocation!!.distanceTo(currentLocation) // em metros
+                        distanceData.postValue(totalDistance)
                     }
                     lastLocation = currentLocation
-
-                    // 2. Calcula tempo
-                    val durationMillis = SystemClock.elapsedRealtime() - startTime
-
-                    // 3. Envia dados para a Activity
-                    sendBroadcast(currentLocation.latitude, currentLocation.longitude, totalDistance, durationMillis)
                 }
             }
         }
@@ -64,10 +71,24 @@ class LocationService : Service() {
             startTime = SystemClock.elapsedRealtime()
             startForegroundService()
             startLocationUpdates()
+            startTimerUpdates() // Inicia o timer que atualiza a cada segundo
         }
         return START_STICKY
     }
 
+    private fun startTimerUpdates() {
+        handler.post(object : Runnable {
+            override fun run() {
+                if (isServiceRunning) {
+                    val durationMillis = SystemClock.elapsedRealtime() - startTime
+                    durationData.postValue(durationMillis)
+                    handler.postDelayed(this, 1000) // Re-agenda para o próximo segundo
+                }
+            }
+        })
+    }
+
+    // As funções startForegroundService() e startLocationUpdates() continuam as mesmas
     private fun startForegroundService() {
         val notificationManager = getSystemService(NotificationManager::class.java)
 
@@ -83,37 +104,33 @@ class LocationService : Service() {
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("RunConnect")
             .setContentText("Rastreando sua corrida...")
-            .setSmallIcon(R.mipmap.ic_launcher) // Certifique-se que este ícone existe
+            .setSmallIcon(R.mipmap.ic_launcher)
             .build()
 
         startForeground(NOTIFICATION_ID, notification)
     }
 
     private fun startLocationUpdates() {
-        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 3000) // Atualiza a cada 3 segundos
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 3000) // A cada 3 segundos
             .setMinUpdateDistanceMeters(5f) // Ou a cada 5 metros
             .build()
-
         try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
         } catch (e: SecurityException) {
+            // A permissão já foi checada na Activity, mas o lint exige este try-catch.
             e.printStackTrace()
         }
-    }
-
-    private fun sendBroadcast(lat: Double, lng: Double, dist: Double, time: Long) {
-        val intent = Intent(ACTION_LOCATION_UPDATE)
-        intent.putExtra(EXTRA_LATITUDE, lat)
-        intent.putExtra(EXTRA_LONGITUDE, lng)
-        intent.putExtra(EXTRA_DISTANCE, dist)
-        intent.putExtra(EXTRA_DURATION, time)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isServiceRunning = false
         fusedLocationClient.removeLocationUpdates(locationCallback)
+        handler.removeCallbacksAndMessages(null) // Para o timer
+        // Reseta os LiveData para a próxima corrida
+        distanceData.postValue(0.0)
+        durationData.postValue(0L)
     }
 
-    override fun onBind(intent: Intent?): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder = binder
 }

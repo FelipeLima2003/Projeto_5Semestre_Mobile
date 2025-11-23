@@ -1,5 +1,6 @@
 package com.example.projetointegrador
 
+import CorridaResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -41,5 +42,11 @@ interface ApiService {
     ): Response<Unit>
     @DELETE("usuario/{id}")
     suspend fun excluirUsuario(@Path("id") userId: Int): Response<Unit>
+
+    @POST("corridas")
+    suspend fun salvarCorrida(@Body corridaRequest: CorridaRequest): Response<Unit>
+
+    @GET("corridas/usuario/{id}")
+    suspend fun getCorridasDoUsuario(@Path("id") userId: Int): Response<List<CorridaResponse>>
 
 }
