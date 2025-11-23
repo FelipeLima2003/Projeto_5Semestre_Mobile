@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.runConnect.auth_api.model.Usuario;
 
 public record UsuarioPublicoDTO(
-    Integer id,
+        Integer id,
         String nome,
         @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate dataNascimento,

@@ -38,11 +38,11 @@ public class AuthenticationController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-        public ResponseEntity login(@RequestBody @Valid LoginRequestDTO data) {
+        public ResponseEntity <LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var usuario = (Usuario) auth.getPrincipal();
-        var token = tokenService.generateToken(usuario);
+        var token = tokenService.gerarToken(usuario);
         LoginResponseDTO response = new LoginResponseDTO(
                 token,
                 usuario.getId(),
