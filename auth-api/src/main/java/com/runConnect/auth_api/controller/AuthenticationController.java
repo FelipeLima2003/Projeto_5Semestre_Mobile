@@ -37,15 +37,21 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-       @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO data) {
+    @PostMapping("/login")
+        public ResponseEntity login(@RequestBody @Valid LoginRequestDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
-    }
+        var auth = this.authenticationManager.authenticate(usernamePassword)
+        var usuario = (Usuario) auth.getPrincipal();
+        var token = tokenService.generateToken(usuario);
+        LoginResponseDTO response = new LoginResponseDTO(
+                token,
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getCpf()
+    );
+    return ResponseEntity.ok(response);
+}
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Void> cadastrar(@RequestBody @Valid CadastroRequestDTO data) {
