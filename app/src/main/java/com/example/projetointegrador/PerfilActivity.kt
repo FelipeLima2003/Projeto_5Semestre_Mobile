@@ -62,7 +62,13 @@ class PerfilActivity : BaseActivity() {
     private fun buscarDadosDoPerfil() {
         lifecycleScope.launch {
             try {
+                Log.d("DEBUG_PERFIL", "Tentando buscar perfil para o ID: $userProfileId")
+
                 val response = RetrofitClient.apiService.getUsuarioById(userProfileId)
+
+                // *** LOG CRUCIAL: MOSTRA A URL EXATA QUE O APP MONTOU ***
+                Log.e("DEBUG_PERFIL", "URL chamada (Perfil): ${response.raw().request().url()}")
+
                 if (response.isSuccessful) {
                     response.body()?.let { perfil ->
                         preencherDadosNaTela(perfil)
@@ -82,14 +88,15 @@ class PerfilActivity : BaseActivity() {
         lifecycleScope.launch {
             try {
                 val response = RetrofitClient.apiService.getCorridasDoUsuario(userProfileId)
+
+                // *** LOG CRUCIAL: MOSTRA A URL EXATA QUE O APP MONTOU ***
+                Log.e("DEBUG_PERFIL", "URL chamada (Corridas): ${response.raw().request().url()}")
+
                 if (response.isSuccessful) {
                     val listaDeCorridas = response.body()
-
-
                     if (!listaDeCorridas.isNullOrEmpty()) {
                         setupRecyclerViewCorridas(listaDeCorridas)
                     } else {
-
                         Log.d("PerfilActivity", "Nenhum histórico de corridas encontrado para o usuário $userProfileId")
                     }
                 } else {
@@ -101,7 +108,6 @@ class PerfilActivity : BaseActivity() {
         }
     }
 
-
     private fun setupRecyclerViewCorridas(corridas: List<CorridaResponse>) {
         corridaAdapter = CorridaAdapter(corridas)
         binding.recyclerViewCorridas.apply {
@@ -111,7 +117,8 @@ class PerfilActivity : BaseActivity() {
         }
     }
 
-    private fun preencherDadosNaTela(perfil: PerfilUsuarioResponse) {
+
+    private fun preencherDadosNaTela(perfil: UsuarioPublicoResponse) {
         binding.txtPerfilNome.text = perfil.nome
         binding.txtPerfilGenero.text = perfil.genero.replaceFirstChar { it.titlecase() }
 
@@ -136,16 +143,18 @@ class PerfilActivity : BaseActivity() {
 
         lifecycleScope.launch {
             try {
+
                 val response = RetrofitClient.apiService.updateDescricao(userProfileId, request)
+
                 if (response.isSuccessful) {
                     Toast.makeText(this@PerfilActivity, "Descrição salva com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("PerfilActivity", "Erro ao salvar descrição: ${response.code()} - $errorBody")
-                    Toast.makeText(this@PerfilActivity, "Não foi possível salvar: $errorBody", Toast.LENGTH_LONG).show()
+
+                    Log.e("PerfilActivity", "Erro ao salvar: ${response.code()} - ${response.errorBody()?.string()}")
+                    Toast.makeText(this@PerfilActivity, "Erro ao salvar: ${response.code()}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Log.e("PerfilActivity", "Falha de rede ao salvar", e)
+                Log.e("PerfilActivity", "Falha de rede", e)
                 Toast.makeText(this@PerfilActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
             }
         }

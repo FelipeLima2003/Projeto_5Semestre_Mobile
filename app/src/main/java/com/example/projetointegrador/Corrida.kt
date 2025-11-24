@@ -32,6 +32,8 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     private var loggedInUserId: Int = -1
     private var finalDistance: Double = 0.0
     private var finalDuration: Long = 0L
+    private var distanciaKm: Double = 0.0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,20 +129,21 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun salvarDadosDaCorrida() {
-
         val distanciaKm = finalDistance / 1000.0
 
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.getDefault())
 
-        if (finalDuration <= 0) {
-            Toast.makeText(this, "A corrida não teve duração suficiente para ser salva.", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
+        val dataFinal = java.util.Date()
+        val dataFinalString = sdf.format(dataFinal)
+
+        val dataInicial = java.util.Date(dataFinal.time - finalDuration)
+        val dataInicialString = sdf.format(dataInicial)
 
         val corridaRequest = CorridaRequest(
             usuarioId = loggedInUserId,
             distancia = distanciaKm,
-            duracaoMs = finalDuration
+            tempoInicial = dataInicialString,
+            tempoFinal = dataFinalString
         )
 
         lifecycleScope.launch {
@@ -151,7 +154,7 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("CorridaActivity", "Erro ao salvar corrida: ${response.code()} - $errorBody")
-                    Toast.makeText(this@CorridaActivity, "Não foi possível salvar a corrida.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CorridaActivity, "Erro: $errorBody", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 Log.e("CorridaActivity", "Falha de rede ao salvar corrida", e)
@@ -160,6 +163,5 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
                 finish()
             }
         }
-
     }
 }

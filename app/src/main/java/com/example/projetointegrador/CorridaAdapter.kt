@@ -32,53 +32,57 @@ class CorridaAdapter(
         private val txtTempo: TextView = itemView.findViewById(R.id.txt_item_tempo)
 
         fun bind(corrida: CorridaResponse) {
-
+            // 1. Distância
             txtDistancia.text = String.format("Distância: %.2f km", corrida.distancia)
 
-            val tempoMs = corrida.tempoFinal
-            val hours = TimeUnit.MILLISECONDS.toHours(tempoMs)
-            val minutes = TimeUnit.MILLISECONDS.toMinutes(tempoMs) % 60
-            val seconds = TimeUnit.MILLISECONDS.toSeconds(tempoMs) % 60
-            txtTempo.text = String.format("Tempo: %02d:%02d:%02d", hours, minutes, seconds)
+            // 2. Calcular Duração e Data
+            val tempoInicialStr = corrida.tempoInicial
+            val tempoFinalStr = corrida.tempoFinal
 
-            txtData.text = formatarData(corrida.dataCorrida)
+            if (tempoInicialStr != null && tempoFinalStr != null) {
+                val (dataInicio, dataFim) = parseDatas(tempoInicialStr.toString(), tempoFinalStr.toString())
+
+                if (dataInicio != null && dataFim != null) {
+                    // Calcula a diferença em milissegundos
+                    val duracaoMs = dataFim.time - dataInicio.time
+
+                    // Formata HH:MM:SS
+                    val hours = TimeUnit.MILLISECONDS.toHours(duracaoMs)
+                    val minutes = TimeUnit.MILLISECONDS.toMinutes(duracaoMs) % 60
+                    val seconds = TimeUnit.MILLISECONDS.toSeconds(duracaoMs) % 60
+                    txtTempo.text = String.format("Tempo: %02d:%02d:%02d", hours, minutes, seconds)
+
+                    // Formata a Data de Exibição (usando a data final)
+                    val displayFormat = SimpleDateFormat("dd 'de' MMMM, yyyy", Locale("pt", "BR"))
+                    txtData.text = displayFormat.format(dataFim)
+                } else {
+                    txtTempo.text = "Tempo: --:--"
+                    txtData.text = "Data desconhecida"
+                }
+            } else {
+                txtTempo.text = "Tempo: --:--"
+                txtData.text = "Data desconhecida"
+            }
         }
 
-        private fun formatarData(dataString: String?): String {
-
-            if (dataString.isNullOrEmpty()) {
-                return "Data desconhecida"
-            }
-
-            val formatosPossiveis = listOf(
-
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault()),
+        private fun parseDatas(inicio: String, fim: String): Pair<Date?, Date?> {
+            // Tenta formatos com 'T' (ISO) e com espaço (SQL padrão)
+            val formatos = listOf(
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()),
-                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()),
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
             )
 
-            var data: Date? = null
-            for (formato in formatosPossiveis) {
+            var dInicio: Date? = null
+            var dFim: Date? = null
+
+            for (fmt in formatos) {
                 try {
-                    data = formato.parse(dataString)
-                    if (data != null) break
-                } catch (e: Exception) {
-
-                }
+                    if (dInicio == null) dInicio = fmt.parse(inicio)
+                    if (dFim == null) dFim = fmt.parse(fim)
+                } catch (e: Exception) { }
             }
-
-            return if (data != null) {
-
-                val formatter = SimpleDateFormat("dd 'de' MMMM, yyyy", Locale("pt", "BR"))
-                formatter.format(data)
-            } else {
-
-                try {
-                    dataString.split("T")[0]
-                } catch (e: Exception) {
-                    dataString
-                }
-            }
+            return Pair(dInicio, dFim)
         }
     }
 }

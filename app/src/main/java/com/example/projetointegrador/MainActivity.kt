@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val response = RetrofitClient.apiService.login(email, senha)
+                val request = LoginRequest(email, senha)
+                val response = RetrofitClient.apiService.login(request)
                 if (response.isSuccessful) {
-                    val loginResponseList = response.body()
-                    if (!loginResponseList.isNullOrEmpty()) {
-                        val loginData = loginResponseList[0]
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
 
-                        val loggedInUserId = loginData.usuarioId
-                        val loggedInUserName = loginData.usuarioNome
+                        val loggedInUserId = loginResponse.usuarioId
+                        val loggedInUserName = loginResponse.usuarioNome
 
                         Log.d("MainActivity", "Login bem-sucedido para o usuário ID: $loggedInUserId")
 

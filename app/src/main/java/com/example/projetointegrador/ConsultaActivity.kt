@@ -1,4 +1,3 @@
-// Em ConsultaActivity.kt
 package com.example.projetointegrador
 
 import android.content.Intent
@@ -17,7 +16,7 @@ class ConsultaActivity : BaseActivity() {
     private lateinit var binding: ActivityConsultaBinding
     private lateinit var usuarioAdapter: UsuarioAdapter
 
-    private val listaCompletaDeUsuarios = mutableListOf<UsuarioResponse>()
+    private val listaCompletaDeUsuarios = mutableListOf<UsuarioPublicoResponse>()
 
     private var loggedInUserId: Int = -1
 
@@ -68,18 +67,11 @@ class ConsultaActivity : BaseActivity() {
         }
 
         binding.containerMeuPerfil.setOnClickListener {
-            // Cria um Intent para a PerfilActivity
             val intent = Intent(this, PerfilActivity::class.java)
-
-            // CRUCIAL: Passa o ID do usuário logado como AMBOS os parâmetros.
-            // A PerfilActivity vai comparar e ver que são iguais, liberando a edição.
             intent.putExtra("USER_PROFILE_ID", loggedInUserId)
             intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
-
             startActivity(intent)
         }
-
-
     }
 
 
@@ -95,6 +87,8 @@ class ConsultaActivity : BaseActivity() {
             val handle = "@${usuario.nome.replace(" ", "")}"
             usuario.nome.contains(textoBusca, ignoreCase = true) || handle.contains(textoBusca, ignoreCase = true)
         }
+
+
         if (::usuarioAdapter.isInitialized) {
             usuarioAdapter.updateList(listaFiltrada)
         }
@@ -103,7 +97,9 @@ class ConsultaActivity : BaseActivity() {
     private fun buscarUsuarios() {
         lifecycleScope.launch {
             try {
+
                 val response = RetrofitClient.apiService.getUsuarios()
+
                 if (response.isSuccessful) {
                     val listaDaApi = response.body()
                     if (!listaDaApi.isNullOrEmpty()) {
@@ -123,23 +119,22 @@ class ConsultaActivity : BaseActivity() {
             }
         }
     }
-    private fun abrirPerfil(usuario: UsuarioResponse) {
+
+
+    private fun abrirPerfil(usuario: UsuarioPublicoResponse) {
         Toast.makeText(this, "Abrindo perfil de ${usuario.nome}", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, PerfilActivity::class.java)
-
         intent.putExtra("USER_PROFILE_ID", usuario.id)
-
         intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
-
         startActivity(intent)
     }
 
-    private fun setupRecyclerView(usuarios: List<UsuarioResponse>) {
-        if (!::usuarioAdapter.isInitialized) {
+    private fun setupRecyclerView(usuarios: List<UsuarioPublicoResponse>) {
 
+        if (!::usuarioAdapter.isInitialized) {
             usuarioAdapter = UsuarioAdapter(
-                usuarios.toMutableList(),
+                usuarios,
                 onFollowClick = { usuarioClicado ->
                     seguirUsuario(usuarioClicado)
                 },
@@ -156,7 +151,7 @@ class ConsultaActivity : BaseActivity() {
         }
     }
 
-    private fun seguirUsuario(usuarioASeguir: UsuarioResponse) {
+    private fun seguirUsuario(usuarioASeguir: UsuarioPublicoResponse) {
         if (loggedInUserId == -1) { return }
 
         lifecycleScope.launch {
@@ -168,7 +163,11 @@ class ConsultaActivity : BaseActivity() {
 
                 if (response.isSuccessful) {
                     Toast.makeText(this@ConsultaActivity, "Agora você está seguindo ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
-                    listaCompletaDeUsuarios.remove(usuarioASeguir)
+
+                    val itemParaRemover = listaCompletaDeUsuarios.find { it.id == usuarioASeguir.id }
+                    if (itemParaRemover != null) {
+                        listaCompletaDeUsuarios.remove(itemParaRemover)
+                    }
                     filtrarLista(binding.searchEditText.text.toString())
                 } else {
                     val errorBody = response.errorBody()?.string()
@@ -176,7 +175,7 @@ class ConsultaActivity : BaseActivity() {
                     if (response.code() == 409 || (response.code() == 400 && errorBody?.contains("already follows", ignoreCase = true) == true)) {
                         Toast.makeText(this@ConsultaActivity, "Você já segue ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@ConsultaActivity, "Não foi possível seguir o usuário: $errorBody", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ConsultaActivity, "Não foi possível seguir o usuário.", Toast.LENGTH_LONG).show()
                     }
                 }
             } catch (e: Exception) {

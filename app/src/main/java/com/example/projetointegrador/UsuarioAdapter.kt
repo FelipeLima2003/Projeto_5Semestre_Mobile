@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class UsuarioAdapter(
-    private var usuarios: List<UsuarioResponse>,
-    private val onFollowClick: (UsuarioResponse) -> Unit,
-    private val onProfileClick: (UsuarioResponse) -> Unit
+    private var usuarios: List<UsuarioPublicoResponse>,
+    private val onFollowClick: (UsuarioPublicoResponse) -> Unit,
+    private val onProfileClick: (UsuarioPublicoResponse) -> Unit
 ) : RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
@@ -25,7 +25,7 @@ class UsuarioAdapter(
 
     override fun getItemCount(): Int = usuarios.size
 
-    fun updateList(novaLista: List<UsuarioResponse>) {
+    fun updateList(novaLista: List<UsuarioPublicoResponse>) {
         this.usuarios = novaLista
         notifyDataSetChanged()
     }
@@ -36,9 +36,9 @@ class UsuarioAdapter(
         private val followButton: View = itemView.findViewById(R.id.containerButtonSeguir)
         private val profileButton: View = itemView.findViewById(R.id.containerButtonPerfil)
         fun bind(
-            usuario: UsuarioResponse,
-            onFollowClick: (UsuarioResponse) -> Unit,
-            onProfileClick: (UsuarioResponse) -> Unit
+            usuario: UsuarioPublicoResponse,
+            onFollowClick: (UsuarioPublicoResponse) -> Unit,
+            onProfileClick: (UsuarioPublicoResponse) -> Unit
         ) {
             userName.text = usuario.nome
             userHandle.text = "@${usuario.nome.toLowerCase().replace(" ", "")}"
