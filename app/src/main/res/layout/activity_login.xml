@@ -15,9 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="30dp"
-            android:paddingBottom="40dp"> <!-- Adicionado padding inferior -->
-
-            <!-- ... (Sua logo, campos de email e senha permanecem os mesmos) ... -->
+            android:paddingBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/rhwlqudtvd4m"
@@ -41,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
-                android:text="Coloque o seu email:"
+                android:text="@string/login_hint_email"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -64,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginBottom="9dp"
-                android:text="Coloque a sua senha:"
+                android:text="@string/login_hint_senha"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -106,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Login"
+                        android:text="@string/login_btn_entrar"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -119,7 +117,7 @@
                     android:layout_marginTop="24dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Não possui cadastro? Cadastre-se aqui"
+                    android:text="@string/login_link_cadastro"
                     android:textColor="#3DA3FF"
                     android:textSize="16sp"
                     android:textStyle="bold" />

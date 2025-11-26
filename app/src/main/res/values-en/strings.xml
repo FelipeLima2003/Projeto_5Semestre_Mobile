@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProjetoIntegrador</string>
+
+    <!-- General -->
+    <string name="voltar">BACK</string>
+    <string name="erro_conexao">Connection failed: Check your internet</string>
+    <string name="erro_generico">An unexpected error occurred</string>
+
+    <!-- Login (MainActivity) -->
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_senha">Password</string>
+    <string name="login_btn_entrar">LOGIN</string>
+    <string name="login_link_cadastro">No account? Sign up</string>
+
+    <!-- Login Messages -->
+    <string name="login_erro_vazio">Please fill in email and password.</string>
+    <string name="login_erro_invalido">Invalid username or password</string>
+    <string name="login_sucesso">Login successful</string>
+
+    <!-- Registration (CadastroActivity) -->
+    <string name="cadastro_titulo">Create Account</string>
+    <string name="cadastro_hint_nome">Full Name</string>
+    <string name="cadastro_hint_nascimento">Date of Birth (DD/MM/YYYY)</string>
+    <string name="cadastro_hint_cpf">SSN / ID Document</string>
+    <string name="cadastro_hint_email">Email</string>
+    <string name="cadastro_hint_telefone">Phone</string>
+    <string name="cadastro_hint_senha">Password</string>
+    <string name="cadastro_hint_confirma_senha">Confirm Password</string>
+    <string name="cadastro_btn_confirmar">REGISTER</string>
+
+    <!-- Gender -->
+    <string name="genero_masculino">Male</string>
+    <string name="genero_feminino">Female</string>
+    <string name="genero_outro">Prefer not to say</string>
+
+    <!-- Registration Messages -->
+    <string name="cadastro_erro_campos_vazios">Please fill in all fields</string>
+    <string name="cadastro_erro_genero">Please select a gender</string>
+    <string name="cadastro_erro_senhas_diferentes">Passwords do not match</string>
+    <string name="cadastro_erro_senhas_iguais_msg">Passwords must be equal</string>
+    <string name="cadastro_erro_data_formato">Invalid date format. Use DD/MM/YYYY</string>
+    <string name="cadastro_erro_data_msg">Use format DD/MM/YYYY</string>
+    <string name="cadastro_sucesso">Registration successful!</string>
+    <string name="cadastro_erro_prefixo">Error registering:</string>
+</resources>

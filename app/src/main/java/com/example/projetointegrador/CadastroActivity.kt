@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.projetointegrador.databinding.ActivityCadastroBinding
 import kotlinx.coroutines.launch
 
-
 class CadastroActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCadastroBinding
@@ -28,9 +27,8 @@ class CadastroActivity : BaseActivity() {
         }
 
         textVoltar.setOnClickListener {
-            finish() //
+            finish()
         }
-
 
         binding.containerButtonConfirmar.setOnClickListener {
             realizarCadastro()
@@ -55,34 +53,35 @@ class CadastroActivity : BaseActivity() {
         }
 
         if (nome.isEmpty() || nascimentoStr.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || senha.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
+            // Alterado para usar R.string.cadastro_erro_campos_vazios
+            Toast.makeText(this, getString(R.string.cadastro_erro_campos_vazios), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (genero == null) {
-            Toast.makeText(this, "Por favor, selecione um gênero", Toast.LENGTH_SHORT).show()
+            // Alterado para usar R.string.cadastro_erro_genero
+            Toast.makeText(this, getString(R.string.cadastro_erro_genero), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (senha != confirmaSenha) {
-            Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
-            binding.editConfirmaSenha.error = "As senhas devem ser iguais"
+            // Alterado para usar R.string.cadastro_erro_senhas_diferentes e R.string.cadastro_erro_senhas_iguais_msg
+            Toast.makeText(this, getString(R.string.cadastro_erro_senhas_diferentes), Toast.LENGTH_SHORT).show()
+            binding.editConfirmaSenha.error = getString(R.string.cadastro_erro_senhas_iguais_msg)
             return
         }
 
         val dataNascimentoFormatada = try {
-            // Verifica se a data está no formato brasileiro DD/MM/AAAA
             val partes = nascimentoStr.split("/")
             if (partes.size != 3 || partes[0].length != 2 || partes[1].length != 2 || partes[2].length != 4) {
                 throw IllegalArgumentException("Formato de data inválido")
             }
-            // Converte de ["DD", "MM", "AAAA"] para "AAAA-MM-DD"
             "${partes[2]}-${partes[1]}-${partes[0]}"
         } catch (e: Exception) {
-            // Se a conversão falhar, mostra um erro claro para o usuário
-            Toast.makeText(this, "Formato de data inválido. Use DD/MM/AAAA", Toast.LENGTH_LONG).show()
-            binding.editNascimento.error = "Use o formato DD/MM/AAAA"
-            return // Impede o prosseguimento do cadastro
+            // Alterado para usar R.string.cadastro_erro_data_formato e R.string.cadastro_erro_data_msg
+            Toast.makeText(this, getString(R.string.cadastro_erro_data_formato), Toast.LENGTH_LONG).show()
+            binding.editNascimento.error = getString(R.string.cadastro_erro_data_msg)
+            return
         }
 
         val cadastroRequest = CadastroRequest(
@@ -102,7 +101,9 @@ class CadastroActivity : BaseActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val cadastroResponse = response.body()!!
                     Log.d("CadastroActivity", "Cadastro bem-sucedido: ${cadastroResponse.message}")
-                    Toast.makeText(this@CadastroActivity, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show()
+
+                    // Alterado para usar R.string.cadastro_sucesso
+                    Toast.makeText(this@CadastroActivity, getString(R.string.cadastro_sucesso), Toast.LENGTH_LONG).show()
 
                     val intent = Intent(this@CadastroActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -111,12 +112,15 @@ class CadastroActivity : BaseActivity() {
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("CadastroActivity", "Erro no cadastro: ${response.code()} - $errorBody")
-                    Toast.makeText(this@CadastroActivity, "Erro ao cadastrar: $errorBody", Toast.LENGTH_LONG).show()
+
+                    // Alterado para usar R.string.cadastro_erro_prefixo
+                    Toast.makeText(this@CadastroActivity, "${getString(R.string.cadastro_erro_prefixo)} $errorBody", Toast.LENGTH_LONG).show()
                 }
 
             } catch (e: Exception) {
                 Log.e("CadastroActivity", "Falha na chamada de rede", e)
-                Toast.makeText(this@CadastroActivity, "Falha na conexão: ${e.message}", Toast.LENGTH_LONG).show()
+                // Alterado para usar R.string.erro_conexao
+                Toast.makeText(this@CadastroActivity, "${getString(R.string.erro_conexao)}: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

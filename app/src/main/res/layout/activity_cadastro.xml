@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -39,7 +39,7 @@
                     android:id="@+id/text_voltar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VOLTAR"
+                    android:text="@string/voltar"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:clickable="true"
@@ -89,9 +89,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="126dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="7dp"
-                android:text="Coloque o seu nome:"
+                android:text="@string/cadastro_hint_nome"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -113,9 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="126dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="7dp"
-                android:text="Coloque a sua data de nascimento:"
+                android:text="@string/cadastro_hint_nascimento"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -129,7 +129,7 @@
                 android:paddingHorizontal="10dp"
                 android:inputType="date"
                 android:singleLine="true"
-                android:hint="DD-MM-AAAA"
+                android:hint="DD/MM/AAAA"
                 android:textSize="16sp" />
 
             <TextView
@@ -137,9 +137,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
-                android:layout_marginEnd="234dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="8dp"
-                android:text="Coloque o seu CPF:"
+                android:text="@string/cadastro_hint_cpf"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -161,9 +161,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
-                android:layout_marginEnd="224dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="3dp"
-                android:text="Coloque o seu email:"
+                android:text="@string/cadastro_hint_email"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -184,9 +184,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="206dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="3dp"
-                android:text="Coloque o seu telefone:"
+                android:text="@string/cadastro_hint_telefone"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -208,9 +208,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="230dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="3dp"
-                android:text="Digite o seu genero:"
+                android:text="@string/cadastro_erro_genero"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -232,7 +232,7 @@
                     android:id="@+id/rb_masculino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Masculino"
+                    android:text="@string/genero_masculino"
                     android:textSize="14sp"
                     android:layout_marginEnd="16dp"/>
 
@@ -240,7 +240,7 @@
                     android:id="@+id/rb_feminino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feminino"
+                    android:text="@string/genero_feminino"
                     android:textSize="14sp"
                     android:layout_marginEnd="16dp"/>
 
@@ -248,7 +248,7 @@
                     android:id="@+id/rb_outro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Outro"
+                    android:text="@string/genero_outro"
                     android:textSize="14sp"/>
 
             </RadioGroup>
@@ -258,9 +258,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="221dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="9dp"
-                android:text="Coloque a sua senha:"
+                android:text="@string/cadastro_hint_senha"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -281,9 +281,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="214dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="7dp"
-                android:text="Confirme a sua senha:"
+                android:text="@string/cadastro_hint_confirma_senha"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
@@ -292,43 +292,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/stroke_black"
-                android:layout_marginBottom="19dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginHorizontal="25dp"
                 android:paddingHorizontal="10dp"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="16sp" />
 
+
             <LinearLayout
-                android:id="@+id/r5l3hbezlhob"
+                android:id="@+id/containerButtonConfirmar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="86dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="90dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/button_confirm_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
 
-                <LinearLayout
-                    android:id="@+id/containerButtonConfirmar"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="90dp"
-                    android:layout_marginBottom="100dp"
-                    android:background="@drawable/button_confirm_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingVertical="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cadastrar"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/cadastro_btn_confirmar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

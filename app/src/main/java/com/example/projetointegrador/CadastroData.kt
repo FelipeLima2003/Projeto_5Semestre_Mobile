@@ -34,6 +34,7 @@ data class CadastroRequest(
 
     @SerializedName("senha")
     val senha: String
+    
 )
 data class CadastroResponse(
     @SerializedName("message")

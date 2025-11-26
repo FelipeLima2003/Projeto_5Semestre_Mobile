@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProjetoIntegrador</string>
+
+    <!-- General -->
+    <string name="voltar">VOLVER</string>
+    <string name="erro_conexao">Fallo en la conexión: Verifique su internet</string>
+    <string name="erro_generico">Ocurrió un error inesperado</string>
+
+    <!-- Login (MainActivity) -->
+    <string name="login_hint_email">Correo electrónico</string>
+    <string name="login_hint_senha">Contraseña</string>
+    <string name="login_btn_entrar">ENTRAR</string>
+    <string name="login_link_cadastro">¿No tiene cuenta? Regístrese</string>
+
+    <!-- Mensajes de Login -->
+    <string name="login_erro_vazio">Por favor, complete el correo y la contraseña.</string>
+    <string name="login_erro_invalido">Usuario o contraseña inválidos</string>
+    <string name="login_sucesso">Inicio de sesión exitoso</string>
+
+    <!-- Registro (CadastroActivity) -->
+    <string name="cadastro_titulo">Crear Cuenta</string>
+    <string name="cadastro_hint_nome">Nombre Completo</string>
+    <string name="cadastro_hint_nascimento">Fecha de Nacimiento (DD/MM/AAAA)</string>
+    <string name="cadastro_hint_cpf">Documento de Identidad</string>
+    <string name="cadastro_hint_email">Correo electrónico</string>
+    <string name="cadastro_hint_telefone">Teléfono</string>
+    <string name="cadastro_hint_senha">Contraseña</string>
+    <string name="cadastro_hint_confirma_senha">Confirmar Contraseña</string>
+    <string name="cadastro_btn_confirmar">REGISTRAR</string>
+
+    <!-- Género -->
+    <string name="genero_masculino">Masculino</string>
+    <string name="genero_feminino">Femenino</string>
+    <string name="genero_outro">Prefiero no decir</string>
+
+    <!-- Mensajes de Registro -->
+    <string name="cadastro_erro_campos_vazios">Por favor, complete todos los campos</string>
+    <string name="cadastro_erro_genero">Por favor, seleccione un género</string>
+    <string name="cadastro_erro_senhas_diferentes">Las contraseñas no coinciden</string>
+    <string name="cadastro_erro_senhas_iguais_msg">Las contraseñas deben ser iguales</string>
+    <string name="cadastro_erro_data_formato">Formato de fecha inválido. Use DD/MM/AAAA</string>
+    <string name="cadastro_erro_data_msg">Use el formato DD/MM/AAAA</string>
+    <string name="cadastro_sucesso">¡Registro realizado con éxito!</string>
+    <string name="cadastro_erro_prefixo">Error al registrar:</string>
+</resources>

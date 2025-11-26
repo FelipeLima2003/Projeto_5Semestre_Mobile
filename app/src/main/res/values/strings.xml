@@ -1,4 +1,45 @@
 <resources>
     <string name="app_name">ProjetoIntegrador</string>
+
+    <!-- Geral -->
     <string name="voltar">VOLTAR</string>
+    <string name="erro_conexao">Falha na conexão: Verifique sua internet</string>
+    <string name="erro_generico">Ocorreu um erro inesperado</string>
+
+    <!-- Login (MainActivity) -->
+    <string name="login_hint_email">E-mail</string>
+    <string name="login_hint_senha">Senha</string>
+    <string name="login_btn_entrar">ENTRAR</string>
+    <string name="login_link_cadastro">Não tem conta? Cadastre-se</string>
+
+    <!-- Mensagens de Login -->
+    <string name="login_erro_vazio">Por favor, preencha o e-mail e a senha.</string>
+    <string name="login_erro_invalido">Usuário ou senha inválidos</string>
+    <string name="login_sucesso">Login realizado com sucesso</string>
+
+    <!-- Cadastro (CadastroActivity) -->
+    <string name="cadastro_titulo">Criar Conta</string>
+    <string name="cadastro_hint_nome">Nome Completo</string>
+    <string name="cadastro_hint_nascimento">Data de Nascimento (DD/MM/AAAA)</string>
+    <string name="cadastro_hint_cpf">CPF</string>
+    <string name="cadastro_hint_email">E-mail</string>
+    <string name="cadastro_hint_telefone">Telefone</string>
+    <string name="cadastro_hint_senha">Senha</string>
+    <string name="cadastro_hint_confirma_senha">Confirmar Senha</string>
+    <string name="cadastro_btn_confirmar">CADASTRAR</string>
+
+    <!-- Gênero -->
+    <string name="genero_masculino">Masculino</string>
+    <string name="genero_feminino">Feminino</string>
+    <string name="genero_outro">Prefiro não informar</string>
+
+    <!-- Mensagens de Cadastro -->
+    <string name="cadastro_erro_campos_vazios">Por favor, preencha todos os campos</string>
+    <string name="cadastro_erro_genero">Por favor, selecione um gênero</string>
+    <string name="cadastro_erro_senhas_diferentes">As senhas não coincidem</string>
+    <string name="cadastro_erro_senhas_iguais_msg">As senhas devem ser iguais</string>
+    <string name="cadastro_erro_data_formato">Formato de data inválido. Use DD/MM/AAAA</string>
+    <string name="cadastro_erro_data_msg">Use o formato DD/MM/AAAA</string>
+    <string name="cadastro_sucesso">Cadastro realizado com sucesso!</string>
+    <string name="cadastro_erro_prefixo">Erro ao cadastrar:</string>
 </resources>
