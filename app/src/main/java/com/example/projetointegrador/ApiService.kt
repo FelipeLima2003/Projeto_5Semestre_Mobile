@@ -1,12 +1,15 @@
 package com.example.projetointegrador
 
 import CorridaResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -24,6 +27,7 @@ interface ApiService {
 
     @GET("usuario/{id}")
     suspend fun getUsuarioById(@Path("id") userId: Int): Response<UsuarioPublicoResponse>
+
     @PUT("usuario/{id}/descricao")
     suspend fun updateDescricao(
         @Path("id") userId: Int,
@@ -44,4 +48,9 @@ interface ApiService {
 
     @GET("corridas/{id}")
     suspend fun getCorridasDoUsuario(@Path("id") userId: Int): Response<List<CorridaResponse>>
+
+    @Multipart
+    @POST("uploads/imagem")
+    suspend fun uploadImagem(@Part file: MultipartBody.Part): Response<String>
 }
+

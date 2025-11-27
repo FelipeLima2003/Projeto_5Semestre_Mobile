@@ -33,8 +33,10 @@ data class CadastroRequest(
     val genero: Genero,
 
     @SerializedName("senha")
-    val senha: String
-    
+    val senha: String,
+
+    @SerializedName("imagemUrl")
+    val imagemUrl: String?
 )
 data class CadastroResponse(
     @SerializedName("message")

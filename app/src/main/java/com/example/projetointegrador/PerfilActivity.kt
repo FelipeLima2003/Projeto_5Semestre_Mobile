@@ -67,7 +67,7 @@ class PerfilActivity : BaseActivity() {
                 val response = RetrofitClient.apiService.getUsuarioById(userProfileId)
 
                 // *** LOG CRUCIAL: MOSTRA A URL EXATA QUE O APP MONTOU ***
-                Log.e("DEBUG_PERFIL", "URL chamada (Perfil): ${response.raw().request().url()}")
+                Log.e("DEBUG_PERFIL", "URL chamada (Perfil): ${response.raw().request.url}")
 
                 if (response.isSuccessful) {
                     response.body()?.let { perfil ->
@@ -90,7 +90,7 @@ class PerfilActivity : BaseActivity() {
                 val response = RetrofitClient.apiService.getCorridasDoUsuario(userProfileId)
 
                 // *** LOG CRUCIAL: MOSTRA A URL EXATA QUE O APP MONTOU ***
-                Log.e("DEBUG_PERFIL", "URL chamada (Corridas): ${response.raw().request().url()}")
+                Log.e("DEBUG_PERFIL", "URL chamada (Corridas): ${response.raw().request.url}")
 
                 if (response.isSuccessful) {
                     val listaDeCorridas = response.body()
