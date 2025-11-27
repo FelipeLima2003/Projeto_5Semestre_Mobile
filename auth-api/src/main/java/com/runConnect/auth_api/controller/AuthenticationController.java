@@ -71,6 +71,7 @@ public class AuthenticationController {
         newUser.setTelefone(data.telefone());
         newUser.setGenero(data.genero());
         newUser.setSenha(encryptedPassword); 
+        newUser.setImagemUrl(data.imagemUrl());
         this.usuarioRepository.save(newUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
