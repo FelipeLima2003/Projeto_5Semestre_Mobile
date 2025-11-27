@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
     // --- MÉTODO PARA O CORS ---
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Aplica a todas as rotas
+        registry.addMapping("/**") 
                 .allowedOrigins("*") 
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
 
@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    
+        
         Path uploadPath = Paths.get(uploadDir).toAbsolutePath();
         String uploadUri = uploadPath.toUri().toString();
 
