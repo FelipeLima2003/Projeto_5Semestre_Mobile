@@ -13,6 +13,7 @@ public record CadastroRequestDTO(
         String telefone,
         @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate dataNascimento,
+        String imagemUrl,
         Genero genero
 ) {
      
