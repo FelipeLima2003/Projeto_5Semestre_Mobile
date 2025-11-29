@@ -1,9 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scroll_main"
@@ -14,8 +17,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/header_bar"
@@ -33,21 +37,22 @@
                     android:layout_height="20dp"
                     android:layout_marginEnd="13dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/seta_voltar" />
+                    android:src="@drawable/seta_voltar"
+                    android:contentDescription="@string/voltar" />
 
                 <TextView
                     android:id="@+id/text_voltar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VOLTAR"
+                    android:text="@string/voltar"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <!-- Ícone do menu de três pontos -->
                 <ImageView
                     android:id="@+id/options_menu_icon"
                     android:layout_width="wrap_content"
@@ -57,7 +62,6 @@
                     android:focusable="true"
                     android:padding="8dp"
                     android:contentDescription="Opções"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -68,115 +72,44 @@
                 android:background="#A5CCFF"
                 android:orientation="vertical"
                 android:paddingTop="9dp"
-                android:paddingBottom="44dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/txt_participantes_titulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="26dp"
-                    android:layout_marginEnd="57dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Corredores participantes"
+                    android:text="@string/busca_participantes_titulo"
                     android:textColor="#000000"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:id="@+id/participantes_fileira1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="25dp"
-                    android:layout_marginBottom="30dp"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal"
-                    android:translationX="10dp">
+                    android:layout_marginBottom="16dp">
 
-                    <ImageView
-                        android:id="@+id/img_participant_1"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_2"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_3"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="20dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_4"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_5"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@drawable/user_icon" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@mipmap/ic_launcher" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/participantes_fileira2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:orientation="horizontal"
-                    android:translationX="10dp">
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/img_participant_6"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_7"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_8"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="20dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_9"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginEnd="19dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/img_participant_10"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:layout_marginEnd="12dp" android:src="@mipmap/ic_launcher" />
+                    <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@mipmap/ic_launcher" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -185,340 +118,152 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
-                android:layout_marginEnd="143dp"
                 android:layout_marginBottom="22dp"
-                android:text="Próximos Eventos"
+                android:text="@string/busca_eventos_titulo"
                 android:textColor="#1A1A1C"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-            <LinearLayout
-                android:id="@+id/evento_1"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_evento_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
-                android:layout_marginBottom="21dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="horizontal"
-                android:paddingTop="27dp"
-                android:paddingBottom="16dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
-                    android:id="@+id/event_card_1_avatar"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/rouded_background_blue"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_titulo1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="23dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txt_event1_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="11dp"
-                        android:text="Evento XXX"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txt_event1_distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="32dp"
-                        android:text="12km"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_evento1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="4dp">
-
-                    <TextView
-                        android:id="@+id/txt_evento1_cidade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Rio de Janeiro"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#3DA3FF" />
 
                     <LinearLayout
-                        android:id="@+id/event1_confirm_row"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/chk_event1_confirm"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:layout_gravity="center_vertical"/>
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <TextView
-                            android:id="@+id/txt_event1_confirm_prompt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maratona do Rio"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15 de Dezembro • 12km"
+                            android:textSize="14sp"
+                            android:textColor="#757575"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Venha participar da maior corrida de rua da cidade. Percurso plano e vista para o mar."
+                            android:textSize="14sp"
+                            android:textColor="#616161"
+                            android:layout_marginBottom="20dp"/>
+
+                        <Button
+                            android:id="@+id/btn_inscrever_evento1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Presença confirmada?"
-                            android:textColor="#000000"
-                            android:textSize="10sp" />
-
+                            android:text="Inscrever-se"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:backgroundTint="#212121"
+                            app:cornerRadius="8dp"/>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/evento_2"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_evento_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
-                android:layout_marginBottom="21dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="horizontal"
-                android:paddingTop="27dp"
-                android:paddingBottom="16dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
-                    android:id="@+id/event_card_2_avatar"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/rouded_background_blue"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_titulo2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="23dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txt_event2_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="11dp"
-                        android:text="Evento XXX"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txt_event2_distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="32dp"
-                        android:text="30km"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_evento2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="4dp">
-
-                    <TextView
-                        android:id="@+id/txt_evento2_cidade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Rio de Janeiro"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="#FF9800" />
 
                     <LinearLayout
-                        android:id="@+id/event2_confirm_row"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/chk_event2_confirm"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:layout_gravity="center_vertical"/>
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <TextView
-                            android:id="@+id/txt_event2_confirm_prompt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Presença confirmada?"
-                            android:textColor="#000000"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/evento_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
-                android:layout_marginBottom="122dp"
-                android:background="@drawable/rounded_background"
-                android:orientation="horizontal"
-                android:paddingVertical="27dp">
-
-                <LinearLayout
-                    android:id="@+id/event_card_3_avatar"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="18dp"
-                    android:background="@drawable/rouded_background_blue"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_titulo3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_event3_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="11dp"
-                        android:text="Evento XXX"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txt_event3_distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="30dp"
-                        android:text="15km"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/info_evento3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="4dp">
-
-                    <TextView
-                        android:id="@+id/txt_evento3_cidade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:text="Belo Horizonte"
-                        android:textColor="#1A1A1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/event3_confirm_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/chk_event3_confirm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:layout_gravity="center_vertical"/>
+                            android:text="Corrida Noturna SP"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#212121"
+                            android:layout_marginBottom="4dp"/>
 
                         <TextView
-                            android:id="@+id/txt_event3_confirm_prompt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20 de Dezembro • 5km"
+                            android:textSize="14sp"
+                            android:textColor="#757575"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desafie seus limites sob as luzes da cidade. Uma experiência única de corrida noturna."
+                            android:textSize="14sp"
+                            android:textColor="#616161"
+                            android:layout_marginBottom="20dp"/>
+
+                        <Button
+                            android:id="@+id/btn_inscrever_evento2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Presença confirmada?"
-                            android:textColor="#000000"
-                            android:textSize="10sp" />
+                            android:text="Inscrever-se"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:backgroundTint="#212121"
+                            app:cornerRadius="8dp"/>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-
-
-
-            <LinearLayout
-                android:id="@+id/containerButtonConfirmar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
-                android:layout_marginBottom="100dp"
-                android:background="@drawable/button_confirm_selector"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CONFIRMAR PRESENÇA"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_iniciar_corrida"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
+                android:layout_gravity="end|bottom"
                 android:layout_margin="16dp"
                 android:src="@android:drawable/ic_dialog_map"
                 android:backgroundTint="@color/black"
-                android:tint="@android:color/white"
-                android:contentDescription="Iniciar Corrida" />
+                app:tint="@android:color/white"
+                android:contentDescription="@string/desc_fab_iniciar_corrida" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

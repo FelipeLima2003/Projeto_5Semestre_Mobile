@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,7 +10,6 @@
     android:background="#FFFFFF"
     tools:context=".PerfilActivity">
 
-    <!-- Barra Superior "VOLTAR" -->
     <LinearLayout
         android:id="@+id/header_bar"
         android:layout_width="match_parent"
@@ -26,7 +27,8 @@
             android:layout_marginEnd="13dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/seta_voltar" />
+            android:src="@drawable/seta_voltar"
+            android:contentDescription="@string/voltar" />
 
         <TextView
             android:id="@+id/text_voltar"
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="VOLTAR"
+            android:text="@string/voltar"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -49,14 +51,14 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Avatar e Nome -->
             <ImageView
                 android:id="@+id/img_perfil_avatar"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo"
+                android:contentDescription="Avatar" />
 
             <TextView
                 android:id="@+id/txt_perfil_nome"
@@ -78,12 +80,11 @@
                 android:textSize="16sp"
                 tools:text="Masculino"/>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Sobre mim:"
+                android:text="@string/perfil_sobre_mim"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
@@ -93,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/stroke_black"
                 android:gravity="top"
-                android:hint="Escreva um pouco sobre você..."
+                android:hint="@string/perfil_hint_descricao"
                 android:inputType="textMultiLine"
                 android:minHeight="120dp"
                 android:padding="12dp"
@@ -110,7 +111,7 @@
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:visibility="gone"
-                tools:text="Esta é a minha biografia. Eu gosto de correr aos domingos e participar de maratonas pela cidade."
+                tools:text="Esta é a minha biografia."
                 tools:visibility="gone" />
 
             <Button
@@ -120,7 +121,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/black"
-                android:text="Salvar Alterações"
+                android:text="@string/perfil_btn_salvar"
                 android:textColor="@android:color/white"
                 android:visibility="gone"
                 tools:visibility="visible"/>
@@ -132,16 +133,60 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#FF4444"
-                android:text="Excluir Conta"
+                android:text="@string/perfil_btn_excluir"
                 android:textColor="@android:color/white"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_proximo_evento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#F0F8FF"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRÓXIMO EVENTO"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#3DA3FF"
+                        android:letterSpacing="0.1"/>
+
+                    <TextView
+                        android:id="@+id/txt_evento_nome_perfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Nome do Evento"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A1C"/>
+
+                    <TextView
+                        android:id="@+id/txt_evento_detalhes_perfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data • Distância"
+                        android:textSize="14sp"
+                        android:textColor="#757575"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Histórico de Corridas"
+                android:text="@string/perfil_historico_titulo"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />

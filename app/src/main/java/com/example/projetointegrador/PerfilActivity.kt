@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +41,31 @@ class PerfilActivity : BaseActivity() {
         setupListeners()
         buscarDadosDoPerfil()
         buscarHistoricoDeCorridas()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        verificarEventosSalvos()
+    }
+
+    private fun verificarEventosSalvos() {
+        if (!isMyProfile) return
+
+        val prefs = getSharedPreferences("DadosApp", MODE_PRIVATE)
+        val nomeEvento = prefs.getString("EVENTO_NOME", null)
+        val detalhesEvento = prefs.getString("EVENTO_DETALHES", null)
+
+        val cardEvento = findViewById<androidx.cardview.widget.CardView>(R.id.card_proximo_evento)
+        val txtNome = findViewById<TextView>(R.id.txt_evento_nome_perfil)
+        val txtDetalhes = findViewById<TextView>(R.id.txt_evento_detalhes_perfil)
+
+        if (nomeEvento != null && cardEvento != null) {
+
+            cardEvento.visibility = View.VISIBLE
+            txtNome.text = nomeEvento
+            txtDetalhes.text = detalhesEvento
+        }
     }
 
     private fun setupListeners() {

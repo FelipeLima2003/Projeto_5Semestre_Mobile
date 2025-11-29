@@ -118,12 +118,10 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
 
         val intent = Intent(this, LocationService::class.java)
         stopService(intent)
-
-
-        if (loggedInUserId != -1 && finalDistance > 0) {
+        if (loggedInUserId != -1) {
             salvarDadosDaCorrida()
         } else {
-            Toast.makeText(this, "Corrida finalizada, mas não foi salva (sem distância percorrida).", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Erro: Usuário não identificado para salvar.", Toast.LENGTH_LONG).show()
             finish()
         }
     }

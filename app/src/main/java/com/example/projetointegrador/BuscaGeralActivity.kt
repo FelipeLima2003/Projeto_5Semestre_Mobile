@@ -35,6 +35,16 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         iconVoltar.setOnClickListener { finish() }
         textVoltar.setOnClickListener { finish() }
 
+        val btnEvento1: android.widget.Button = findViewById(R.id.btn_inscrever_evento1)
+        btnEvento1.setOnClickListener {
+            confirmarInscricao("Maratona do Rio", "15 de Dezembro • 12km")
+        }
+
+        val btnEvento2: android.widget.Button = findViewById(R.id.btn_inscrever_evento2)
+        btnEvento2.setOnClickListener {
+            confirmarInscricao("Corrida Noturna SP", "20 de Dezembro • 5km")
+        }
+
 
         val optionsMenuIcon: ImageView = findViewById(R.id.options_menu_icon)
         optionsMenuIcon.setOnClickListener { view ->
@@ -46,6 +56,27 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
             pedirPermissoesDeLocalizacao()
         }
 
+    }
+
+    private fun confirmarInscricao(nomeEvento: String, detalhesEvento: String) {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Confirmar Inscrição")
+            .setMessage("Deseja participar do evento $nomeEvento?")
+            .setPositiveButton("Sim, vamos nessa!") { _, _ ->
+                salvarEventoLocalmente(nomeEvento, detalhesEvento)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun salvarEventoLocalmente(nome: String, detalhes: String) {
+        val prefs = getSharedPreferences("DadosApp", MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString("EVENTO_NOME", nome)
+        editor.putString("EVENTO_DETALHES", detalhes)
+        editor.apply()
+
+        Toast.makeText(this, "Inscrição confirmada com sucesso! 🏃💨", Toast.LENGTH_SHORT).show()
     }
 
     private val requestPermissionLauncher =

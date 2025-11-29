@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ProjetoIntegrador</string>
+    <string name="app_name">RunConnect</string>
 
-    <!-- General -->
     <string name="voltar">VOLVER</string>
     <string name="erro_conexao">Fallo en la conexión: Verifique su internet</string>
     <string name="erro_generico">Ocurrió un error inesperado</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="cancelar">Cancelar</string>
 
-    <!-- Login (MainActivity) -->
     <string name="login_hint_email">Correo electrónico</string>
     <string name="login_hint_senha">Contraseña</string>
     <string name="login_btn_entrar">ENTRAR</string>
     <string name="login_link_cadastro">¿No tiene cuenta? Regístrese</string>
-
-    <!-- Mensajes de Login -->
     <string name="login_erro_vazio">Por favor, complete el correo y la contraseña.</string>
     <string name="login_erro_invalido">Usuario o contraseña inválidos</string>
     <string name="login_sucesso">Inicio de sesión exitoso</string>
 
-    <!-- Registro (CadastroActivity) -->
     <string name="cadastro_titulo">Crear Cuenta</string>
     <string name="cadastro_hint_nome">Nombre Completo</string>
     <string name="cadastro_hint_nascimento">Fecha de Nacimiento (DD/MM/AAAA)</string>
@@ -28,13 +25,6 @@
     <string name="cadastro_hint_senha">Contraseña</string>
     <string name="cadastro_hint_confirma_senha">Confirmar Contraseña</string>
     <string name="cadastro_btn_confirmar">REGISTRAR</string>
-
-    <!-- Género -->
-    <string name="genero_masculino">Masculino</string>
-    <string name="genero_feminino">Femenino</string>
-    <string name="genero_outro">Prefiero no decir</string>
-
-    <!-- Mensajes de Registro -->
     <string name="cadastro_erro_campos_vazios">Por favor, complete todos los campos</string>
     <string name="cadastro_erro_genero">Por favor, seleccione un género</string>
     <string name="cadastro_erro_senhas_diferentes">Las contraseñas no coinciden</string>
@@ -43,4 +33,67 @@
     <string name="cadastro_erro_data_msg">Use el formato DD/MM/AAAA</string>
     <string name="cadastro_sucesso">¡Registro realizado con éxito!</string>
     <string name="cadastro_erro_prefixo">Error al registrar:</string>
+
+    <string name="genero_masculino">Masculino</string>
+    <string name="genero_feminino">Femenino</string>
+    <string name="genero_outro">Prefiero no decir</string>
+
+    <string name="consulta_titulo">Buscar \ncorredores</string>
+    <string name="consulta_hint_busca">Buscar por nombre o @</string>
+    <string name="consulta_btn_sobre_nos">Sobre Nosotros</string>
+    <string name="consulta_btn_meu_perfil">Mi Perfil</string>
+    <string name="consulta_btn_eventos">Eventos</string>
+    <string name="toast_ja_segue">Ya sigues a %s</string>
+    <string name="toast_comecou_seguir">Ahora sigues a %s</string>
+    <string name="toast_erro_seguir">No se pudo seguir al usuario.</string>
+
+    <string name="btn_seguir">Seguir</string>
+    <string name="btn_perfil_usuario">Perfil</string>
+
+    <string name="busca_participantes_titulo">Corredores participantes</string>
+    <string name="busca_eventos_titulo">Próximos Eventos</string>
+    <string name="busca_presenca_confirmada">¿Presencia confirmada?</string>
+    <string name="busca_btn_confirmar">CONFIRMAR PRESENCIA</string>
+    <string name="desc_fab_iniciar_corrida">Iniciar Carrera</string>
+    <string name="menu_mudar_fonte">Cambiar tamaño de fuente</string>
+    <string name="permissao_concedida_corrida">Permiso concedido. Iniciando carrera...</string>
+    <string name="permissao_essencial_corrida">El permiso de ubicación es esencial para rastrear su carrera.</string>
+
+    <string name="evento_maratona_titulo">Maratón de Río</string>
+    <string name="evento_maratona_data">15 de Diciembre • 12km</string>
+    <string name="evento_maratona_desc">Ven a participar en la carrera callejera más grande de la ciudad. Recorrido llano y vista al mar.</string>
+    <string name="evento_noturna_titulo">Carrera Nocturna SP</string>
+    <string name="evento_noturna_data">20 de Diciembre • 5km</string>
+    <string name="evento_noturna_desc">Desafía tus límites bajo las luces de la ciudad. Una experiencia única de carrera nocturna.</string>
+    <string name="btn_inscrever">Inscribirse</string>
+
+    <string name="dialog_font_titulo">Ajustar tamaño de fuente</string>
+    <string name="dialog_font_texto_exemplo">100%</string>
+
+    <string name="perfil_sobre_mim">Sobre mí:</string>
+    <string name="perfil_hint_descricao">Escribe un poco sobre ti...</string>
+    <string name="perfil_descricao_vazia">Este usuario aún no ha escrito sobre sí mismo.</string>
+    <string name="perfil_btn_salvar">Guardar Cambios</string>
+    <string name="perfil_btn_excluir">Eliminar Cuenta</string>
+    <string name="perfil_historico_titulo">Historial de Carreras</string>
+    <string name="perfil_msg_salva">¡Descripción guardada con éxito!</string>
+    <string name="perfil_dialog_excluir_titulo">Eliminar Cuenta</string>
+    <string name="perfil_dialog_excluir_msg">¿Está seguro de que desea eliminar su cuenta? Esta acción es permanente y no se puede deshacer.</string>
+    <string name="perfil_dialog_excluir_confirmar">Sí, Eliminar</string>
+    <string name="perfil_conta_excluida">Su cuenta fue eliminada con éxito.</string>
+    <string name="perfil_proximo_evento_label">PRÓXIMO EVENTO</string>
+
+    <string name="corrida_tempo_label">Tiempo:</string>
+    <string name="corrida_distancia_label">Distancia:</string>
+    <string name="corrida_btn_parar">Detener Carrera</string>
+    <string name="corrida_notificacao_titulo">RunConnect</string>
+    <string name="corrida_notificacao_texto">Rastreando su carrera...</string>
+    <string name="corrida_salva_sucesso">¡Carrera guardada con éxito!</string>
+    <string name="corrida_nao_salva">Carrera finalizada, pero no fue guardada (sin distancia recorrida).</string>
+
+    <string name="sobre_nos_titulo">Sobre Nosotros</string>
+    <string name="sobre_nos_texto">RunConnect es una aplicación creada para personas que tienen pasión por correr y aman hacer amigos y conectar con otras personas.</string>
+    <string name="sobre_nos_devs">Desarrolladores:</string>
+    <string name="sobre_nos_social">Nuestras redes sociales:</string>
+    <string name="sobre_nos_copyright">© Copyright</string>
 </resources>
