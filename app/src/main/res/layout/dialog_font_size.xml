@@ -1,4 +1,3 @@
-<!-- Em res/layout/dialog_font_size.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Ajustar tamanho da fonte"
+        android:text="@string/dialog_font_titulo"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="100%"
+        android:text="@string/dialog_font_texto_exemplo"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 

@@ -23,13 +23,14 @@
             android:layout_height="20dp"
             android:layout_marginEnd="13dp"
             android:scaleType="fitXY"
-            android:src="@drawable/seta_voltar" />
+            android:src="@drawable/seta_voltar"
+            android:contentDescription="@string/voltar"/>
 
         <TextView
             android:id="@+id/textVoltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VOLTAR"
+            android:text="@string/voltar"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="16dp"
-            android:text="Buscar por \ncorredores"
+            android:text="@string/consulta_titulo"
             android:textColor="#1A1A1C"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -73,7 +74,8 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="1dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/lupa" />
+                android:src="@drawable/lupa"
+                android:contentDescription="Buscar"/>
 
             <EditText
                 android:id="@+id/searchEditText"
@@ -81,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Buscar por nome ou @"
+                android:hint="@string/consulta_hint_busca"
                 android:inputType="text"
                 android:textColor="#3DA3FF"
                 android:textSize="13sp"
@@ -110,7 +112,6 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp">
 
-        <!-- Botão Sobre Nós -->
         <LinearLayout
             android:id="@+id/containerSobreNos"
             android:layout_width="wrap_content"
@@ -128,7 +129,7 @@
                 android:id="@+id/txt_sobreNos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sobre Nós"
+                android:text="@string/consulta_btn_sobre_nos"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -152,13 +153,12 @@
                 android:id="@+id/txt_meuPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Meu Perfil"
+                android:text="@string/consulta_btn_meu_perfil"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Botão Eventos -->
         <LinearLayout
             android:id="@+id/containerEventos"
             android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                 android:id="@+id/txt_eventos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eventos"
+                android:text="@string/consulta_btn_eventos"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold" />

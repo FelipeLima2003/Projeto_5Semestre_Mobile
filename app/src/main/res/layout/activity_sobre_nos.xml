@@ -27,13 +27,14 @@
             android:layout_height="20dp"
             android:layout_marginEnd="13dp"
             android:scaleType="fitXY"
-            android:src="@drawable/seta_voltar" />
+            android:src="@drawable/seta_voltar"
+            android:contentDescription="@string/voltar"/>
 
         <TextView
             android:id="@+id/text_voltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VOLTAR"
+            android:text="@string/voltar"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -56,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Sobre Nós"
+                android:text="@string/sobre_nos_titulo"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -70,7 +71,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:contentDescription="Logo RunConnect"
+                    android:contentDescription="Logo"
                     android:src="@drawable/logo" />
             </FrameLayout>
 
@@ -81,7 +82,7 @@
                 android:layout_marginBottom="40dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:text="O RunConnect é um aplicativo criado para pessoas que tem uma paixão por corrida e ama fazer amizades e conectar com outras pessoas."
+                android:text="@string/sobre_nos_texto"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -89,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Desenvolvedores:"
+                android:text="@string/sobre_nos_devs"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -140,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Nossas redes sociais:"
+                android:text="@string/sobre_nos_social"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -157,7 +158,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="8dp"
-                    android:contentDescription="Ícone WhatsApp"
+                    android:contentDescription="WhatsApp"
                     android:src="@drawable/whatsapp" />
 
                 <TextView
@@ -179,7 +180,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="8dp"
-                    android:contentDescription="Ícone Instagram"
+                    android:contentDescription="Instagram"
                     android:src="@drawable/instagram" />
 
                 <TextView
@@ -197,7 +198,7 @@
         android:id="@+id/copyright_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="© Copyright"
+        android:text="@string/sobre_nos_copyright"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:paddingBottom="16dp"

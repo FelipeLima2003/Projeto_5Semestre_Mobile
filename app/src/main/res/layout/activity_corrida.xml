@@ -4,14 +4,12 @@
     android:layout_height="match_parent"
     tools:context=".CorridaActivity">
 
-    <!-- O Fragmento do Mapa que ocupará a tela inteira -->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Overlay com informações de tempo e distância -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +38,6 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <!-- Botão para Parar a Corrida -->
     <Button
         android:id="@+id/btn_parar_corrida"
         android:layout_width="wrap_content"
