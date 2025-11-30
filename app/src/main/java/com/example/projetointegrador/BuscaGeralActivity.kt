@@ -84,6 +84,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
             if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
                 Toast.makeText(this, "Permissão concedida. Iniciando corrida...", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, CorridaActivity::class.java)
+                intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "A permissão de localização é essencial para rastrear sua corrida.", Toast.LENGTH_LONG).show()
