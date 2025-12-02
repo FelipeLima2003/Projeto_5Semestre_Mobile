@@ -43,7 +43,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/corridas/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/corridas/usuario/{usuarioId}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/uploads/imagem").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()
                         // Adicionar demais endpoints para liberar as requisições.
                         .anyRequest().authenticated() 
                          
