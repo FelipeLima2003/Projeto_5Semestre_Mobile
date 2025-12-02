@@ -68,14 +68,15 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="6dp">
 
+            <!-- Se o ícone 'lupa' não existir, o Android Studio avisa. Pode usar @android:drawable/ic_menu_search -->
             <ImageView
                 android:id="@+id/iconLupa"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="1dp"
+                android:layout_marginEnd="5dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/lupa"
-                android:contentDescription="Buscar"/>
+                android:contentDescription="@string/consulta_hint_busca"/>
 
             <EditText
                 android:id="@+id/searchEditText"

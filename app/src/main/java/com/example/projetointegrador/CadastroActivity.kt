@@ -122,9 +122,9 @@ class CadastroActivity : BaseActivity() {
         val dataNascimentoFormatada = try {
             val partes = nascimentoStr.split("/")
             if (partes.size != 3 || partes[0].length != 2 || partes[1].length != 2 || partes[2].length != 4) {
-                throw IllegalArgumentException("Formato de data inválido")
+                // CORREÇÃO AQUI: Usando string traduzível em vez de texto fixo
+                throw IllegalArgumentException(getString(R.string.cadastro_erro_data_formato))
             }
-
 
             "${partes[0]}/${partes[1]}/${partes[2]}"
 
@@ -143,9 +143,7 @@ class CadastroActivity : BaseActivity() {
             // 1. Tenta fazer o Upload da Imagem (se houver)
             if (imagemSelecionadaUri != null) {
                 try {
-                    Toast.makeText(this@CadastroActivity, "Enviando foto...", Toast.LENGTH_SHORT)
-                        .show()
-
+                    Toast.makeText(this@CadastroActivity, getString(R.string.cadastro_upload_enviando), Toast.LENGTH_SHORT).show()
                     val imagemPart = prepararImagemParaUpload(imagemSelecionadaUri!!)
 
                     if (imagemPart != null) {
@@ -153,8 +151,8 @@ class CadastroActivity : BaseActivity() {
 
                         // Aceita se for sucesso (200-299)
                         if (responseUpload.isSuccessful) {
-                            // Pega o corpo. Se for nulo, usa string vazia ou null
-                            urlImagemServidor = responseUpload.body()?.toString()
+                            // CORREÇÃO: Remove aspas extras e espaços
+                            urlImagemServidor = responseUpload.body()?.toString()?.replace("\"", "")?.trim()
                             Log.d("Upload", "Imagem enviada: $urlImagemServidor")
                         } else {
                             Log.e("Upload", "Erro no upload: ${responseUpload.code()}")
@@ -162,7 +160,7 @@ class CadastroActivity : BaseActivity() {
                     }
                 } catch (e: Exception) {
                     Log.e("Upload", "Falha técnica no upload (mas seguindo cadastro)", e)
-                    // Não damos return aqui para não impedir o cadastro se só a foto falhar
+                    // sem retorno aqui  para não impedir o cadastro se só a foto falhar
                 }
             }
 
@@ -248,7 +246,4 @@ class CadastroActivity : BaseActivity() {
             return null
         }
     }
-
 }
-
-

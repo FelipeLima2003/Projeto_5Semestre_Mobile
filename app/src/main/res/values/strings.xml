@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ProjetoIntegrador</string>
+    <string name="app_name">RunConnect</string>
 
+    <!-- GERAL -->
     <string name="voltar">VOLTAR</string>
     <string name="erro_conexao">Falha na conexão: Verifique sua internet</string>
     <string name="erro_generico">Ocorreu um erro inesperado</string>
     <string name="aplicar">Aplicar</string>
     <string name="cancelar">Cancelar</string>
 
+    <!-- MENSAGENS DE ERRO / AVISO (NOVOS) -->
+    <string name="erro_login_id_ausente">Erro: ID do usuário não encontrado. Faça o login novamente.</string>
+    <string name="lista_usuarios_vazia">Nenhum usuário encontrado</string>
+    <string name="erro_carregar_lista_usuarios">Erro ao carregar lista de usuários</string>
+    <string name="toast_abrindo_perfil">Abrindo perfil de %s</string>
+
+    <!-- LOGIN -->
     <string name="login_hint_email">E-mail</string>
     <string name="login_hint_senha">Senha</string>
     <string name="login_btn_entrar">ENTRAR</string>
@@ -16,6 +24,7 @@
     <string name="login_erro_invalido">Usuário ou senha inválidos</string>
     <string name="login_sucesso">Login realizado com sucesso</string>
 
+    <!-- CADASTRO -->
     <string name="cadastro_titulo">Criar Conta</string>
     <string name="cadastro_hint_nome">Nome Completo</string>
     <string name="cadastro_hint_nascimento">Data de Nascimento (DD/MM/AAAA)</string>
@@ -34,10 +43,17 @@
     <string name="cadastro_sucesso">Cadastro realizado com sucesso!</string>
     <string name="cadastro_erro_prefixo">Erro ao cadastrar:</string>
 
+    <!-- CADASTRO - FOTO -->
+    <string name="cadastro_hint_foto_camera">Toque na câmera para adicionar foto</string>
+    <string name="cadastro_desc_foto">Adicionar foto de perfil</string>
+    <string name="cadastro_upload_enviando">Enviando foto...</string>
+
+    <!-- GÊNERO -->
     <string name="genero_masculino">Masculino</string>
     <string name="genero_feminino">Feminino</string>
     <string name="genero_outro">Prefiro não informar</string>
 
+    <!-- MENU / CONSULTA -->
     <string name="consulta_titulo">Buscar por \ncorredores</string>
     <string name="consulta_hint_busca">Buscar por nome ou @</string>
     <string name="consulta_btn_sobre_nos">Sobre Nós</string>
@@ -50,26 +66,41 @@
     <string name="btn_seguir">Seguir</string>
     <string name="btn_perfil_usuario">Perfil</string>
 
+    <!-- BUSCA / EVENTOS -->
     <string name="busca_participantes_titulo">Corredores participantes</string>
     <string name="busca_eventos_titulo">Próximos Eventos</string>
     <string name="busca_presenca_confirmada">Presença confirmada?</string>
     <string name="busca_btn_confirmar">CONFIRMAR PRESENÇA</string>
-    <string name="desc_fab_iniciar_corrida">Iniciar Corrida</string>
-    <string name="menu_mudar_fonte">Mudar tamanho da fonte</string>
-    <string name="permissao_concedida_corrida">Permissão concedida. Iniciando corrida...</string>
-    <string name="permissao_essencial_corrida">A permissão de localização é essencial para rastrear sua corrida.</string>
 
+    <!-- BOTÃO INSCREVER (Geral) -->
+    <string name="btn_inscrever">Inscrever-se</string>
+
+    <!-- EVENTOS EXEMPLO -->
     <string name="evento_maratona_titulo">Maratona do Rio</string>
     <string name="evento_maratona_data">15 de Dezembro • 12km</string>
     <string name="evento_maratona_desc">Venha participar da maior corrida de rua da cidade. Percurso plano e vista para o mar.</string>
     <string name="evento_noturna_titulo">Corrida Noturna SP</string>
     <string name="evento_noturna_data">20 de Dezembro • 5km</string>
     <string name="evento_noturna_desc">Desafie seus limites sob as luzes da cidade. Uma experiência única de corrida noturna.</string>
-    <string name="btn_inscrever">Inscrever-se</string>
 
+    <!-- CORRIDA / MAPA -->
+    <string name="desc_fab_iniciar_corrida">Iniciar Corrida</string>
+    <string name="menu_mudar_fonte">Mudar tamanho da fonte</string>
+    <string name="permissao_concedida_corrida">Permissão concedida. Iniciando corrida...</string>
+    <string name="permissao_essencial_corrida">A permissão de localização é essencial para rastrear sua corrida.</string>
+    <string name="corrida_tempo_label">Tempo:</string>
+    <string name="corrida_distancia_label">Distância:</string>
+    <string name="corrida_btn_parar">Parar Corrida</string>
+    <string name="corrida_notificacao_titulo">RunConnect</string>
+    <string name="corrida_notificacao_texto">Rastreando sua corrida...</string>
+    <string name="corrida_salva_sucesso">Corrida salva com sucesso!</string>
+    <string name="corrida_nao_salva">Corrida finalizada, mas não foi salva (sem distância percorrida).</string>
+
+    <!-- FONTE DIALOG -->
     <string name="dialog_font_titulo">Ajustar tamanho da fonte</string>
     <string name="dialog_font_texto_exemplo">100%</string>
 
+    <!-- PERFIL -->
     <string name="perfil_sobre_mim">Sobre mim:</string>
     <string name="perfil_hint_descricao">Escreva um pouco sobre você...</string>
     <string name="perfil_descricao_vazia">Este usuário ainda não escreveu sobre si.</string>
@@ -83,14 +114,7 @@
     <string name="perfil_conta_excluida">Sua conta foi excluída com sucesso.</string>
     <string name="perfil_proximo_evento_label">PRÓXIMO EVENTO</string>
 
-    <string name="corrida_tempo_label">Tempo:</string>
-    <string name="corrida_distancia_label">Distância:</string>
-    <string name="corrida_btn_parar">Parar Corrida</string>
-    <string name="corrida_notificacao_titulo">RunConnect</string>
-    <string name="corrida_notificacao_texto">Rastreando sua corrida...</string>
-    <string name="corrida_salva_sucesso">Corrida salva com sucesso!</string>
-    <string name="corrida_nao_salva">Corrida finalizada, mas não foi salva (sem distância percorrida).</string>
-
+    <!-- SOBRE NÓS -->
     <string name="sobre_nos_titulo">Sobre Nós</string>
     <string name="sobre_nos_texto">O RunConnect é um aplicativo criado para pessoas que tem uma paixão por corrida e ama fazer amizades e conectar com outras pessoas.</string>
     <string name="sobre_nos_devs">Desenvolvedores:</string>

@@ -28,7 +28,8 @@ class ConsultaActivity : BaseActivity() {
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
 
         if (loggedInUserId == -1) {
-            Toast.makeText(this, "Erro: ID do usuário não encontrado. Faça o login novamente.", Toast.LENGTH_LONG).show()
+            // CORREÇÃO: String traduzível
+            Toast.makeText(this, getString(R.string.erro_login_id_ausente), Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -107,22 +108,27 @@ class ConsultaActivity : BaseActivity() {
                         listaCompletaDeUsuarios.addAll(listaDaApi.filter { it.id != loggedInUserId })
                         setupRecyclerView(listaCompletaDeUsuarios)
                     } else {
-                        Toast.makeText(this@ConsultaActivity, "Nenhum usuário encontrado", Toast.LENGTH_SHORT).show()
+                        // CORREÇÃO: String traduzível
+                        Toast.makeText(this@ConsultaActivity, getString(R.string.lista_usuarios_vazia), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Log.e("ConsultaActivity", "Erro ao buscar usuários: ${response.code()}")
-                    Toast.makeText(this@ConsultaActivity, "Erro ao carregar lista", Toast.LENGTH_SHORT).show()
+                    // CORREÇÃO: String traduzível
+                    Toast.makeText(this@ConsultaActivity, getString(R.string.erro_carregar_lista_usuarios), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("ConsultaActivity", "Falha na chamada de rede", e)
-                Toast.makeText(this@ConsultaActivity, "Falha na conexão", Toast.LENGTH_SHORT).show()
+                // CORREÇÃO: String traduzível existente
+                Toast.makeText(this@ConsultaActivity, getString(R.string.erro_conexao), Toast.LENGTH_SHORT).show()
             }
         }
     }
 
 
     private fun abrirPerfil(usuario: UsuarioPublicoResponse) {
-        Toast.makeText(this, "Abrindo perfil de ${usuario.nome}", Toast.LENGTH_SHORT).show()
+        // CORREÇÃO: String traduzível formatada
+        val msg = getString(R.string.toast_abrindo_perfil, usuario.nome)
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, PerfilActivity::class.java)
         intent.putExtra("USER_PROFILE_ID", usuario.id)
@@ -136,8 +142,9 @@ class ConsultaActivity : BaseActivity() {
             usuarioAdapter = UsuarioAdapter(
                 usuarios,
                 onFollowClick = { usuarioClicado ->
-                    seguirUsuario(usuarioClicado)
+                    seguirUsuario(usuarioClicado.id, usuarioClicado.nome)
                 },
+
                 onProfileClick = { usuarioClicado ->
                     abrirPerfil(usuarioClicado)
                 }
@@ -151,37 +158,43 @@ class ConsultaActivity : BaseActivity() {
         }
     }
 
-    private fun seguirUsuario(usuarioASeguir: UsuarioPublicoResponse) {
-        if (loggedInUserId == -1) { return }
+    private fun seguirUsuario(usuarioAlvoId: Int, nomeUsuarioAlvo: String) {
+
+        if (loggedInUserId == -1) {
+            Toast.makeText(this, getString(R.string.login_erro_invalido), Toast.LENGTH_SHORT).show()
+            return
+        }
 
         lifecycleScope.launch {
             try {
-                val response = RetrofitClient.apiService.seguirUsuario(
-                    idUsuarioASerSeguido = usuarioASeguir.id,
-                    idDoSeguidor = loggedInUserId
-                )
+                val response = RetrofitClient.apiService.seguirUsuario(loggedInUserId, usuarioAlvoId)
 
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ConsultaActivity, "Agora você está seguindo ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
+                    val mensagem = getString(R.string.toast_comecou_seguir, nomeUsuarioAlvo)
+                    Toast.makeText(this@ConsultaActivity, mensagem, Toast.LENGTH_SHORT).show()
 
-                    val itemParaRemover = listaCompletaDeUsuarios.find { it.id == usuarioASeguir.id }
-                    if (itemParaRemover != null) {
-                        listaCompletaDeUsuarios.remove(itemParaRemover)
-                    }
-                    filtrarLista(binding.searchEditText.text.toString())
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("ConsultaActivity", "Erro ao seguir usuário (${response.code()}): $errorBody")
-                    if (response.code() == 409 || (response.code() == 400 && errorBody?.contains("already follows", ignoreCase = true) == true)) {
-                        Toast.makeText(this@ConsultaActivity, "Você já segue ${usuarioASeguir.nome}", Toast.LENGTH_SHORT).show()
+                    if (response.code() == 409) { // Conflito (Já segue)
+                        val mensagem = getString(R.string.toast_ja_segue, nomeUsuarioAlvo)
+                        Toast.makeText(this@ConsultaActivity, mensagem, Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@ConsultaActivity, "Não foi possível seguir o usuário.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@ConsultaActivity,
+                            getString(R.string.toast_erro_seguir),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } catch (e: Exception) {
-                Log.e("ConsultaActivity", "Falha de rede ou parsing ao seguir", e)
-                Toast.makeText(this@ConsultaActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ConsultaActivity,
+                    getString(R.string.erro_conexao),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+        // Configurar título programaticamente para garantir tradução
+        val tituloTextView = binding.titulo
+        tituloTextView.text = getString(R.string.consulta_titulo)
     }
 }

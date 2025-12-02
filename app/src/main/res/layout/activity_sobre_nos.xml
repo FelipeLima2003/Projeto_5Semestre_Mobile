@@ -95,6 +95,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- DEV 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,11 +103,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <View
+                <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/moldura_perfil" />
+                    android:src="@drawable/moldura_perfil"
+                    android:contentDescription="Foto Dev 1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -116,6 +118,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- DEV 2 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,11 +126,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <View
+                <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/moldura_perfil" />
+                    android:src="@drawable/moldura_perfil"
+                    android:contentDescription="Foto Dev 2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,6 +150,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- WHATSAPP -->
             <LinearLayout
                 android:id="@+id/whatsapp_link"
                 android:layout_width="match_parent"
@@ -154,6 +159,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <!-- Se não tiver o ícone "whatsapp", use @android:drawable/ic_menu_share ou adicione o png na pasta drawable -->
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -165,10 +171,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="https://www.whatsapp.com"
+                    android:text="WhatsApp"
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- INSTAGRAM -->
             <LinearLayout
                 android:id="@+id/instagram_link"
                 android:layout_width="match_parent"
@@ -176,6 +183,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <!-- Se não tiver o ícone "instagram", use @android:drawable/ic_menu_camera ou adicione o png na pasta drawable -->
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -187,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="https://www.instagram.com"
+                    android:text="Instagram"
                     android:textSize="14sp" />
             </LinearLayout>
 
