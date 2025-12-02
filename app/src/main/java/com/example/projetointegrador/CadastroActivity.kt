@@ -7,24 +7,17 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import com.example.projetointegrador.databinding.ActivityCadastroBinding
-import kotlinx.coroutines.launch
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.os.Build
-import android.provider.MediaStore
-import android.util.Base64
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import java.io.ByteArrayOutputStream
-
-import java.io.File
-import java.io.FileOutputStream
+import com.example.projetointegrador.databinding.ActivityCadastroBinding
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 
 class CadastroActivity : BaseActivity() {
 
@@ -74,6 +67,38 @@ class CadastroActivity : BaseActivity() {
 
         binding.containerButtonConfirmar.setOnClickListener {
             realizarCadastro()
+        }
+
+        binding.editNascimento.addTextChangedListener(
+            MaskUtils.apply(binding.editNascimento, "##/##/####")
+        )
+
+        binding.editCpf.addTextChangedListener(
+            MaskUtils.apply(binding.editCpf, "###.###.###-##")
+        )
+
+        binding.editTelefone.addTextChangedListener(
+            MaskUtils.apply(binding.editTelefone, "(##) #####-####")
+        )
+
+        val btnVerSenha = findViewById<ImageView>(R.id.btn_ver_senha)
+
+        var eSenhaVisivel = false
+
+        btnVerSenha.setOnClickListener {
+
+            eSenhaVisivel = !eSenhaVisivel
+
+            if (eSenhaVisivel) {
+
+                binding.editSenha.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                btnVerSenha.alpha = 1.0f
+            } else {
+
+                binding.editSenha.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                btnVerSenha.alpha = 0.6f
+            }
+            binding.editSenha.setSelection(binding.editSenha.text.length)
         }
     }
 

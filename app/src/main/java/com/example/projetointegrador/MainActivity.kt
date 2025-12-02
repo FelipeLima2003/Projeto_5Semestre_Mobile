@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                         Log.d("MainActivity", "Login bem-sucedido para o usuário ID: $loggedInUserId")
 
                         val intent = Intent(this@MainActivity, ConsultaActivity::class.java)
-
                         intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
                         intent.putExtra("LOGGED_IN_USER_NAME", loggedInUserName)
 
@@ -70,20 +69,8 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(this@MainActivity, getString(R.string.login_erro_invalido), Toast.LENGTH_LONG).show()
                     }
-
-
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("MainActivity", "Erro de login (${response.code()}): $errorBody")
-
-                    Toast.makeText(this@MainActivity, getString(R.string.login_erro_invalido), Toast.LENGTH_LONG).show()
                 }
-
-
             } catch (e: Exception) {
-                Log.e("MainActivity", "Falha na chamada de rede", e)
-
-                Toast.makeText(this@MainActivity, getString(R.string.erro_conexao), Toast.LENGTH_LONG).show()
             }
         }
     }

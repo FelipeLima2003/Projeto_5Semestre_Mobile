@@ -1,5 +1,6 @@
 package com.example.projetointegrador
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,6 +12,7 @@ object RetrofitClient {
     private var authToken: String? = null
 
     fun setAuthToken(token: String) {
+        Log.d("RetrofitClient", "Token SALVO na memória: $token") // Log para confirmar
         authToken = token
     }
 
@@ -20,8 +22,11 @@ object RetrofitClient {
                 val originalRequest = chain.request()
                 val requestBuilder = originalRequest.newBuilder()
 
-                authToken?.let { token ->
-                    requestBuilder.header("Authorization", "Bearer $token")
+                if (authToken != null) {
+                    Log.d("RetrofitClient", "Adicionando Token no cabeçalho: Bearer $authToken") // Log para ver se está enviando
+                    requestBuilder.header("Authorization", "Bearer $authToken")
+                } else {
+                    Log.e("RetrofitClient", "ERRO GRAVE: O Token está NULO! O login não foi feito ou a memória foi limpa.")
                 }
 
                 val newRequest = requestBuilder.build()
