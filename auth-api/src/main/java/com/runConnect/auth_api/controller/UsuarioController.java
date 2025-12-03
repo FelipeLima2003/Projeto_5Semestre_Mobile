@@ -153,7 +153,7 @@ public class UsuarioController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-    // --- Endpoint para deletar os dados do usuario ---
+    // --- Endpoint para deletar usuario ---
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id) {
         if (!usuarioRepository.existsById(id)) {
@@ -167,7 +167,19 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-
+    // --- Endpoint para atualizar imagem de perfil ---
+@PutMapping("/{id}/imagem")
+public ResponseEntity<UsuarioPublicoDTO> atualizarImagem(@PathVariable Integer id, @RequestBody Map<String, String> request) {
+    String novaImagemUrl = request.get("imagemUrl");
+    
+    return usuarioRepository.findById(id)
+            .map(usuario -> {
+                usuario.setImagemUrl(novaImagemUrl); // Atualiza a URL
+                Usuario usuarioAtualizado = usuarioRepository.save(usuario);
+                return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
 }
 
 
