@@ -148,6 +148,34 @@ class PerfilActivity : BaseActivity() {
         binding.txtPerfilNome.text = perfil.nome
         binding.txtPerfilGenero.text = perfil.genero.replaceFirstChar { it.titlecase() }
 
+        // --- LOGS DE DEBUG ---
+        Log.d("DEBUG_IMAGEM", "Nome: ${perfil.nome}")
+        Log.d("DEBUG_IMAGEM", "URL recebida da API: '${perfil.imagemUrl}'")
+        // ---------------------
+
+        // Lógica do Glide
+        if (!perfil.imagemUrl.isNullOrEmpty()) {
+            val urlCompleta = if (perfil.imagemUrl.startsWith("http")) {
+                perfil.imagemUrl
+            } else {
+                "https://runconnect-api.onrender.com/uploads/${perfil.imagemUrl}"
+            }
+
+            Log.d("DEBUG_IMAGEM", "Tentando carregar URL: $urlCompleta") // Log da URL final
+
+            com.bumptech.glide.Glide.with(this)
+                .load(urlCompleta)
+                .placeholder(R.drawable.user_icon)
+                .error(R.drawable.user_icon)
+                .circleCrop()
+                .into(binding.imgPerfilAvatar) // Confirme se o ID é imgPerfilAvatar ou img_perfil_avatar
+        } else {
+            Log.d("DEBUG_IMAGEM", "URL nula ou vazia, carregando placeholder.")
+            binding.imgPerfilAvatar.setImageResource(R.drawable.user_icon)
+        }
+
+
+
         if (isMyProfile) {
             binding.editPerfilDescricao.visibility = View.VISIBLE
             binding.btnSalvarPerfil.visibility = View.VISIBLE

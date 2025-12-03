@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class UpdateDescricaoRequest(
-    @SerializedName("descricao")
-    val descricao: String
+
+    @SerializedName("descricao") val descricao: String
+
 )

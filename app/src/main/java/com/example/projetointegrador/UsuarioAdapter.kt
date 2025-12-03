@@ -21,6 +21,8 @@ class UsuarioAdapter(
     override fun onBindViewHolder(holder: UsuarioViewHolder, position: Int) {
         val usuario = usuarios[position]
         holder.bind(usuario, onFollowClick, onProfileClick)
+
+
     }
 
     override fun getItemCount(): Int = usuarios.size
@@ -33,8 +35,12 @@ class UsuarioAdapter(
     class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userName: TextView = itemView.findViewById(R.id.userName)
         private val userHandle: TextView = itemView.findViewById(R.id.userHandle)
+        // ADICIONE ESTA REFERÊNCIA:
+        private val userIcon: android.widget.ImageView = itemView.findViewById(R.id.iconUser)
+
         private val followButton: View = itemView.findViewById(R.id.containerButtonSeguir)
         private val profileButton: View = itemView.findViewById(R.id.containerButtonPerfil)
+
         fun bind(
             usuario: UsuarioPublicoResponse,
             onFollowClick: (UsuarioPublicoResponse) -> Unit,
@@ -42,6 +48,15 @@ class UsuarioAdapter(
         ) {
             userName.text = usuario.nome
             userHandle.text = "@${usuario.nome.toLowerCase().replace(" ", "")}"
+
+            // --- CÓDIGO DO GLIDE AQUI ---
+            com.bumptech.glide.Glide.with(itemView.context)
+                .load(usuario.imagemUrl) // A URL que vem do banco
+                .placeholder(R.drawable.user_icon) // Imagem enquanto carrega
+                .error(R.drawable.user_icon)       // Imagem se falhar ou URL for nula
+                .circleCrop()                      // Deixa redonda (opcional, fica bonito em perfil)
+                .into(userIcon)
+            // ---------------------------
 
             followButton.setOnClickListener { onFollowClick(usuario) }
             profileButton.setOnClickListener { onProfileClick(usuario) }
