@@ -32,18 +32,22 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     private var loggedInUserId: Int = -1
     private var finalDistance: Double = 0.0
     private var finalDuration: Long = 0L
-    private var distanciaKm: Double = 0.0
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Garante o carregamento do token antes de qualquer coisa
+        RetrofitClient.ensureTokenIsLoaded(applicationContext)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_corrida)
 
         txtTempo = findViewById(R.id.txt_tempo)
         txtDistancia = findViewById(R.id.txt_distancia)
         btnParar = findViewById(R.id.btn_parar_corrida)
+        
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
+        if (loggedInUserId == -1) {
+            Log.w("CorridaActivity", "ID do usuário não encontrado no Intent!")
+        }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -115,13 +119,16 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun pararCorrida() {
-
         val intent = Intent(this, LocationService::class.java)
         stopService(intent)
+        
+        // Garante que temos token antes de tentar salvar
+        RetrofitClient.ensureTokenIsLoaded(applicationContext)
+
         if (loggedInUserId != -1) {
             salvarDadosDaCorrida()
         } else {
-            Toast.makeText(this, "Erro: Usuário não identificado para salvar.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Erro: Usuário não identificado para salvar. Faça login novamente.", Toast.LENGTH_LONG).show()
             finish()
         }
     }
@@ -151,12 +158,17 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
                     Toast.makeText(this@CorridaActivity, "Corrida salva com sucesso!", Toast.LENGTH_LONG).show()
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    Log.e("CorridaActivity", "Erro ao salvar corrida: ${response.code()} - $errorBody")
-                    Toast.makeText(this@CorridaActivity, "Erro: $errorBody", Toast.LENGTH_LONG).show()
+                    Log.e("CorridaActivity", "Erro API (${response.code()}): $errorBody")
+
+                    if (response.code() == 403) {
+                        Toast.makeText(this@CorridaActivity, "Sessão expirada (403). Faça login novamente.", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@CorridaActivity, "Erro ao salvar: $errorBody", Toast.LENGTH_LONG).show()
+                    }
                 }
             } catch (e: Exception) {
-                Log.e("CorridaActivity", "Falha de rede ao salvar corrida", e)
-                Toast.makeText(this@CorridaActivity, "Falha na conexão ao salvar.", Toast.LENGTH_SHORT).show()
+                Log.e("CorridaActivity", "Falha de rede", e)
+                Toast.makeText(this@CorridaActivity, "Falha na conexão.", Toast.LENGTH_SHORT).show()
             } finally {
                 finish()
             }

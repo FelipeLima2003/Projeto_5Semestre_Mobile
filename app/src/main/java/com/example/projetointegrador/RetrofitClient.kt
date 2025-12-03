@@ -1,5 +1,6 @@
 package com.example.projetointegrador
 
+import android.content.Context
 import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -11,9 +12,28 @@ object RetrofitClient {
 
     private var authToken: String? = null
 
+
     fun setAuthToken(token: String) {
-        Log.d("RetrofitClient", "Token SALVO na memória: $token") // Log para confirmar
-        authToken = token
+        // Garante que não haja duplicação do prefixo Bearer
+        val cleanToken = if (token.startsWith("Bearer ", ignoreCase = true)) {
+            token.substring(7)
+        } else {
+            token
+        }
+        Log.d("RetrofitClient", "Token definido na memória (truncado): ${cleanToken.take(10)}...")
+        authToken = cleanToken
+    }
+
+    fun ensureTokenIsLoaded(context: Context) {
+        if (authToken == null) {
+            val savedToken = AppPreferences.getToken(context)
+            if (savedToken != null) {
+                setAuthToken(savedToken)
+                Log.d("RetrofitClient", "Token recuperado das preferências.")
+            } else {
+                Log.e("RetrofitClient", "AVISO: Nenhum token salvo encontrado!")
+            }
+        }
     }
 
     private val client: OkHttpClient by lazy {
@@ -22,11 +42,13 @@ object RetrofitClient {
                 val originalRequest = chain.request()
                 val requestBuilder = originalRequest.newBuilder()
 
-                if (authToken != null) {
-                    Log.d("RetrofitClient", "Adicionando Token no cabeçalho: Bearer $authToken") // Log para ver se está enviando
+
+                if (!authToken.isNullOrBlank()) {
+                    // Adiciona o token no header
                     requestBuilder.header("Authorization", "Bearer $authToken")
+                    Log.d("RetrofitClient", "Auth Header adicionado para: ${originalRequest.url}")
                 } else {
-                    Log.e("RetrofitClient", "ERRO GRAVE: O Token está NULO! O login não foi feito ou a memória foi limpa.")
+                    Log.e("RetrofitClient", "ERRO: Tentando enviar requisição sem Token para ${originalRequest.url}!")
                 }
 
                 val newRequest = requestBuilder.build()

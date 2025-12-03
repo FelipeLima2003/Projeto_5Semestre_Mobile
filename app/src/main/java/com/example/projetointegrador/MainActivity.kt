@@ -58,8 +58,9 @@ class MainActivity : AppCompatActivity() {
                         val loggedInUserId = loginResponse.usuarioId
                         val loggedInUserName = loginResponse.usuarioNome
                         RetrofitClient.setAuthToken(loginResponse.token)
+                        AppPreferences.saveToken(this@MainActivity, loginResponse.token)
 
-                        Log.d("MainActivity", "Login bem-sucedido para o usuário ID: $loggedInUserId")
+                        Log.d("MainActivity", "Login bem-sucedido. Token salvo.")
 
                         val intent = Intent(this@MainActivity, ConsultaActivity::class.java)
                         intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
