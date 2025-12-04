@@ -11,9 +11,9 @@ public record CorridaResponseDTO(
         // Variavel para facilitar o nome do usuario no android studio
         String nomeUsuario,
         BigDecimal distancia,
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
         Timestamp tempoInicial,
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
+       @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
         Timestamp tempoFinal
      
 ) {

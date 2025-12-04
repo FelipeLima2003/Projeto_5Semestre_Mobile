@@ -34,11 +34,11 @@ public class Corrida {
     @Column(name = "distancia", nullable = false)
     private BigDecimal distancia;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     @Column(name = "tempo_inicial", nullable = false)
     private Timestamp tempoInicial;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     @Column(name = "tempo_final", nullable = false)
     private Timestamp tempoFinal;    
 
