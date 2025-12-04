@@ -35,7 +35,7 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Garante o carregamento do token antes de qualquer coisa
+
         RetrofitClient.ensureTokenIsLoaded(applicationContext)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_corrida)
