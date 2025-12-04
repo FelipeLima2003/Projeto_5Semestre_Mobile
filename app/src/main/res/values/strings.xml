@@ -107,6 +107,21 @@
     <string name="dialog_font_titulo">Ajustar tamanho da fonte</string>
     <string name="dialog_font_texto_exemplo">100%</string>
 
+    <!-- PERFIL - ATUALIZAÇÃO DE FOTO -->
+    <string name="perfil_enviando_imagem">Enviando imagem...</string>
+    <string name="perfil_foto_sucesso">Foto atualizada!</string>
+    <string name="perfil_erro_upload">Erro no upload: %s</string>
+    <string name="perfil_erro_salvar">Erro ao salvar alteração.</string>
+    <string name="perfil_erro_servidor_img">Erro: Servidor não retornou nome da imagem.</string>
+    <string name="perfil_erro_processo">Exceção no processo.</string>
+    <string name="perfil_erro_carregar">Erro ao carregar perfil.</string>
+    <string name="perfil_usuario_nao_encontrado">Usuário não encontrado.</string>
+
+    <!-- LOGIN E CADASTRO - ERROS E MENSAGENS -->
+    <string name="erro_login_invalido">ID de login inválido.</string>
+    <string name="erro_dados_incompletos">Erro: Dados do usuário incompletos.</string>
+
+
     <!-- PERFIL -->
     <string name="perfil_sobre_mim">Sobre mim:</string>
     <string name="perfil_hint_descricao">Escreva um pouco sobre você...</string>

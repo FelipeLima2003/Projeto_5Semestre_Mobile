@@ -55,7 +55,7 @@ interface ApiService {
 
     // Dentro da interface ApiService
 
-    @PUT("usuarios/{id}/imagem")
+    @PUT("usuario/{id}/imagem")
     suspend fun atualizarImagemPerfil(
         @Path("id") id: Int,
         @Body body: Map<String, String>

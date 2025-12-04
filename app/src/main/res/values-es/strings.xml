@@ -102,6 +102,19 @@
     <string name="msg_inscricao_sucesso">¡Inscripción confirmada con éxito! 🏃💨</string>
     <string name="status_inscrito">Inscrito</string>
 
+    <!-- PERFIL - ACTUALIZACIÓN DE FOTO -->
+    <string name="perfil_enviando_imagem">Enviando imagen...</string>
+    <string name="perfil_foto_sucesso">¡Foto actualizada!</string>
+    <string name="perfil_erro_upload">Error en la carga: %s</string>
+    <string name="perfil_erro_salvar">Error al guardar cambios.</string>
+    <string name="perfil_erro_servidor_img">Error: El servidor no devolvió el nombre de la imagen.</string>
+    <string name="perfil_erro_processo">Excepción en el proceso.</string>
+    <string name="perfil_erro_carregar">Error al cargar perfil.</string>
+    <string name="perfil_usuario_nao_encontrado">Usuario no encontrado.</string>
+
+    <!-- INICIO DE SESIÓN Y REGISTRO - ERRORES Y MENSAJES -->
+    <string name="erro_login_invalido">ID de inicio de sesión inválido.</string>
+    <string name="erro_dados_incompletos">Error: Datos de usuario incompletos.</string>
 
     <string name="corrida_tempo_label">Tiempo:</string>
     <string name="corrida_distancia_label">Distancia:</string>

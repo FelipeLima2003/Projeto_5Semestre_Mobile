@@ -95,6 +95,20 @@
     <string name="perfil_conta_excluida">Your account was deleted successfully.</string>
     <string name="perfil_proximo_evento_label">NEXT EVENT</string>
 
+    <!-- PROFILE - PHOTO UPDATE -->
+    <string name="perfil_enviando_imagem">Sending image...</string>
+    <string name="perfil_foto_sucesso">Photo updated!</string>    <string name="perfil_erro_upload">Upload error: %s</string>
+    <string name="perfil_erro_salvar">Error saving changes.</string>
+    <string name="perfil_erro_servidor_img">Error: Server did not return image name.</string>
+    <string name="perfil_erro_processo">Process exception.</string>
+    <string name="perfil_erro_carregar">Error loading profile.</string>
+    <string name="perfil_usuario_nao_encontrado">User not found.</string>
+
+    <!-- LOGIN AND REGISTER - ERRORS AND MESSAGES -->
+    <string name="erro_login_invalido">Invalid login ID.</string>
+    <string name="erro_dados_incompletos">Error: Incomplete user data.</string>
+
+
     <!-- EVENTS - SUBSCRIPTION -->
     <string name="dialog_inscricao_titulo">Confirm Registration</string>
     <string name="dialog_inscricao_msg">Do you want to participate in the event %s?</string>
