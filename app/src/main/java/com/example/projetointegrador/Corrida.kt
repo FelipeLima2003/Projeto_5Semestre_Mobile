@@ -18,6 +18,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class CorridaActivity : BaseActivity(), OnMapReadyCallback {
@@ -32,7 +35,7 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     private var loggedInUserId: Int = -1
     private var finalDistance: Double = 0.0
     private var finalDuration: Long = 0L
-
+    private var startTimeMillis: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -43,10 +46,14 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
         txtTempo = findViewById(R.id.txt_tempo)
         txtDistancia = findViewById(R.id.txt_distancia)
         btnParar = findViewById(R.id.btn_parar_corrida)
-        
+
+
+        startTimeMillis = System.currentTimeMillis()
+
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
         if (loggedInUserId == -1) {
             Log.w("CorridaActivity", "ID do usuário não encontrado no Intent!")
+            Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_SHORT).show()
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -69,9 +76,7 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
         }
     }
 
-
     private fun observarDadosDoServico() {
-
         LocationService.locationData.observe(this) { location ->
             val newPoint = LatLng(location.latitude, location.longitude)
             pathPoints.add(newPoint)
@@ -80,14 +85,13 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
         }
 
         LocationService.distanceData.observe(this) { distance ->
-            finalDistance = distance
+            finalDistance = distance // Atualiza a variável global
             val distanceKm = distance / 1000.0
             txtDistancia.text = String.format("Distância: %.2f km", distanceKm)
         }
 
-
         LocationService.durationData.observe(this) { duration ->
-            finalDuration = duration
+            finalDuration = duration // Atualiza a duração
             val hours = TimeUnit.MILLISECONDS.toHours(duration)
             val minutes = TimeUnit.MILLISECONDS.toMinutes(duration) % 60
             val seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60
@@ -97,7 +101,6 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun desenharTrajetoria() {
         googleMap?.clear()
-
         val polylineOptions = PolylineOptions()
             .addAll(pathPoints)
             .color(Color.BLUE)
@@ -106,13 +109,11 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun moverCamera(latLng: LatLng) {
-
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
     }
 
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap?.isMyLocationEnabled = true
         }
@@ -121,9 +122,9 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     private fun pararCorrida() {
         val intent = Intent(this, LocationService::class.java)
         stopService(intent)
-        
-        // Garante que temos token antes de tentar salvar
-        RetrofitClient.ensureTokenIsLoaded(applicationContext)
+
+
+        RetrofitClient.ensureTokenIsLoaded(this)
 
         if (loggedInUserId != -1) {
             salvarDadosDaCorrida()
@@ -134,22 +135,30 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun salvarDadosDaCorrida() {
-        val distanciaKm = finalDistance / 1000.0
 
-        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.getDefault())
+        val usuarioIdParaSalvar = this.loggedInUserId
 
-        val dataFinal = java.util.Date()
-        val dataFinalString = sdf.format(dataFinal)
 
-        val dataInicial = java.util.Date(dataFinal.time - finalDuration)
-        val dataInicialString = sdf.format(dataInicial)
+        Log.d("DEBUG_CORRIDA", "Tentando salvar com ID: $usuarioIdParaSalvar")
+
+        if (usuarioIdParaSalvar <= 0) {
+            Toast.makeText(this, "Erro crítico: ID do usuário inválido ($usuarioIdParaSalvar)", Toast.LENGTH_LONG).show()
+            return
+        }
+
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val dataInicialFormatada = sdf.format(Date(startTimeMillis))
+        val dataFinalFormatada = sdf.format(Date())
+
 
         val corridaRequest = CorridaRequest(
-            usuarioId = loggedInUserId,
-            distancia = distanciaKm,
-            tempoInicial = dataInicialString,
-            tempoFinal = dataFinalString
+            usuarioId = usuarioIdParaSalvar,
+            distancia = finalDistance / 1000.0,
+            tempoInicial = dataInicialFormatada,
+            tempoFinal = dataFinalFormatada
         )
+
 
         lifecycleScope.launch {
             try {
