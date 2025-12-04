@@ -1,6 +1,6 @@
 package com.example.projetointegrador
 
-import CorridaResponse
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,22 +39,32 @@ class CorridaAdapter(
             val tempoInicialStr = corrida.tempoInicial
             val tempoFinalStr = corrida.tempoFinal
 
-            if (tempoInicialStr != null && tempoFinalStr != null) {
-                val (dataInicio, dataFim) = parseDatas(tempoInicialStr.toString(), tempoFinalStr.toString())
+            if (!tempoInicialStr.isNullOrEmpty() && !tempoFinalStr.isNullOrEmpty()) {
+                val (dataInicio, dataFim) = parseDatas(tempoInicialStr, tempoFinalStr)
 
                 if (dataInicio != null && dataFim != null) {
                     // Calcula a diferença em milissegundos
                     val duracaoMs = dataFim.time - dataInicio.time
 
-                    // Formata HH:MM:SS
+                    // Formata a duração (HH:MM:SS)
                     val hours = TimeUnit.MILLISECONDS.toHours(duracaoMs)
                     val minutes = TimeUnit.MILLISECONDS.toMinutes(duracaoMs) % 60
                     val seconds = TimeUnit.MILLISECONDS.toSeconds(duracaoMs) % 60
                     txtTempo.text = String.format("Tempo: %02d:%02d:%02d", hours, minutes, seconds)
 
-                    // Formata a Data de Exibição (usando a data final)
-                    val displayFormat = SimpleDateFormat("dd 'de' MMMM, yyyy", Locale("pt", "BR"))
-                    txtData.text = displayFormat.format(dataFim)
+                    // Formata a Data e Hora de Exibição (usando a data inicial que é quando ocorreu)
+                    // Formato desejado: "20 de Novembro, 2025 às 15:30"
+                    val displayFormatData = SimpleDateFormat("dd 'de' MMMM, yyyy", Locale("pt", "BR"))
+                    val displayFormatHora = SimpleDateFormat("HH:mm", Locale("pt", "BR"))
+                    
+                    val dataString = displayFormatData.format(dataInicio)
+                    val horaString = displayFormatHora.format(dataInicio)
+                    
+                    // Capitaliza a primeira letra do mês (opcional, mas fica bonito: "de novembro" -> "de Novembro")
+                    // O SimpleDateFormat em pt-BR geralmente retorna minúsculo.
+                    
+                    txtData.text = "$dataString às $horaString"
+                    
                 } else {
                     txtTempo.text = "Tempo: --:--"
                     txtData.text = "Data desconhecida"
@@ -66,7 +76,9 @@ class CorridaAdapter(
         }
 
         private fun parseDatas(inicio: String, fim: String): Pair<Date?, Date?> {
-            // Tenta formatos com 'T' (ISO) e com espaço (SQL padrão)
+            // Tenta formatos comuns (ISO e SQL padrão)
+            // Se a string vier com 'T', usa o formato com T. Se vier espaço, usa o com espaço.
+            // Adicionado .SSS para precisão de milissegundos se houver
             val formatos = listOf(
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()),
                 SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()),
@@ -79,8 +91,13 @@ class CorridaAdapter(
             for (fmt in formatos) {
                 try {
                     if (dInicio == null) dInicio = fmt.parse(inicio)
+                } catch (e: Exception) { }
+                
+                try {
                     if (dFim == null) dFim = fmt.parse(fim)
                 } catch (e: Exception) { }
+                
+                if (dInicio != null && dFim != null) break
             }
             return Pair(dInicio, dFim)
         }

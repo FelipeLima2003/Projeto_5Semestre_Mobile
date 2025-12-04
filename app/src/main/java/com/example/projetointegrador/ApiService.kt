@@ -1,6 +1,5 @@
 package com.example.projetointegrador
 
-import CorridaResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -53,7 +52,6 @@ interface ApiService {
     @POST("uploads/imagem")
     suspend fun uploadImagem(@Part file: MultipartBody.Part): Response<String>
 
-    // Dentro da interface ApiService
 
     @PUT("usuario/{id}/imagem")
     suspend fun atualizarImagemPerfil(

@@ -1,6 +1,5 @@
 package com.example.projetointegrador
 
-import CorridaResponse
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
