@@ -83,6 +83,13 @@
     <string name="evento_noturna_data">20 de Dezembro • 5km</string>
     <string name="evento_noturna_desc">Desafie seus limites sob as luzes da cidade. Uma experiência única de corrida noturna.</string>
 
+    <!-- EVENTOS - INSCRIÇÃO -->
+    <string name="dialog_inscricao_titulo">Confirmar Inscrição</string>
+    <string name="dialog_inscricao_msg">Deseja participar do evento %s?</string>
+    <string name="dialog_inscricao_sim">Sim, vamos nessa!</string>
+    <string name="msg_inscricao_sucesso">Inscrição confirmada com sucesso! 🏃💨</string>
+    <string name="status_inscrito">Inscrito</string>
+
     <!-- CORRIDA / MAPA -->
     <string name="desc_fab_iniciar_corrida">Iniciar Corrida</string>
     <string name="menu_mudar_fonte">Mudar tamanho da fonte</string>

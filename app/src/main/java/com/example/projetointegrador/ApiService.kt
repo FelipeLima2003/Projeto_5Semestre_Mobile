@@ -52,5 +52,14 @@ interface ApiService {
     @Multipart
     @POST("uploads/imagem")
     suspend fun uploadImagem(@Part file: MultipartBody.Part): Response<String>
+
+    // Dentro da interface ApiService
+
+    @PUT("usuarios/{id}/imagem")
+    suspend fun atualizarImagemPerfil(
+        @Path("id") id: Int,
+        @Body body: Map<String, String>
+    ): Response<UsuarioPublicoResponse>
+
 }
 

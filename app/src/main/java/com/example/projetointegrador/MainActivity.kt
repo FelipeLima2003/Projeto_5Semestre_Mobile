@@ -1,9 +1,11 @@
 package com.example.projetointegrador
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -26,6 +29,25 @@ class MainActivity : AppCompatActivity() {
         val loginButton: LinearLayout = findViewById(R.id.containerButtonConfirmar)
 
         val textIrParaCadastro: TextView = findViewById(R.id.txt_ir_para_cadastro)
+
+        val btnVerSenhaLogin: ImageView = findViewById(R.id.btn_ver_senha_login)
+        var isSenhaVisivelLogin = false
+
+        btnVerSenhaLogin.setOnClickListener {
+            isSenhaVisivelLogin = !isSenhaVisivelLogin
+
+            if (isSenhaVisivelLogin) {
+
+                passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                btnVerSenhaLogin.alpha = 1.0f // Ícone totalmente visível
+            } else {
+
+                passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                btnVerSenhaLogin.alpha = 0.5f // Ícone meio transparente
+            }
+
+            passwordEditText.setSelection(passwordEditText.text.length)
+        }
 
         textIrParaCadastro.setOnClickListener {
             val intent = Intent(this, CadastroActivity::class.java)

@@ -7,6 +7,9 @@ import android.widget.TextView
 import android.widget.Toast
 import android.Manifest
 import android.content.Intent
+import android.view.View
+import android.widget.Button
+import android.widget.CheckBox
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -21,7 +24,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
 
         if (loggedInUserId == -1) {
-            Toast.makeText(this, "Erro: Usuário não identificado.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.erro_login_id_ausente), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -35,14 +38,20 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         iconVoltar.setOnClickListener { finish() }
         textVoltar.setOnClickListener { finish() }
 
-        val btnEvento1: android.widget.Button = findViewById(R.id.btn_inscrever_evento1)
+        // Configuração Evento 1
+        val btnEvento1: Button = findViewById(R.id.btn_inscrever_evento1)
+        val checkEvento1: CheckBox = findViewById(R.id.check_inscrito_evento1)
+
         btnEvento1.setOnClickListener {
-            confirmarInscricao("Maratona do Rio", "15 de Dezembro • 12km")
+            confirmarInscricao("Maratona do Rio", "15 de Dezembro • 12km", btnEvento1, checkEvento1)
         }
 
-        val btnEvento2: android.widget.Button = findViewById(R.id.btn_inscrever_evento2)
+        // Configuração Evento 2
+        val btnEvento2: Button = findViewById(R.id.btn_inscrever_evento2)
+        val checkEvento2: CheckBox = findViewById(R.id.check_inscrito_evento2)
+
         btnEvento2.setOnClickListener {
-            confirmarInscricao("Corrida Noturna SP", "20 de Dezembro • 5km")
+            confirmarInscricao("Corrida Noturna SP", "20 de Dezembro • 5km", btnEvento2, checkEvento2)
         }
 
 
@@ -58,15 +67,31 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
 
     }
 
-    private fun confirmarInscricao(nomeEvento: String, detalhesEvento: String) {
+    private fun confirmarInscricao(nomeEvento: String, detalhesEvento: String, botao: Button, checkBox: CheckBox) {
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Confirmar Inscrição")
-            .setMessage("Deseja participar do evento $nomeEvento?")
-            .setPositiveButton("Sim, vamos nessa!") { _, _ ->
+            .setTitle(getString(R.string.dialog_inscricao_titulo)) // "Confirmar Inscrição"
+            .setMessage(getString(R.string.dialog_inscricao_msg, nomeEvento)) // "Deseja participar... %s?"
+            .setPositiveButton(getString(R.string.dialog_inscricao_sim)) { _, _ -> // "Sim, vamos nessa!"
+                // 1. Salva os dados
                 salvarEventoLocalmente(nomeEvento, detalhesEvento)
+
+                // 2. Atualiza visualmente a tela
+                atualizarVisualInscrito(botao, checkBox)
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null) // "Cancelar" (já existia)
             .show()
+    }
+
+    private fun atualizarVisualInscrito(botao: Button, checkBox: CheckBox) {
+        checkBox.visibility = View.VISIBLE
+        checkBox.isChecked = true
+
+        // Traduz o texto do checkbox e do botão
+        checkBox.text = getString(R.string.status_inscrito)
+        botao.text = getString(R.string.status_inscrito)
+
+        botao.isEnabled = false
+        botao.alpha = 0.6f
     }
 
     private fun salvarEventoLocalmente(nome: String, detalhes: String) {
@@ -76,18 +101,18 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         editor.putString("EVENTO_DETALHES", detalhes)
         editor.apply()
 
-        Toast.makeText(this, "Inscrição confirmada com sucesso! 🏃💨", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.msg_inscricao_sucesso), Toast.LENGTH_SHORT).show()
     }
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
-                Toast.makeText(this, "Permissão concedida. Iniciando corrida...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.permissao_concedida_corrida), Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, CorridaActivity::class.java)
                 intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "A permissão de localização é essencial para rastrear sua corrida.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permissao_essencial_corrida), Toast.LENGTH_LONG).show()
             }
         }
 

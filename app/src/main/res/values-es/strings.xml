@@ -2,110 +2,118 @@
 <resources>
     <string name="app_name">RunConnect</string>
 
-    <string name="voltar">BACK</string>
-    <string name="erro_conexao">Connection failed: Check your internet</string>
-    <string name="erro_generico">An unexpected error occurred</string>
-    <string name="aplicar">Apply</string>
-    <string name="cancelar">Cancel</string>
+    <string name="voltar">VOLVER</string>
+    <string name="erro_conexao">Fallo en la conexión: Verifique su internet</string>
+    <string name="erro_generico">Ocurrió un error inesperado</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="cancelar">Cancelar</string>
 
-    <!-- NEW STRINGS -->
-    <string name="erro_login_id_ausente">Error: User ID not found. Please login again.</string>
-    <string name="lista_usuarios_vazia">No users found</string>
-    <string name="erro_carregar_lista_usuarios">Error loading user list</string>
-    <string name="toast_abrindo_perfil">Opening profile of %s</string>
+    <!-- NUEVAS CADENAS -->
+    <string name="erro_login_id_ausente">Error: ID de usuario no encontrado. Inicie sesión nuevamente.</string>
+    <string name="lista_usuarios_vazia">Ningún usuario encontrado</string>
+    <string name="erro_carregar_lista_usuarios">Error al cargar la lista de usuarios</string>
+    <string name="toast_abrindo_perfil">Abriendo perfil de %s</string>
 
-    <string name="login_hint_email">Email</string>
-    <string name="login_hint_senha">Password</string>
-    <string name="login_btn_entrar">LOGIN</string>
-    <string name="login_link_cadastro">No account? Sign up</string>
-    <string name="login_erro_vazio">Please fill in email and password.</string>
-    <string name="login_erro_invalido">Invalid username or password</string>
-    <string name="login_sucesso">Login successful</string>
+    <string name="login_hint_email">Correo electrónico</string>
+    <string name="login_hint_senha">Contraseña</string>
+    <string name="login_btn_entrar">ENTRAR</string>
+    <string name="login_link_cadastro">¿No tiene cuenta? Regístrese</string>
+    <string name="login_erro_vazio">Por favor, complete el correo y la contraseña.</string>
+    <string name="login_erro_invalido">Usuario o contraseña inválidos</string>
+    <string name="login_sucesso">Inicio de sesión exitoso</string>
 
-    <string name="cadastro_titulo">Create Account</string>
-    <string name="cadastro_hint_nome">Full Name</string>
-    <string name="cadastro_hint_nascimento">Date of Birth (DD/MM/YYYY)</string>
-    <string name="cadastro_hint_cpf">ID Document</string>
-    <string name="cadastro_hint_email">Email</string>
-    <string name="cadastro_hint_telefone">Phone</string>
-    <string name="cadastro_hint_senha">Password</string>
-    <string name="cadastro_hint_confirma_senha">Confirm Password</string>
-    <string name="cadastro_btn_confirmar">REGISTER</string>
-    <string name="cadastro_erro_campos_vazios">Please fill in all fields</string>
-    <string name="cadastro_erro_genero">Please select a gender</string>
-    <string name="cadastro_erro_senhas_diferentes">Passwords do not match</string>
-    <string name="cadastro_erro_senhas_iguais_msg">Passwords must be equal</string>
-    <string name="cadastro_erro_data_formato">Invalid date format. Use DD/MM/YYYY</string>
-    <string name="cadastro_erro_data_msg">Use format DD/MM/YYYY</string>
-    <string name="cadastro_sucesso">Registration successful!</string>
-    <string name="cadastro_erro_prefixo">Error registering:</string>
+    <string name="cadastro_titulo">Crear Cuenta</string>
+    <string name="cadastro_hint_nome">Nombre Completo</string>
+    <string name="cadastro_hint_nascimento">Fecha de Nacimiento (DD/MM/AAAA)</string>
+    <string name="cadastro_hint_cpf">Documento de Identidad</string>
+    <string name="cadastro_hint_email">Correo electrónico</string>
+    <string name="cadastro_hint_telefone">Teléfono</string>
+    <string name="cadastro_hint_senha">Contraseña</string>
+    <string name="cadastro_hint_confirma_senha">Confirmar Contraseña</string>
+    <string name="cadastro_btn_confirmar">REGISTRAR</string>
+    <string name="cadastro_erro_campos_vazios">Por favor, complete todos los campos</string>
+    <string name="cadastro_erro_genero">Por favor, seleccione un género</string>
+    <string name="cadastro_erro_senhas_diferentes">Las contraseñas no coinciden</string>
+    <string name="cadastro_erro_senhas_iguais_msg">Las contraseñas deben ser iguales</string>
+    <string name="cadastro_erro_data_formato">Formato de fecha inválido. Use DD/MM/AAAA</string>
+    <string name="cadastro_erro_data_msg">Use el formato DD/MM/AAAA</string>
+    <string name="cadastro_sucesso">¡Registro realizado con éxito!</string>
+    <string name="cadastro_erro_prefixo">Error al registrar:</string>
 
-    <string name="cadastro_hint_foto_camera">Tap the camera to add photo</string>
-    <string name="cadastro_desc_foto">Add profile photo</string>
-    <string name="cadastro_upload_enviando">Uploading photo...</string>
+    <string name="cadastro_hint_foto_camera">Toque la cámara para añadir foto</string>
+    <string name="cadastro_desc_foto">Añadir foto de perfil</string>
+    <string name="cadastro_upload_enviando">Enviando foto...</string>
 
-    <string name="genero_masculino">Male</string>
-    <string name="genero_feminino">Female</string>
-    <string name="genero_outro">Prefer not to say</string>
+    <string name="genero_masculino">Masculino</string>
+    <string name="genero_feminino">Femenino</string>
+    <string name="genero_outro">Prefiero no decir</string>
 
-    <string name="consulta_titulo">Search for \nrunners</string>
-    <string name="consulta_hint_busca">Search by name or @</string>
-    <string name="consulta_btn_sobre_nos">About Us</string>
-    <string name="consulta_btn_meu_perfil">My Profile</string>
-    <string name="consulta_btn_eventos">Events</string>
-    <string name="toast_ja_segue">You are already following %s</string>
-    <string name="toast_comecou_seguir">Now you are following %s</string>
-    <string name="toast_erro_seguir">Could not follow user.</string>
+    <string name="consulta_titulo">Buscar \ncorredores</string>
+    <string name="consulta_hint_busca">Buscar por nombre o @</string>
+    <string name="consulta_btn_sobre_nos">Sobre Nosotros</string>
+    <string name="consulta_btn_meu_perfil">Mi Perfil</string>
+    <string name="consulta_btn_eventos">Eventos</string>
+    <string name="toast_ja_segue">Ya sigues a %s</string>
+    <string name="toast_comecou_seguir">Ahora sigues a %s</string>
+    <string name="toast_erro_seguir">No se pudo seguir al usuario.</string>
 
-    <string name="btn_seguir">Follow</string>
-    <string name="btn_perfil_usuario">Profile</string>
+    <string name="btn_seguir">Seguir</string>
+    <string name="btn_perfil_usuario">Perfil</string>
 
-    <string name="busca_participantes_titulo">Participating Runners</string>
-    <string name="busca_eventos_titulo">Upcoming Events</string>
-    <string name="busca_presenca_confirmada">Attendance confirmed?</string>
-    <string name="busca_btn_confirmar">CONFIRM ATTENDANCE</string>
+    <string name="busca_participantes_titulo">Corredores participantes</string>
+    <string name="busca_eventos_titulo">Próximos Eventos</string>
+    <string name="busca_presenca_confirmada">¿Presencia confirmada?</string>
+    <string name="busca_btn_confirmar">CONFIRMAR PRESENCIA</string>
 
-    <string name="btn_inscrever">Sign Up</string>
+    <string name="btn_inscrever">Inscribirse</string>
 
-    <string name="desc_fab_iniciar_corrida">Start Run</string>
-    <string name="menu_mudar_fonte">Change font size</string>
-    <string name="permissao_concedida_corrida">Permission granted. Starting run...</string>
-    <string name="permissao_essencial_corrida">Location permission is essential to track your run.</string>
+    <string name="desc_fab_iniciar_corrida">Iniciar Carrera</string>
+    <string name="menu_mudar_fonte">Cambiar tamaño de fuente</string>
+    <string name="permissao_concedida_corrida">Permiso concedido. Iniciando carrera...</string>
+    <string name="permissao_essencial_corrida">El permiso de ubicación es esencial para rastrear su carrera.</string>
 
-    <string name="evento_maratona_titulo">Rio Marathon</string>
-    <string name="evento_maratona_data">December 15 • 12km</string>
-    <string name="evento_maratona_desc">Join the biggest street race in the city. Flat course and sea view.</string>
-    <string name="evento_noturna_titulo">SP Night Run</string>
-    <string name="evento_noturna_data">December 20 • 5km</string>
-    <string name="evento_noturna_desc">Challenge your limits under the city lights. A unique night run experience.</string>
+    <string name="evento_maratona_titulo">Maratón de Río</string>
+    <string name="evento_maratona_data">15 de Diciembre • 12km</string>
+    <string name="evento_maratona_desc">Ven a participar en la carrera callejera más grande de la ciudad. Recorrido llano y vista al mar.</string>
+    <string name="evento_noturna_titulo">Carrera Nocturna SP</string>
+    <string name="evento_noturna_data">20 de Diciembre • 5km</string>
+    <string name="evento_noturna_desc">Desafía tus límites bajo las luces de la ciudad. Una experiencia única de carrera nocturna.</string>
 
-    <string name="dialog_font_titulo">Adjust font size</string>
+    <string name="dialog_font_titulo">Ajustar tamaño de fuente</string>
     <string name="dialog_font_texto_exemplo">100%</string>
 
-    <string name="perfil_sobre_mim">About me:</string>
-    <string name="perfil_hint_descricao">Write a little about yourself...</string>
-    <string name="perfil_descricao_vazia">This user has not written about themselves yet.</string>
-    <string name="perfil_btn_salvar">Save Changes</string>
-    <string name="perfil_btn_excluir">Delete Account</string>
-    <string name="perfil_historico_titulo">Running History</string>
-    <string name="perfil_msg_salva">Description saved successfully!</string>
-    <string name="perfil_dialog_excluir_titulo">Delete Account</string>
-    <string name="perfil_dialog_excluir_msg">Are you sure you want to delete your account? This action is permanent and cannot be undone.</string>
-    <string name="perfil_dialog_excluir_confirmar">Yes, Delete</string>
-    <string name="perfil_conta_excluida">Your account was deleted successfully.</string>
-    <string name="perfil_proximo_evento_label">NEXT EVENT</string>
+    <string name="perfil_sobre_mim">Sobre mí:</string>
+    <string name="perfil_hint_descricao">Escribe un poco sobre ti...</string>
+    <string name="perfil_descricao_vazia">Este usuario aún no ha escrito sobre sí mismo.</string>
+    <string name="perfil_btn_salvar">Guardar Cambios</string>
+    <string name="perfil_btn_excluir">Eliminar Cuenta</string>
+    <string name="perfil_historico_titulo">Historial de Carreras</string>
+    <string name="perfil_msg_salva">¡Descripción guardada con éxito!</string>
+    <string name="perfil_dialog_excluir_titulo">Eliminar Cuenta</string>
+    <string name="perfil_dialog_excluir_msg">¿Está seguro de que desea eliminar su cuenta? Esta acción es permanente y no se puede deshacer.</string>
+    <string name="perfil_dialog_excluir_confirmar">Sí, Eliminar</string>
+    <string name="perfil_conta_excluida">Su cuenta fue eliminada con éxito.</string>
+    <string name="perfil_proximo_evento_label">PRÓXIMO EVENTO</string>
 
-    <string name="corrida_tempo_label">Time:</string>
-    <string name="corrida_distancia_label">Distance:</string>
-    <string name="corrida_btn_parar">Stop Run</string>
+    <!-- EVENTOS - INSCRIPCIÓN -->
+    <string name="dialog_inscricao_titulo">Confirmar Inscripción</string>
+    <string name="dialog_inscricao_msg">¿Desea participar en el evento %s?</string>
+    <string name="dialog_inscricao_sim">¡Sí, vamos!</string>
+    <string name="msg_inscricao_sucesso">¡Inscripción confirmada con éxito! 🏃💨</string>
+    <string name="status_inscrito">Inscrito</string>
+
+
+    <string name="corrida_tempo_label">Tiempo:</string>
+    <string name="corrida_distancia_label">Distancia:</string>
+    <string name="corrida_btn_parar">Detener Carrera</string>
     <string name="corrida_notificacao_titulo">RunConnect</string>
-    <string name="corrida_notificacao_texto">Tracking your run...</string>
-    <string name="corrida_salva_sucesso">Run saved successfully!</string>
-    <string name="corrida_nao_salva">Run finished, but was not saved (no distance covered).</string>
+    <string name="corrida_notificacao_texto">Rastreando su carrera...</string>
+    <string name="corrida_salva_sucesso">¡Carrera guardada con éxito!</string>
+    <string name="corrida_nao_salva">Carrera finalizada, pero no fue guardada (sin distancia recorrida).</string>
 
-    <string name="sobre_nos_titulo">About Us</string>
-    <string name="sobre_nos_texto">RunConnect is an application created for people who have a passion for running and love to make friends and connect with others.</string>
-    <string name="sobre_nos_devs">Developers:</string>
-    <string name="sobre_nos_social">Our social media:</string>
+    <string name="sobre_nos_titulo">Sobre Nosotros</string>
+    <string name="sobre_nos_texto">RunConnect es una aplicación creada para personas que tienen pasión por correr y aman hacer amigos y conectar con otras personas.</string>
+    <string name="sobre_nos_devs">Desarrolladores:</string>
+    <string name="sobre_nos_social">Nuestras redes sociales:</string>
     <string name="sobre_nos_copyright">© Copyright</string>
 </resources>

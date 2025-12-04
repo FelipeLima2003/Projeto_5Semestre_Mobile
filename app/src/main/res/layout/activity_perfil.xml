@@ -51,14 +51,42 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <ImageView
-                android:id="@+id/img_perfil_avatar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/logo"
-                android:contentDescription="@string/cadastro_desc_foto" />
+                android:layout_marginBottom="8dp">
+
+                <!-- A Foto de Perfil -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="60dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/img_perfil_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo"
+                        android:contentDescription="@string/cadastro_desc_foto" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- Ícone de Editar (Câmera) -->
+                <ImageView
+                    android:id="@+id/btn_editar_foto"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/circle_background_blue"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_camera"
+                    app:tint="#FFFFFF"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+                <!-- A visibility começa gone e só aparece se for o MEU perfil -->
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txt_perfil_nome"
