@@ -39,11 +39,11 @@ class MainActivity : AppCompatActivity() {
             if (isSenhaVisivelLogin) {
 
                 passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                btnVerSenhaLogin.alpha = 1.0f // Ícone totalmente visível
+                btnVerSenhaLogin.alpha = 1.0f
             } else {
 
                 passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-                btnVerSenhaLogin.alpha = 0.5f // Ícone meio transparente
+                btnVerSenhaLogin.alpha = 0.5f
             }
 
             passwordEditText.setSelection(passwordEditText.text.length)

@@ -96,6 +96,7 @@
                 android:textStyle="bold" />
 
 
+            <!-- DEV 1: Felipe Lima -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,12 +104,30 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
+                <!-- FrameLayout para a borda -->
+                <FrameLayout
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/perfil_felipe"
-                    android:contentDescription="Foto Dev 1"/>
+                    android:background="@drawable/moldura_perfil"
+                    android:padding="2dp">
+                    
+                    <!-- CardView para recortar a imagem redonda -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/perfil_felipe"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Foto Dev 1"/>
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,6 +138,7 @@
             </LinearLayout>
 
 
+            <!-- DEV 2: Gustavo Ramos -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,12 +146,30 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
+                 <!-- FrameLayout para a borda -->
+                <FrameLayout
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/perfil_gustavo"
-                    android:contentDescription="Foto Dev 2"/>
+                    android:background="@drawable/moldura_perfil"
+                    android:padding="2dp">
+
+                    <!-- CardView para recortar a imagem redonda -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/perfil_gustavo"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Foto Dev 2"/>
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +197,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Se não tiver o ícone "whatsapp", use @android:drawable/ic_menu_share ou adicione o png na pasta drawable -->
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -183,7 +220,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Se não tiver o ícone "instagram", use @android:drawable/ic_menu_camera ou adicione o png na pasta drawable -->
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"

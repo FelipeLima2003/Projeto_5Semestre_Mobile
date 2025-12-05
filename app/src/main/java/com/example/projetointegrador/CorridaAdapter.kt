@@ -31,10 +31,8 @@ class CorridaAdapter(
         private val txtTempo: TextView = itemView.findViewById(R.id.txt_item_tempo)
 
         fun bind(corrida: CorridaResponse) {
-            // 1. Distância
             txtDistancia.text = String.format("Distância: %.2f km", corrida.distancia)
 
-            // 2. Formatar Dados
             val tempoInicialStr = corrida.tempoInicial
             val tempoFinalStr = corrida.tempoFinal
 
@@ -55,9 +53,8 @@ class CorridaAdapter(
 
                     txtData.text = "$dataString às $horaString"
                 } else {
-                    // Fallback
                     txtTempo.text = "Tempo: --:--"
-                    txtData.text = tempoInicialStr // Tenta mostrar o cru pelo menos
+                    txtData.text = tempoInicialStr
                 }
             } else {
                 txtTempo.text = "Tempo: --:--"
@@ -66,9 +63,8 @@ class CorridaAdapter(
         }
 
         private fun parseDatas(inicio: String, fim: String): Pair<Date?, Date?> {
-            // O Servidor retorna: "04/12/2025 19:33:19" (dd/MM/yyyy HH:mm:ss)
             val formatos = listOf(
-                SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()), // Prioridade para formato BR
+                SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()),
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()),
                 SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             )

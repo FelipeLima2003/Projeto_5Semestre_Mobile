@@ -28,7 +28,6 @@ class ConsultaActivity : BaseActivity() {
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
 
         if (loggedInUserId == -1) {
-            // CORREÇÃO: String traduzível
             Toast.makeText(this, getString(R.string.erro_login_id_ausente), Toast.LENGTH_LONG).show()
             finish()
             return
@@ -108,17 +107,14 @@ class ConsultaActivity : BaseActivity() {
                         listaCompletaDeUsuarios.addAll(listaDaApi.filter { it.id != loggedInUserId })
                         setupRecyclerView(listaCompletaDeUsuarios)
                     } else {
-                        // CORREÇÃO: String traduzível
                         Toast.makeText(this@ConsultaActivity, getString(R.string.lista_usuarios_vazia), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Log.e("ConsultaActivity", "Erro ao buscar usuários: ${response.code()}")
-                    // CORREÇÃO: String traduzível
                     Toast.makeText(this@ConsultaActivity, getString(R.string.erro_carregar_lista_usuarios), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("ConsultaActivity", "Falha na chamada de rede", e)
-                // CORREÇÃO: String traduzível existente
                 Toast.makeText(this@ConsultaActivity, getString(R.string.erro_conexao), Toast.LENGTH_SHORT).show()
             }
         }
@@ -126,7 +122,6 @@ class ConsultaActivity : BaseActivity() {
 
 
     private fun abrirPerfil(usuario: UsuarioPublicoResponse) {
-        // CORREÇÃO: String traduzível formatada
         val msg = getString(R.string.toast_abrindo_perfil, usuario.nome)
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
@@ -193,7 +188,6 @@ class ConsultaActivity : BaseActivity() {
                 ).show()
             }
         }
-        // Configurar título programaticamente para garantir tradução
         val tituloTextView = binding.titulo
         tituloTextView.text = getString(R.string.consulta_titulo)
     }

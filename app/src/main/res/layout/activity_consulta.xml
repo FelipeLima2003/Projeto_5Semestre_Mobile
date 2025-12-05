@@ -92,6 +92,7 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewUsuarios"
         android:layout_width="match_parent"
@@ -101,7 +102,6 @@
         android:paddingTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_usuario" />
-
 
     <LinearLayout
         android:id="@+id/containerBotoesInferiores"

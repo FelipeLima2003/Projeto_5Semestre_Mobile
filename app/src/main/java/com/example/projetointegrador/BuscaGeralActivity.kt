@@ -50,7 +50,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         iconVoltar.setOnClickListener { finish() }
         textVoltar.setOnClickListener { finish() }
 
-        // Configuração Evento 1
+
         val btnEvento1: Button = findViewById(R.id.btn_inscrever_evento1)
         val checkEvento1: CheckBox = findViewById(R.id.check_inscrito_evento1)
 
@@ -58,7 +58,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
             confirmarInscricao("Maratona do Rio", "15 de Dezembro • 12km", btnEvento1, checkEvento1)
         }
 
-        // Configuração Evento 2
+
         val btnEvento2: Button = findViewById(R.id.btn_inscrever_evento2)
         val checkEvento2: CheckBox = findViewById(R.id.check_inscrito_evento2)
 
@@ -81,16 +81,16 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
 
     private fun confirmarInscricao(nomeEvento: String, detalhesEvento: String, botao: Button, checkBox: CheckBox) {
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_inscricao_titulo)) // "Confirmar Inscrição"
-            .setMessage(getString(R.string.dialog_inscricao_msg, nomeEvento)) // "Deseja participar... %s?"
-            .setPositiveButton(getString(R.string.dialog_inscricao_sim)) { _, _ -> // "Sim, vamos nessa!"
-                // 1. Salva os dados
+            .setTitle(getString(R.string.dialog_inscricao_titulo))
+            .setMessage(getString(R.string.dialog_inscricao_msg, nomeEvento))
+            .setPositiveButton(getString(R.string.dialog_inscricao_sim)) { _, _ ->
+
                 salvarEventoLocalmente(nomeEvento, detalhesEvento)
 
-                // 2. Atualiza visualmente a tela
+
                 atualizarVisualInscrito(botao, checkBox)
             }
-            .setNegativeButton(getString(R.string.cancelar), null) // "Cancelar" (já existia)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 
@@ -98,7 +98,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         checkBox.visibility = View.VISIBLE
         checkBox.isChecked = true
 
-        // Traduz o texto do checkbox e do botão
+
         checkBox.text = getString(R.string.status_inscrito)
         botao.text = getString(R.string.status_inscrito)
 
@@ -160,11 +160,11 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
     private fun buscarParticipantes() {
         lifecycleScope.launch {
             try {
-                // Busca todos os usuários cadastrados
+
                 val response = RetrofitClient.apiService.getUsuarios()
                 if (response.isSuccessful && response.body() != null) {
                     val todosUsuarios = response.body()!!
-                    // Filtra para não mostrar o próprio usuário logado na lista (opcional, mas comum)
+
                     val participantes = todosUsuarios.filter { it.id != loggedInUserId }
                     
                     if (participantes.isNotEmpty()) {
@@ -191,7 +191,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
     private fun criarItemParticipante(usuario: UsuarioPublicoResponse): View {
         val context = this
         
-        // Cria o CardView container (circular)
+
         val cardView = CardView(context)
         val sizePx = dpToPx(50)
         val marginPx = dpToPx(12)
@@ -204,7 +204,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         cardView.cardElevation = 0f
         cardView.setContentPadding(0, 0, 0, 0)
         
-        // Cria o ImageView para a foto
+
         val imageView = ImageView(context)
         val imgParams = android.view.ViewGroup.LayoutParams(
             android.view.ViewGroup.LayoutParams.MATCH_PARENT,
@@ -215,7 +215,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         
         cardView.addView(imageView)
         
-        // Carrega a imagem com Glide (com Auth Header)
+
         val urlString = usuario.imagemUrl?.replace("\"", "")?.trim()
         if (!urlString.isNullOrEmpty()) {
              val urlFinal = if (urlString.startsWith("http")) {
@@ -240,8 +240,7 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
         } else {
             imageView.setImageResource(R.drawable.logo)
         }
-        
-        // Configura o clique para abrir o perfil
+
         cardView.setOnClickListener {
              val intent = Intent(context, PerfilActivity::class.java)
              intent.putExtra("USER_PROFILE_ID", usuario.id)

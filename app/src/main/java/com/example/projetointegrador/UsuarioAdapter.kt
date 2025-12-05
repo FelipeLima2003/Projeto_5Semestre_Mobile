@@ -35,7 +35,7 @@ class UsuarioAdapter(
     class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userName: TextView = itemView.findViewById(R.id.userName)
         private val userHandle: TextView = itemView.findViewById(R.id.userHandle)
-        // ADICIONE ESTA REFERÊNCIA:
+
         private val userIcon: android.widget.ImageView = itemView.findViewById(R.id.iconUser)
 
         private val followButton: View = itemView.findViewById(R.id.containerButtonSeguir)
@@ -49,14 +49,14 @@ class UsuarioAdapter(
             userName.text = usuario.nome
             userHandle.text = "@${usuario.nome.toLowerCase().replace(" ", "")}"
 
-            // --- CÓDIGO DO GLIDE AQUI ---
+
             com.bumptech.glide.Glide.with(itemView.context)
-                .load(usuario.imagemUrl) // A URL que vem do banco
-                .placeholder(R.drawable.user_icon) // Imagem enquanto carrega
-                .error(R.drawable.user_icon)       // Imagem se falhar ou URL for nula
-                .circleCrop()                      // Deixa redonda (opcional, fica bonito em perfil)
+                .load(usuario.imagemUrl)
+                .placeholder(R.drawable.user_icon)
+                .error(R.drawable.user_icon)
+                .circleCrop()
                 .into(userIcon)
-            // ---------------------------
+
 
             followButton.setOnClickListener { onFollowClick(usuario) }
             profileButton.setOnClickListener { onProfileClick(usuario) }

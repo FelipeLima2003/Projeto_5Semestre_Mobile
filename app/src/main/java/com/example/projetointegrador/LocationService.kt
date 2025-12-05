@@ -28,15 +28,14 @@ class LocationService : Service() {
     private var totalDistance = 0.0
     private var lastLocation: Location? = null
 
-    // Binder para comunicação (padrão recomendado)
+
     inner class LocalBinder : Binder() {
         fun getService(): LocationService = this@LocationService
     }
     private val binder = LocalBinder()
 
     companion object {
-        // LiveData para expor os dados para a Activity.
-        // Eles são "observáveis".
+
         val locationData = MutableLiveData<Location>()
         val distanceData = MutableLiveData<Double>()
         val durationData = MutableLiveData<Long>()
@@ -52,7 +51,6 @@ class LocationService : Service() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { currentLocation ->
-                    // Atualiza os LiveData com os novos valores
                     locationData.postValue(currentLocation)
 
                     if (lastLocation != null) {
@@ -71,7 +69,7 @@ class LocationService : Service() {
             startTime = SystemClock.elapsedRealtime()
             startForegroundService()
             startLocationUpdates()
-            startTimerUpdates() // Inicia o timer que atualiza a cada segundo
+            startTimerUpdates()
         }
         return START_STICKY
     }
@@ -88,7 +86,6 @@ class LocationService : Service() {
         })
     }
 
-    // As funções startForegroundService() e startLocationUpdates() continuam as mesmas
     private fun startForegroundService() {
         val notificationManager = getSystemService(NotificationManager::class.java)
 
@@ -117,7 +114,6 @@ class LocationService : Service() {
         try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
         } catch (e: SecurityException) {
-            // A permissão já foi checada na Activity, mas o lint exige este try-catch.
             e.printStackTrace()
         }
     }
@@ -126,8 +122,7 @@ class LocationService : Service() {
         super.onDestroy()
         isServiceRunning = false
         fusedLocationClient.removeLocationUpdates(locationCallback)
-        handler.removeCallbacksAndMessages(null) // Para o timer
-        // Reseta os LiveData para a próxima corrida
+        handler.removeCallbacksAndMessages(null)
         distanceData.postValue(0.0)
         durationData.postValue(0L)
     }

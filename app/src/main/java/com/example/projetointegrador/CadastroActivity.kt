@@ -161,11 +161,10 @@ class CadastroActivity : BaseActivity() {
         }
 
 
-        //   PROCESSO EM SEGUNDO PLANO
         lifecycleScope.launch {
             var urlImagemServidor: String? = null
 
-            // 1. Tenta fazer o Upload da Imagem (se houver)
+
             if (imagemSelecionadaUri != null) {
                 try {
                     Toast.makeText(this@CadastroActivity, getString(R.string.cadastro_upload_enviando), Toast.LENGTH_SHORT).show()
@@ -174,9 +173,8 @@ class CadastroActivity : BaseActivity() {
                     if (imagemPart != null) {
                         val responseUpload = RetrofitClient.apiService.uploadImagem(imagemPart)
 
-                        // Aceita se for sucesso (200-299)
                         if (responseUpload.isSuccessful) {
-                            // CORREÇÃO: Remove aspas extras e espaços
+
                             urlImagemServidor = responseUpload.body()?.toString()?.replace("\"", "")?.trim()
                             Log.d("Upload", "Imagem enviada: $urlImagemServidor")
                         } else {
@@ -185,11 +183,11 @@ class CadastroActivity : BaseActivity() {
                     }
                 } catch (e: Exception) {
                     Log.e("Upload", "Falha técnica no upload (mas seguindo cadastro)", e)
-                    // sem retorno aqui  para não impedir o cadastro se só a foto falhar
+
                 }
             }
 
-            // 2. Cria o objeto de cadastro
+
             val cadastroRequest = CadastroRequest(
                 nome = nome,
                 dataNascimento = dataNascimentoFormatada,
@@ -201,13 +199,11 @@ class CadastroActivity : BaseActivity() {
                 imagemUrl = urlImagemServidor
             )
 
-            // 3. Envia o cadastro para a API
             try {
                 val response = RetrofitClient.apiService.cadastrar(cadastroRequest)
 
-                // EOFException acontece aqui se o GSON tentar ler corpo vazio
                 if (response.isSuccessful) {
-                    // Se deu sucesso (200, 201), não importa se o body é null, deu certo!
+
                     Log.d("CadastroActivity", "Sucesso: Código ${response.code()}")
                     Toast.makeText(
                         this@CadastroActivity,
@@ -228,7 +224,7 @@ class CadastroActivity : BaseActivity() {
                     ).show()
                 }
             } catch (e: java.io.EOFException) {
-                // CORREÇÃO ESPECÍFICA: Se der EOFException, significa que deu certo mas o body veio vazio
+
                 Log.w("CadastroActivity", "EOFException detectado (Sucesso com corpo vazio)")
                 Toast.makeText(
                     this@CadastroActivity,
@@ -250,7 +246,7 @@ class CadastroActivity : BaseActivity() {
 
     }
 
-    // Função para preparar a imagem para envio
+
     private fun prepararImagemParaUpload(uri: Uri): MultipartBody.Part? {
         try {
             val fileDir = applicationContext.filesDir
@@ -264,7 +260,6 @@ class CadastroActivity : BaseActivity() {
 
             val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
 
-            // "file" é o nome do parâmetro que a Controller Java espera (@RequestParam("file"))
             return MultipartBody.Part.createFormData("file", file.name, requestFile)
         } catch (e: Exception) {
             e.printStackTrace()

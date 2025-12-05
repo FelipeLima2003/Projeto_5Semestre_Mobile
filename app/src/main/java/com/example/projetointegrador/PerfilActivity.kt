@@ -36,7 +36,6 @@ class PerfilActivity : BaseActivity() {
 
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
-            // Carrega visualmente imediato (local)
             Glide.with(this)
                 .load(uri)
                 .apply(RequestOptions.circleCropTransform())
@@ -193,8 +192,7 @@ class PerfilActivity : BaseActivity() {
             Log.d("PerfilActivity", "Carregando: $urlFinal")
 
             val token = AppPreferences.getToken(this) ?: ""
-            
-            // CORREÇÃO: Adiciona o Token no Header do Glide
+
             val glideUrl = GlideUrl(
                 urlFinal, 
                 LazyHeaders.Builder()
@@ -205,7 +203,7 @@ class PerfilActivity : BaseActivity() {
             val signatureKey = System.currentTimeMillis().toString()
 
             Glide.with(this)
-                .load(glideUrl) // Usa GlideUrl em vez de String direta
+                .load(glideUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .signature(ObjectKey(signatureKey)) 
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

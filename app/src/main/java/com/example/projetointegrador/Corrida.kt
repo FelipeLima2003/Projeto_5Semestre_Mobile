@@ -85,13 +85,13 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
         }
 
         LocationService.distanceData.observe(this) { distance ->
-            finalDistance = distance // Atualiza a variável global
+            finalDistance = distance
             val distanceKm = distance / 1000.0
             txtDistancia.text = String.format("Distância: %.2f km", distanceKm)
         }
 
         LocationService.durationData.observe(this) { duration ->
-            finalDuration = duration // Atualiza a duração
+            finalDuration = duration
             val hours = TimeUnit.MILLISECONDS.toHours(duration)
             val minutes = TimeUnit.MILLISECONDS.toMinutes(duration) % 60
             val seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60
