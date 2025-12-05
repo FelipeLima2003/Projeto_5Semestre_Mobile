@@ -1,21 +1,30 @@
 package com.example.projetointegrador
 
-import android.os.Bundle
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
 import android.Manifest
 import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.PopupMenu
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
+import androidx.cardview.widget.CardView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListener {
 
     private var loggedInUserId: Int = -1
+    private lateinit var containerParticipantes: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +38,10 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
             return
         }
 
+        containerParticipantes = findViewById(R.id.container_lista_participantes)
+
         setupListeners()
+        buscarParticipantes()
     }
 
     private fun setupListeners() {
@@ -143,5 +155,105 @@ class BuscaGeralActivity : BaseActivity(), FontSizeDialogFragment.FontSizeListen
 
     override fun onFontSizeSelected(scale: Float) {
         applyAndSaveFontSize(scale)
+    }
+
+    private fun buscarParticipantes() {
+        lifecycleScope.launch {
+            try {
+                // Busca todos os usuários cadastrados
+                val response = RetrofitClient.apiService.getUsuarios()
+                if (response.isSuccessful && response.body() != null) {
+                    val todosUsuarios = response.body()!!
+                    // Filtra para não mostrar o próprio usuário logado na lista (opcional, mas comum)
+                    val participantes = todosUsuarios.filter { it.id != loggedInUserId }
+                    
+                    if (participantes.isNotEmpty()) {
+                        mostrarParticipantes(participantes)
+                    }
+                } else {
+                    Log.e("BuscaGeral", "Erro ao buscar participantes: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("BuscaGeral", "Falha na rede ao buscar participantes", e)
+            }
+        }
+    }
+
+    private fun mostrarParticipantes(participantes: List<UsuarioPublicoResponse>) {
+        containerParticipantes.removeAllViews() // Remove os placeholders estáticos
+
+        for (usuario in participantes) {
+            val itemView = criarItemParticipante(usuario)
+            containerParticipantes.addView(itemView)
+        }
+    }
+
+    private fun criarItemParticipante(usuario: UsuarioPublicoResponse): View {
+        val context = this
+        
+        // Cria o CardView container (circular)
+        val cardView = CardView(context)
+        val sizePx = dpToPx(50)
+        val marginPx = dpToPx(12)
+        
+        val layoutParams = LinearLayout.LayoutParams(sizePx, sizePx)
+        layoutParams.marginEnd = marginPx
+        cardView.layoutParams = layoutParams
+        
+        cardView.radius = sizePx / 2f // 25dp para raio
+        cardView.cardElevation = 0f
+        cardView.setContentPadding(0, 0, 0, 0)
+        
+        // Cria o ImageView para a foto
+        val imageView = ImageView(context)
+        val imgParams = android.view.ViewGroup.LayoutParams(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        imageView.layoutParams = imgParams
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        
+        cardView.addView(imageView)
+        
+        // Carrega a imagem com Glide (com Auth Header)
+        val urlString = usuario.imagemUrl?.replace("\"", "")?.trim()
+        if (!urlString.isNullOrEmpty()) {
+             val urlFinal = if (urlString.startsWith("http")) {
+                urlString
+            } else {
+                "https://runconnect-api.onrender.com/uploads/$urlString"
+            }
+            
+            val token = AppPreferences.getToken(context) ?: ""
+            val glideUrl = GlideUrl(
+                urlFinal, 
+                LazyHeaders.Builder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+            )
+
+            Glide.with(context)
+                .load(glideUrl)
+                .placeholder(R.drawable.logo) 
+                .error(R.drawable.logo)
+                .into(imageView)
+        } else {
+            imageView.setImageResource(R.drawable.logo)
+        }
+        
+        // Configura o clique para abrir o perfil
+        cardView.setOnClickListener {
+             val intent = Intent(context, PerfilActivity::class.java)
+             intent.putExtra("USER_PROFILE_ID", usuario.id)
+             intent.putExtra("LOGGED_IN_USER_ID", loggedInUserId)
+             startActivity(intent)
+        }
+        
+        return cardView
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        val density = resources.displayMetrics.density
+        return (dp * density).toInt()
     }
 }
