@@ -95,7 +95,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- DEV 1 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/moldura_perfil"
+                    android:src="@drawable/perfil_felipe"
                     android:contentDescription="Foto Dev 1"/>
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- DEV 2 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/moldura_perfil"
+                    android:src="@drawable/perfil_gustavo"
                     android:contentDescription="Foto Dev 2"/>
 
                 <TextView

@@ -3,6 +3,7 @@ package com.example.projetointegrador
 import android.content.Context
 import android.util.Log
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -14,7 +15,7 @@ object RetrofitClient {
 
 
     fun setAuthToken(token: String) {
-        // Garante que não haja duplicação do prefixo Bearer
+
         val cleanToken = if (token.startsWith("Bearer ", ignoreCase = true)) {
             token.substring(7)
         } else {
@@ -37,25 +38,31 @@ object RetrofitClient {
     }
 
     private val client: OkHttpClient by lazy {
+
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
         OkHttpClient.Builder()
+
             .addInterceptor { chain ->
                 val originalRequest = chain.request()
                 val requestBuilder = originalRequest.newBuilder()
 
-
                 if (!authToken.isNullOrBlank()) {
-                    // Adiciona o token no header
                     requestBuilder.header("Authorization", "Bearer $authToken")
                     Log.d("RetrofitClient", "Auth Header adicionado para: ${originalRequest.url}")
                 } else {
-                    Log.e("RetrofitClient", "ERRO: Tentando enviar requisição sem Token para ${originalRequest.url}!")
+                    Log.e("RetrofitClient", "ERRO: Sem Token para ${originalRequest.url}!")
                 }
 
                 val newRequest = requestBuilder.build()
                 chain.proceed(newRequest)
             }
+
+            .addInterceptor(logging)
             .build()
     }
+
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()

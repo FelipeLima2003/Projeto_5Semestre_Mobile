@@ -45,7 +45,9 @@ interface ApiService {
     @POST("corridas")
     suspend fun salvarCorrida(@Body corridaRequest: CorridaRequest): Response<Unit>
 
-    @GET("corridas/{id}")
+    // CORREÇÃO: Alterado de "corridas/{id}" para "corridas/usuario/{id}"
+    // "corridas/{id}" retornava um único objeto (a corrida), causando erro ao esperar uma Lista.
+    @GET("corridas/usuario/{id}")
     suspend fun getCorridasDoUsuario(@Path("id") userId: Int): Response<List<CorridaResponse>>
 
     @Multipart
@@ -60,4 +62,3 @@ interface ApiService {
     ): Response<UsuarioPublicoResponse>
 
 }
-

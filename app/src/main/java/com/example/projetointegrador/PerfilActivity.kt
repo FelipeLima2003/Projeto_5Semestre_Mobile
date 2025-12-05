@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.example.projetointegrador.databinding.ActivityPerfilBinding
@@ -31,16 +33,15 @@ class PerfilActivity : BaseActivity() {
     private var isMyProfile: Boolean = false
     private lateinit var corridaAdapter: CorridaAdapter
 
-    // SELETOR DE FOTOS
+
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
-            // 1. Feedback visual IMEDIATO (mostra a foto local enquanto envia)
+            // Carrega visualmente imediato (local)
             Glide.with(this)
                 .load(uri)
                 .apply(RequestOptions.circleCropTransform())
                 .into(binding.imgPerfilAvatar)
 
-            // 2. Inicia o processo de upload e salvamento
             uploadEAtualizarFoto(uri)
         }
     }
@@ -53,7 +54,6 @@ class PerfilActivity : BaseActivity() {
         userProfileId = intent.getIntExtra("USER_PROFILE_ID", -1)
         loggedInUserId = intent.getIntExtra("LOGGED_IN_USER_ID", -1)
 
-        // Se userProfileId não veio, assume que é o próprio usuário logado
         if (userProfileId == -1) userProfileId = loggedInUserId
 
         if (loggedInUserId == -1) {
@@ -66,7 +66,7 @@ class PerfilActivity : BaseActivity() {
 
         setupUI()
         setupListeners()
-        buscarDadosDoPerfil() // Carrega dados iniciais
+        buscarDadosDoPerfil()
         buscarHistoricoDeCorridas()
     }
 
@@ -102,39 +102,28 @@ class PerfilActivity : BaseActivity() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
-    // --- FUNÇÃO CENTRAL DE UPLOAD ---
     private fun uploadEAtualizarFoto(uri: Uri) {
         lifecycleScope.launch {
             try {
                 Toast.makeText(this@PerfilActivity, getString(R.string.perfil_enviando_imagem), Toast.LENGTH_SHORT).show()
 
-                // A. Prepara o arquivo
                 val imagemPart = prepararImagemParaUpload(uri)
 
                 if (imagemPart != null) {
-                    // B. Faz o Upload Físico
                     val responseUpload = RetrofitClient.apiService.uploadImagem(imagemPart)
 
                     if (responseUpload.isSuccessful) {
-                        // Pega o nome do arquivo retornado (ex: "foto123.jpg") e limpa aspas
                         val nomeImagemServidor = responseUpload.body()?.toString()?.replace("\"", "")?.trim()
 
                         if (!nomeImagemServidor.isNullOrEmpty()) {
                             Log.d("PerfilActivity", "Upload OK. Nome: $nomeImagemServidor")
 
-                            // C. Atualiza o Banco de Dados (PUT)
                             val body = mapOf("imagemUrl" to nomeImagemServidor)
-
-                            // O endpoint retorna o USUÁRIO ATUALIZADO
                             val responseUpdate = RetrofitClient.apiService.atualizarImagemPerfil(userProfileId, body)
 
                             if (responseUpdate.isSuccessful && responseUpdate.body() != null) {
                                 Toast.makeText(this@PerfilActivity, getString(R.string.perfil_foto_sucesso), Toast.LENGTH_SHORT).show()
-
-                                // D. Atualiza a tela DIRETAMENTE com o objeto retornado
-                                // Isso evita delay e garante que estamos vendo o que foi salvo
                                 preencherDadosNaTela(responseUpdate.body()!!)
-
                             } else {
                                 Log.e("PerfilActivity", "Erro no PUT: ${responseUpdate.code()}")
                                 Toast.makeText(this@PerfilActivity, getString(R.string.perfil_erro_salvar), Toast.LENGTH_SHORT).show()
@@ -192,7 +181,6 @@ class PerfilActivity : BaseActivity() {
         binding.txtPerfilNome.text = perfil.nome
         binding.txtPerfilGenero.text = perfil.genero.replaceFirstChar { it.titlecase() }
 
-        // --- Lógica de Carregamento de Imagem (Atualizada) ---
         val urlString = perfil.imagemUrl?.replace("\"", "")?.trim()
 
         if (!urlString.isNullOrEmpty()) {
@@ -204,14 +192,23 @@ class PerfilActivity : BaseActivity() {
 
             Log.d("PerfilActivity", "Carregando: $urlFinal")
 
-            // Assinatura única baseada no tempo para FORÇAR o Glide a ignorar cache antigo
+            val token = AppPreferences.getToken(this) ?: ""
+            
+            // CORREÇÃO: Adiciona o Token no Header do Glide
+            val glideUrl = GlideUrl(
+                urlFinal, 
+                LazyHeaders.Builder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+            )
+
             val signatureKey = System.currentTimeMillis().toString()
 
             Glide.with(this)
-                .load(urlFinal)
+                .load(glideUrl) // Usa GlideUrl em vez de String direta
                 .apply(RequestOptions.circleCropTransform())
-                .signature(ObjectKey(signatureKey)) // Força atualização visual
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Pode salvar o novo em cache
+                .signature(ObjectKey(signatureKey)) 
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(binding.imgPerfilAvatar)
@@ -219,7 +216,6 @@ class PerfilActivity : BaseActivity() {
             binding.imgPerfilAvatar.setImageResource(R.drawable.logo)
         }
 
-        // Controle de visualização (Meu Perfil vs Outros)
         if (isMyProfile) {
             binding.editPerfilDescricao.visibility = View.VISIBLE
             binding.btnSalvarPerfil.visibility = View.VISIBLE

@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class CorridaResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("distancia") val distancia: Double,
-    @SerializedName("tempo_final") val tempoFinal: String?,
-    @SerializedName("tempo_inicial") val tempoInicial: String?,
+    // Ajustado para coincidir com o JSON do servidor (camelCase)
+    @SerializedName("tempoFinal") val tempoFinal: String?,
+    @SerializedName("tempoInicial") val tempoInicial: String?,
     @SerializedName("data_corrida") val dataCorrida: String?
 )
