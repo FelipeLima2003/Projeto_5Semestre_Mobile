@@ -68,6 +68,15 @@
             <version>4.4.0</version>
 </dependency>
 
+<!-- Depedencia para teste unitário (Junit5 e Mockito) -->
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+
+</dependency>
+
  <!-- *** NOVA DEPENDÊNCIA PARA CORRIGIR O @Valid *** -->
     
 
