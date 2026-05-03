@@ -1,4 +1,4 @@
-package com.runConnect.auth_api;
+package com.runConnect.auth_api.Controller;
 
 import com.runConnect.auth_api.controller.UsuarioController;
 import com.runConnect.auth_api.dto.CadastroRequestDTO;
@@ -143,7 +143,7 @@ public class UsuarioControllerTest {
 
     }
 
-
+     // 3 — Excluir usuário existente
     @Nested
     @DisplayName("Cenário 3 — Excluir usuário")
     class DeletarUsuario {
@@ -190,7 +190,7 @@ public class UsuarioControllerTest {
         }
     }
 
-     // 3 — Excluir usuário existente
+    
 
      
 }
