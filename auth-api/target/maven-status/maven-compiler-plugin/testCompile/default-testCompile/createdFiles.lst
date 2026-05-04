@@ -1,0 +1,10 @@
+com\runConnect\auth_api\controller\UsuarioControllerTest$BuscarUsuarioPorId.class
+com\runConnect\auth_api\controller\UsuarioControllerTest.class
+com\runConnect\auth_api\controller\AuthenticationControllerTest$ValidarCamposObrigatorios.class
+com\runConnect\auth_api\controller\AuthenticationControllerTest$SenhasInvalidas.class
+com\runConnect\auth_api\controller\AuthenticationControllerTest.class
+com\runConnect\auth_api\controller\UsuarioControllerTest$DeletarUsuario.class
+com\runConnect\auth_api\controller\AuthenticationControllerTest$CadastroBemSucedido.class
+com\runConnect\auth_api\controller\AuthenticationControllerTest$SenhasValidas.class
+com\runConnect\auth_api\AuthApiApplicationTests.class
+com\runConnect\auth_api\util\TestDataFactory.class

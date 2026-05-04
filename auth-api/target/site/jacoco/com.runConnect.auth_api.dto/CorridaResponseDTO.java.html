@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CorridaResponseDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auth-api</a> &gt; <a href="index.source.html" class="el_package">com.runConnect.auth_api.dto</a> &gt; <span class="el_source">CorridaResponseDTO.java</span></div><h1>CorridaResponseDTO.java</h1><pre class="source lang-java linenums">package com.runConnect.auth_api.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.runConnect.auth_api.model.Corrida; 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+<span class="nc" id="L8">public record CorridaResponseDTO(</span>
+        Integer id,
+        Integer usuarioId,
+        // Variavel para facilitar o nome do usuario no android studio
+        String nomeUsuario,
+        BigDecimal distancia,
+        @JsonFormat(pattern = &quot;dd/MM/yyyy HH:mm:ss&quot;, timezone = &quot;America/Sao_Paulo&quot;)
+        Timestamp tempoInicial,
+       @JsonFormat(pattern = &quot;dd/MM/yyyy HH:mm:ss&quot;, timezone = &quot;America/Sao_Paulo&quot;)
+        Timestamp tempoFinal
+     
+) {
+        
+
+    // Construtor usado ao criar a DTO a partir da entidade
+    public CorridaResponseDTO(Corrida corrida) {
+        
+<span class="nc" id="L25">         this(</span>
+<span class="nc" id="L26">            corrida.getId(),</span>
+<span class="nc" id="L27">            corrida.getUsuario().getId(),</span>
+<span class="nc" id="L28">            corrida.getUsuario().getNome(), // Pega o nome do usuario relacionado</span>
+<span class="nc" id="L29">            corrida.getDistancia(),</span>
+<span class="nc" id="L30">            corrida.getTempoInicial(),</span>
+<span class="nc" id="L31">            corrida.getTempoFinal()</span>
+        );
+        
+<span class="nc" id="L34">    }</span>
+
+   
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

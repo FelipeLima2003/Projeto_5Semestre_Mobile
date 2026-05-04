@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auth-api</a> &gt; <a href="index.source.html" class="el_package">com.runConnect.auth_api.model</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package com.runConnect.auth_api.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.runConnect.auth_api.model.enums.Genero;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
+@Getter
+<span class="fc" id="L19">@Setter</span>
+@Entity
+@Table(name = &quot;USUARIO&quot;)
+public class Usuario implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;ID&quot;)
+<span class="fc" id="L27">    private Integer id;</span>
+
+    @Column(name = &quot;NOME&quot;, nullable = false)
+<span class="fc" id="L30">    private String nome;</span>
+
+    @Column(name = &quot;DATA_NASCIMENTO&quot;, nullable = false)
+    @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+<span class="fc" id="L34">    private LocalDate dataNascimento;</span>
+
+    @Column(name = &quot;CPF&quot;, nullable = false, unique = true)
+<span class="fc" id="L37">    private String cpf;</span>
+
+    @Column(name = &quot;EMAIL&quot;, nullable = false, unique = true)
+<span class="fc" id="L40">    private String email;</span>
+
+    @Column(name = &quot;TELEFONE&quot;, nullable = false)
+<span class="fc" id="L43">    private String telefone;</span>
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = &quot;GENERO&quot;, nullable = false)
+<span class="fc" id="L47">    private Genero genero;</span>
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = &quot;SENHA&quot;, nullable = false)
+<span class="fc" id="L51">    private String senha;</span>
+
+    @Column(name = &quot;IMAGEM_URL&quot;)
+<span class="fc" id="L54">    private String imagemUrl;</span>
+
+    @Column(name = &quot;DESCRICAO&quot;)
+<span class="fc" id="L57">    private String descricao;</span>
+
+
+<span class="fc" id="L60">    public Usuario() {}</span>
+
+
+    // --- UserDetails ---
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="nc" id="L66">        return List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
+    }
+    @Override
+<span class="nc" id="L69">    public String getPassword() { return senha; }</span>
+    @Override
+<span class="nc" id="L71">    public String getUsername() { return email; }</span>
+    @Override
+<span class="nc" id="L73">    public boolean isAccountNonExpired() { return true; }</span>
+    @Override
+<span class="nc" id="L75">    public boolean isAccountNonLocked() { return true; }</span>
+    @Override
+<span class="nc" id="L77">    public boolean isCredentialsNonExpired() { return true; }</span>
+    @Override
+<span class="nc" id="L79">    public boolean isEnabled() { return true; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
