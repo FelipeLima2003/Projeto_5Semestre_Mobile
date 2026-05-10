@@ -10,10 +10,10 @@ import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.SeguidoresRepository;
 import com.runConnect.auth_api.repository.UsuarioRepository;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,54 +88,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 
     @PostMapping(&quot;/{idSeguido}/seguir&quot;)
     public ResponseEntity&lt;Void&gt; seguirUsuario(@PathVariable Integer idSeguido, @RequestParam Integer seguidorId) {
-<span class="nc" id="L91">        Usuario seguidor = usuarioRepository.findById(seguidorId)</span>
-<span class="nc" id="L92">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Usuario seguidor não encontrado&quot;));</span>
-<span class="nc" id="L93">        Usuario seguido = usuarioRepository.findById(idSeguido)</span>
-<span class="nc" id="L94">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Usuario a ser seguido não encontrado&quot;));</span>
+<span class="fc" id="L91">        Usuario seguidor = usuarioRepository.findById(seguidorId)</span>
+<span class="fc" id="L92">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Usuario seguidor não encontrado&quot;));</span>
+<span class="fc" id="L93">        Usuario seguido = usuarioRepository.findById(idSeguido)</span>
+<span class="pc" id="L94">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Usuario a ser seguido não encontrado&quot;));</span>
 
         // Verifica se já não segue
-<span class="nc" id="L97">        seguidoresRepository.findById_SeguidorIdAndId_SeguidoId(seguidorId, idSeguido).ifPresent(s -&gt; {</span>
-<span class="nc" id="L98">            throw new ResponseStatusException(HttpStatus.CONFLICT, &quot;Já segue este utilizador&quot;);</span>
+<span class="fc" id="L97">        seguidoresRepository.findById_SeguidorIdAndId_SeguidoId(seguidorId, idSeguido).ifPresent(s -&gt; {</span>
+<span class="fc" id="L98">            throw new ResponseStatusException(HttpStatus.CONFLICT, &quot;Já segue este utilizador&quot;);</span>
         });
 
-<span class="nc" id="L101">        Seguidores novaRelacao = new Seguidores(seguidor, seguido);</span>
-<span class="nc" id="L102">        seguidoresRepository.save(novaRelacao);</span>
-<span class="nc" id="L103">        return ResponseEntity.ok().build();</span>
+<span class="fc" id="L101">        Seguidores novaRelacao = new Seguidores(seguidor, seguido);</span>
+<span class="fc" id="L102">        seguidoresRepository.save(novaRelacao);</span>
+<span class="fc" id="L103">        return ResponseEntity.ok().build();</span>
     }
 
     @PostMapping(&quot;/{idSeguido}/deixar-de-seguir&quot;)
     public ResponseEntity&lt;Void&gt; deixarDeSeguirUsuario(@PathVariable Integer idSeguido, @RequestParam Integer seguidorId) {
         // Verifica se a relação existe antes de tentar apagar
-<span class="nc" id="L109">        Seguidores relacao = seguidoresRepository.findById_SeguidorIdAndId_SeguidoId(seguidorId, idSeguido)</span>
-<span class="nc" id="L110">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Não segue este Usuario&quot;));</span>
+<span class="fc" id="L109">        Seguidores relacao = seguidoresRepository.findById_SeguidorIdAndId_SeguidoId(seguidorId, idSeguido)</span>
+<span class="fc" id="L110">                .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Não segue este Usuario&quot;));</span>
 
-<span class="nc" id="L112">        seguidoresRepository.delete(relacao);</span>
-<span class="nc" id="L113">        return ResponseEntity.ok().build();</span>
+<span class="fc" id="L112">        seguidoresRepository.delete(relacao);</span>
+<span class="fc" id="L113">        return ResponseEntity.ok().build();</span>
     }
 
     @GetMapping(&quot;/{id}/seguidores&quot;)
     public ResponseEntity&lt;List&lt;UsuarioPublicoDTO&gt;&gt; listarSeguidores(@PathVariable Integer id) {
         // Verifica se o utilizador existe
-<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (!usuarioRepository.existsById(id)) {</span>
-<span class="nc" id="L120">            return ResponseEntity.notFound().build();</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (!usuarioRepository.existsById(id)) {</span>
+<span class="fc" id="L120">            return ResponseEntity.notFound().build();</span>
         }
-<span class="nc" id="L122">        List&lt;UsuarioPublicoDTO&gt; seguidoresDTO = seguidoresRepository.findSeguidoresByUsuarioId(id)</span>
-<span class="nc" id="L123">                .stream()</span>
-<span class="nc" id="L124">                .map(UsuarioPublicoDTO::new)</span>
-<span class="nc" id="L125">                .collect(Collectors.toList());</span>
-<span class="nc" id="L126">        return ResponseEntity.ok(seguidoresDTO);</span>
+<span class="fc" id="L122">        List&lt;UsuarioPublicoDTO&gt; seguidoresDTO = seguidoresRepository.findSeguidoresByUsuarioId(id)</span>
+<span class="fc" id="L123">                .stream()</span>
+<span class="fc" id="L124">                .map(UsuarioPublicoDTO::new)</span>
+<span class="fc" id="L125">                .collect(Collectors.toList());</span>
+<span class="fc" id="L126">        return ResponseEntity.ok(seguidoresDTO);</span>
     }
 
     @GetMapping(&quot;/{id}/seguindo&quot;)
     public ResponseEntity&lt;List&lt;UsuarioPublicoDTO&gt;&gt; listarSeguindo(@PathVariable Integer id) {
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (!usuarioRepository.existsById(id)) {</span>
-<span class="nc" id="L132">            return ResponseEntity.notFound().build();</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (!usuarioRepository.existsById(id)) {</span>
+<span class="fc" id="L132">            return ResponseEntity.notFound().build();</span>
         }
-<span class="nc" id="L134">        List&lt;UsuarioPublicoDTO&gt; seguindoDTO = seguidoresRepository.findSeguindoByUsuarioId(id)</span>
-<span class="nc" id="L135">                .stream()</span>
-<span class="nc" id="L136">                .map(UsuarioPublicoDTO::new)</span>
-<span class="nc" id="L137">                .collect(Collectors.toList());</span>
-<span class="nc" id="L138">        return ResponseEntity.ok(seguindoDTO);</span>
+<span class="fc" id="L134">        List&lt;UsuarioPublicoDTO&gt; seguindoDTO = seguidoresRepository.findSeguindoByUsuarioId(id)</span>
+<span class="fc" id="L135">                .stream()</span>
+<span class="fc" id="L136">                .map(UsuarioPublicoDTO::new)</span>
+<span class="fc" id="L137">                .collect(Collectors.toList());</span>
+<span class="fc" id="L138">        return ResponseEntity.ok(seguindoDTO);</span>
     }
 
     // --- Endpoint para atualizar descrição ---
@@ -143,15 +143,15 @@ import org.springframework.web.bind.annotation.RequestParam;
     public ResponseEntity&lt;UsuarioPublicoDTO&gt; atualizarDescricao(
             @PathVariable Integer id,
             @RequestBody Map&lt;String, String&gt; request) {
-<span class="nc" id="L146">        String novaDescricao = request.get(&quot;descricao&quot;);</span>
+<span class="fc" id="L146">        String novaDescricao = request.get(&quot;descricao&quot;);</span>
         
-<span class="nc" id="L148">        return usuarioRepository.findById(id)</span>
-<span class="nc" id="L149">                .map(usuario -&gt; {</span>
-<span class="nc" id="L150">                    usuario.setDescricao(novaDescricao);</span>
-<span class="nc" id="L151">                    Usuario usuarioAtualizado = usuarioRepository.save(usuario);</span>
-<span class="nc" id="L152">                    return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));</span>
+<span class="fc" id="L148">        return usuarioRepository.findById(id)</span>
+<span class="fc" id="L149">                .map(usuario -&gt; {</span>
+<span class="fc" id="L150">                    usuario.setDescricao(novaDescricao);</span>
+<span class="fc" id="L151">                    Usuario usuarioAtualizado = usuarioRepository.save(usuario);</span>
+<span class="fc" id="L152">                    return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));</span>
                 })
-<span class="nc" id="L154">                .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L154">                .orElse(ResponseEntity.notFound().build());</span>
     }
     // --- Endpoint para deletar usuario ---
     @DeleteMapping(&quot;/{id}&quot;)
@@ -170,15 +170,15 @@ import org.springframework.web.bind.annotation.RequestParam;
     // --- Endpoint para atualizar imagem de perfil ---
 @PutMapping(&quot;/{id}/imagem&quot;)
 public ResponseEntity&lt;UsuarioPublicoDTO&gt; atualizarImagem(@PathVariable Integer id, @RequestBody Map&lt;String, String&gt; request) {
-<span class="nc" id="L173">    String novaImagemUrl = request.get(&quot;imagemUrl&quot;);</span>
+<span class="fc" id="L173">    String novaImagemUrl = request.get(&quot;imagemUrl&quot;);</span>
     
-<span class="nc" id="L175">    return usuarioRepository.findById(id)</span>
-<span class="nc" id="L176">            .map(usuario -&gt; {</span>
-<span class="nc" id="L177">                usuario.setImagemUrl(novaImagemUrl); // Atualiza a URL</span>
-<span class="nc" id="L178">                Usuario usuarioAtualizado = usuarioRepository.save(usuario);</span>
-<span class="nc" id="L179">                return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));</span>
+<span class="fc" id="L175">    return usuarioRepository.findById(id)</span>
+<span class="fc" id="L176">            .map(usuario -&gt; {</span>
+<span class="fc" id="L177">                usuario.setImagemUrl(novaImagemUrl); // Atualiza a URL</span>
+<span class="fc" id="L178">                Usuario usuarioAtualizado = usuarioRepository.save(usuario);</span>
+<span class="fc" id="L179">                return ResponseEntity.ok(new UsuarioPublicoDTO(usuarioAtualizado));</span>
             })
-<span class="nc" id="L181">            .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L181">            .orElse(ResponseEntity.notFound().build());</span>
     }
 }
 

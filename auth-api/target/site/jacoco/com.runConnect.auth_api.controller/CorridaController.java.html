@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping(&quot;/corridas&quot;)
-<span class="nc" id="L28">public class CorridaController {</span>
+<span class="fc" id="L28">public class CorridaController {</span>
     
     @Autowired
     private CorridaRepository corridaRepository;
@@ -37,24 +37,24 @@ import org.springframework.web.bind.annotation.RequestParam;
     public ResponseEntity&lt;Corrida&gt; registrarCorrida(@RequestBody CorridaRequestDTO dto){
 
         // Encontrar o usuaario que fez a corrida pela ID
-<span class="nc" id="L40">        Usuario usuario = usuarioRepository.findById(dto.usuarioId())</span>
-<span class="nc" id="L41">            .orElseThrow(() -&gt; new RuntimeException(&quot;Usuário não encontrado&quot;));</span>
+<span class="fc" id="L40">        Usuario usuario = usuarioRepository.findById(dto.usuarioId())</span>
+<span class="fc" id="L41">            .orElseThrow(() -&gt; new RuntimeException(&quot;Usuário não encontrado&quot;));</span>
  
         // Criar a entidade Corrida
-<span class="nc" id="L44">        Corrida novaCorrida = new Corrida();</span>
-<span class="nc" id="L45">        novaCorrida.setUsuario(usuario);</span>
-<span class="nc" id="L46">        novaCorrida.setDistancia(dto.distancia());</span>
-<span class="nc" id="L47">        novaCorrida.setTempoInicial(dto.tempoInicial());</span>
-<span class="nc" id="L48">        novaCorrida.setTempoFinal(dto.tempoFinal());</span>
+<span class="fc" id="L44">        Corrida novaCorrida = new Corrida();</span>
+<span class="fc" id="L45">        novaCorrida.setUsuario(usuario);</span>
+<span class="fc" id="L46">        novaCorrida.setDistancia(dto.distancia());</span>
+<span class="fc" id="L47">        novaCorrida.setTempoInicial(dto.tempoInicial());</span>
+<span class="fc" id="L48">        novaCorrida.setTempoFinal(dto.tempoFinal());</span>
 
         
         // Salvar a corrida
 
-<span class="nc" id="L53">        Corrida corridaSalva = corridaRepository.save(novaCorrida);</span>
+<span class="fc" id="L53">        Corrida corridaSalva = corridaRepository.save(novaCorrida);</span>
 
-<span class="nc" id="L55">        CorridaResponseDTO responseDTO = new CorridaResponseDTO(corridaSalva);</span>
-<span class="nc" id="L56">        URI location = URI.create(&quot;/corridas/&quot; + corridaSalva.getId());</span>
-<span class="nc" id="L57">        return ResponseEntity.status(201).body(corridaSalva);</span>
+<span class="fc" id="L55">        CorridaResponseDTO responseDTO = new CorridaResponseDTO(corridaSalva);</span>
+<span class="fc" id="L56">        URI location = URI.create(&quot;/corridas/&quot; + corridaSalva.getId());</span>
+<span class="fc" id="L57">        return ResponseEntity.status(201).body(corridaSalva);</span>
 
     }
 
@@ -63,38 +63,38 @@ import org.springframework.web.bind.annotation.RequestParam;
     @GetMapping(&quot;/feed&quot;)
     public ResponseEntity&lt;List&lt;CorridaResponseDTO&gt;&gt; buscarFeedCorridas(@RequestParam Integer meuId) {
         // Verifica se o utilizador que pede o feed existe
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (!usuarioRepository.existsById(meuId)) {</span>
-<span class="nc" id="L67">             throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Utilizador não encontrado&quot;);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!usuarioRepository.existsById(meuId)) {</span>
+<span class="fc" id="L67">             throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Utilizador não encontrado&quot;);</span>
         }
 
-<span class="nc" id="L70">        List&lt;CorridaResponseDTO&gt; feedDTO = corridaRepository.findFeedCorridas(meuId)</span>
-<span class="nc" id="L71">                .stream()</span>
-<span class="nc" id="L72">                .map(CorridaResponseDTO::new) // Converte cada Corrida para DTO</span>
-<span class="nc" id="L73">                .collect(Collectors.toList());</span>
-<span class="nc" id="L74">        return ResponseEntity.ok(feedDTO);</span>
+<span class="fc" id="L70">        List&lt;CorridaResponseDTO&gt; feedDTO = corridaRepository.findFeedCorridas(meuId)</span>
+<span class="fc" id="L71">                .stream()</span>
+<span class="fc" id="L72">                .map(CorridaResponseDTO::new) // Converte cada Corrida para DTO</span>
+<span class="fc" id="L73">                .collect(Collectors.toList());</span>
+<span class="fc" id="L74">        return ResponseEntity.ok(feedDTO);</span>
     }
     
         // --- Endpoint para ver os DETALHES de UMA Corrida ---
 
      @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;CorridaResponseDTO&gt; getCorridaPorId(@PathVariable Integer id) {
-<span class="nc" id="L81">        return corridaRepository.findById(id)</span>
-<span class="nc" id="L82">                .map(CorridaResponseDTO::new)</span>
-<span class="nc" id="L83">                .map(ResponseEntity::ok)</span>
-<span class="nc" id="L84">                .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L81">        return corridaRepository.findById(id)</span>
+<span class="fc" id="L82">                .map(CorridaResponseDTO::new)</span>
+<span class="fc" id="L83">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L84">                .orElse(ResponseEntity.notFound().build());</span>
     }
 
     @GetMapping(&quot;/usuario/{usuarioId}&quot;)
     public ResponseEntity&lt;List&lt;CorridaResponseDTO&gt;&gt; getCorridasPorUsuario(@PathVariable Integer usuarioId) {
-<span class="nc bnc" id="L89" title="All 2 branches missed.">         if (!usuarioRepository.existsById(usuarioId)){</span>
-<span class="nc" id="L90">            return ResponseEntity.notFound().build();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">         if (!usuarioRepository.existsById(usuarioId)){</span>
+<span class="fc" id="L90">            return ResponseEntity.notFound().build();</span>
          }
            
-<span class="nc" id="L93">          List&lt;CorridaResponseDTO&gt; corridasDTO = corridaRepository.findByUsuarioIdOrderByTempoFinalDesc(usuarioId)</span>
-<span class="nc" id="L94">                .stream()</span>
-<span class="nc" id="L95">                .map(CorridaResponseDTO::new)</span>
-<span class="nc" id="L96">                .collect(Collectors.toList());</span>
-<span class="nc" id="L97">        return ResponseEntity.ok(corridasDTO);</span>
+<span class="fc" id="L93">          List&lt;CorridaResponseDTO&gt; corridasDTO = corridaRepository.findByUsuarioIdOrderByTempoFinalDesc(usuarioId)</span>
+<span class="fc" id="L94">                .stream()</span>
+<span class="fc" id="L95">                .map(CorridaResponseDTO::new)</span>
+<span class="fc" id="L96">                .collect(Collectors.toList());</span>
+<span class="fc" id="L97">        return ResponseEntity.ok(corridasDTO);</span>
     }
 
 }

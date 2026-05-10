@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = &quot;SENHA&quot;, nullable = false)
-<span class="fc" id="L51">    private String senha;</span>
+<span class="nc" id="L51">    private String senha;</span>
 
     @Column(name = &quot;IMAGEM_URL&quot;)
 <span class="fc" id="L54">    private String imagemUrl;</span>
@@ -63,7 +63,7 @@ public class Usuario implements UserDetails {
     // --- UserDetails ---
     @Override
     public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
-<span class="nc" id="L66">        return List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
+<span class="fc" id="L66">        return List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
     }
     @Override
 <span class="nc" id="L69">    public String getPassword() { return senha; }</span>

@@ -5,7 +5,7 @@ import com.runConnect.auth_api.model.Corrida;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-<span class="nc" id="L8">public record CorridaResponseDTO(</span>
+<span class="fc" id="L8">public record CorridaResponseDTO(</span>
         Integer id,
         Integer usuarioId,
         // Variavel para facilitar o nome do usuario no android studio
@@ -22,16 +22,16 @@ import java.sql.Timestamp;
     // Construtor usado ao criar a DTO a partir da entidade
     public CorridaResponseDTO(Corrida corrida) {
         
-<span class="nc" id="L25">         this(</span>
-<span class="nc" id="L26">            corrida.getId(),</span>
-<span class="nc" id="L27">            corrida.getUsuario().getId(),</span>
-<span class="nc" id="L28">            corrida.getUsuario().getNome(), // Pega o nome do usuario relacionado</span>
-<span class="nc" id="L29">            corrida.getDistancia(),</span>
-<span class="nc" id="L30">            corrida.getTempoInicial(),</span>
-<span class="nc" id="L31">            corrida.getTempoFinal()</span>
+<span class="fc" id="L25">         this(</span>
+<span class="fc" id="L26">            corrida.getId(),</span>
+<span class="fc" id="L27">            corrida.getUsuario().getId(),</span>
+<span class="fc" id="L28">            corrida.getUsuario().getNome(), // Pega o nome do usuario relacionado</span>
+<span class="fc" id="L29">            corrida.getDistancia(),</span>
+<span class="fc" id="L30">            corrida.getTempoInicial(),</span>
+<span class="fc" id="L31">            corrida.getTempoFinal()</span>
         );
         
-<span class="nc" id="L34">    }</span>
+<span class="fc" id="L34">    }</span>
 
    
 }

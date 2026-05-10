@@ -17,30 +17,30 @@ import java.sql.Timestamp;
 
 
 @Getter
-<span class="nc" id="L20">@Setter</span>
+<span class="fc" id="L20">@Setter</span>
 @Entity
 @Table(name = &quot;CORRIDA&quot;)
-<span class="nc" id="L23">public class Corrida {</span>
+<span class="fc" id="L23">public class Corrida {</span>
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = &quot;ID&quot;)
-<span class="nc" id="L28">    private Integer id;</span>
+<span class="fc" id="L28">    private Integer id;</span>
 
     @ManyToOne
     @JoinColumn(name = &quot;usuario_id&quot;, nullable = false)
-<span class="nc" id="L32">    private Usuario usuario;</span>
+<span class="fc" id="L32">    private Usuario usuario;</span>
 
     @Column(name = &quot;distancia&quot;, nullable = false)
-<span class="nc" id="L35">    private BigDecimal distancia;</span>
+<span class="fc" id="L35">    private BigDecimal distancia;</span>
 
     @JsonFormat(pattern = &quot;dd/MM/yyyy HH:mm:ss&quot;, timezone = &quot;America/Sao_Paulo&quot;)
     @Column(name = &quot;tempo_inicial&quot;, nullable = false)
-<span class="nc" id="L39">    private Timestamp tempoInicial;</span>
+<span class="fc" id="L39">    private Timestamp tempoInicial;</span>
 
     @JsonFormat(pattern = &quot;dd/MM/yyyy HH:mm:ss&quot;, timezone = &quot;America/Sao_Paulo&quot;)
     @Column(name = &quot;tempo_final&quot;, nullable = false)
-<span class="nc" id="L43">    private Timestamp tempoFinal;    </span>
+<span class="fc" id="L43">    private Timestamp tempoFinal;    </span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

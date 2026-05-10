@@ -18,13 +18,13 @@ import com.runConnect.auth_api.dto.LoginRequestDTO;
 import com.runConnect.auth_api.model.Usuario;
 import com.runConnect.auth_api.repository.UsuarioRepository;
 import com.runConnect.auth_api.services.TokenService;
-
+import java.util.regex.Pattern;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(&quot;/auth&quot;)
 <span class="fc" id="L26">public class AuthenticationController {</span>
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -37,44 +37,95 @@ import jakarta.validation.Valid;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Padrões de validação de força de senha
+<span class="fc" id="L41">    private static final Pattern SENHA_NUMERO = Pattern.compile(&quot;.*\\d.*&quot;);</span>
+<span class="fc" id="L42">    private static final Pattern SENHA_ESPECIAL = Pattern.compile(&quot;.*[!@#$%^&amp;*()\\-_=+\\[\\]{};:'\&quot;,.&lt;&gt;?/\\\\|`~].*&quot;);</span>
+
+    private void validarForcaSenha(String senha) {
+<span class="fc bfc" id="L45" title="All 4 branches covered.">        if (senha == null || senha.length() &lt; 8) {</span>
+<span class="fc" id="L46">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;A senha deve ter no mínimo 8 caracteres&quot;);
+        }
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (!SENHA_NUMERO.matcher(senha).matches()) {</span>
+<span class="fc" id="L50">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;A senha deve conter pelo menos um número&quot;);
+        }
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!SENHA_ESPECIAL.matcher(senha).matches()) {</span>
+<span class="fc" id="L54">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;A senha deve conter pelo menos um caractere especial&quot;);
+        }
+<span class="fc" id="L57">    }</span>
+
     @PostMapping(&quot;/login&quot;)
-        public ResponseEntity &lt;LoginResponseDTO&gt; login(@RequestBody @Valid LoginRequestDTO data) {
-<span class="nc" id="L42">        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());</span>
-<span class="nc" id="L43">        var auth = this.authenticationManager.authenticate(usernamePassword);</span>
-<span class="nc" id="L44">        var usuario = (Usuario) auth.getPrincipal();</span>
-<span class="nc" id="L45">        var token = tokenService.gerarToken(usuario);</span>
-<span class="nc" id="L46">        LoginResponseDTO response = new LoginResponseDTO(</span>
+    public ResponseEntity&lt;LoginResponseDTO&gt; login(@RequestBody @Valid LoginRequestDTO data) {
+<span class="fc" id="L61">        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());</span>
+<span class="fc" id="L62">        var auth = this.authenticationManager.authenticate(usernamePassword);</span>
+<span class="fc" id="L63">        var usuario = (Usuario) auth.getPrincipal();</span>
+<span class="fc" id="L64">        var token = tokenService.gerarToken(usuario);</span>
+<span class="fc" id="L65">        LoginResponseDTO response = new LoginResponseDTO(</span>
                 token,
-<span class="nc" id="L48">                usuario.getId(),</span>
-<span class="nc" id="L49">                usuario.getNome(),</span>
-<span class="nc" id="L50">                usuario.getEmail(),</span>
-<span class="nc" id="L51">                usuario.getCpf()</span>
-    );
-<span class="nc" id="L53">    return ResponseEntity.ok(response);</span>
-}
+<span class="fc" id="L67">                usuario.getId(),</span>
+<span class="fc" id="L68">                usuario.getNome(),</span>
+<span class="fc" id="L69">                usuario.getEmail(),</span>
+<span class="fc" id="L70">                usuario.getCpf());</span>
+<span class="fc" id="L71">        return ResponseEntity.ok(response);</span>
+    }
+
+    private void validarCamposObrigatorios(CadastroRequestDTO data) {
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">        if (data.nome() == null || data.nome().isBlank()) {</span>
+<span class="fc" id="L76">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;Nome é obrigatório&quot;);
+        }
+
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">        if (data.email() == null || data.email().isBlank()) { </span>
+<span class="fc" id="L81">        throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                &quot;E-mail é obrigatório&quot;);
+        }
+<span class="pc bpc" id="L84" title="1 of 4 branches missed.">        if (data.cpf() == null || data.cpf().isBlank()) {</span>
+<span class="fc" id="L85">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;CPF é obrigatório&quot;);
+        }
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if (data.telefone() == null || data.telefone().isBlank()) {</span>
+<span class="fc" id="L89">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;Telefone é obrigatório&quot;);
+        }
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (data.dataNascimento() == null) {</span>
+<span class="fc" id="L93">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;Data de nascimento é obrigatória&quot;);
+        }
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (data.genero() == null) {</span>
+<span class="nc" id="L97">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+                    &quot;Gênero é obrigatório&quot;);
+        }
+<span class="fc" id="L100">    }</span>
 
     @PostMapping(&quot;/cadastrar&quot;)
     public ResponseEntity&lt;Void&gt; cadastrar(@RequestBody @Valid CadastroRequestDTO data) {
         // Verifica se o email já existe
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (this.usuarioRepository.findByEmail(data.email()).isPresent()) {</span>
-<span class="fc" id="L60">            throw new ResponseStatusException(HttpStatus.CONFLICT, &quot;E-mail já cadastrado&quot;);</span>
+
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (this.usuarioRepository.findByEmail(data.email()).isPresent()) {</span>
+<span class="fc" id="L107">            throw new ResponseStatusException(HttpStatus.CONFLICT, &quot;E-mail já cadastrado&quot;);</span>
         }
 
+<span class="fc" id="L110">        validarForcaSenha(data.senha());</span>
+
+<span class="fc" id="L112">        validarCamposObrigatorios(data);</span>
+
         // Criptografa a senha antes de salvar
-<span class="fc" id="L64">        String encryptedPassword = passwordEncoder.encode(data.senha());</span>
+<span class="fc" id="L115">        String encryptedPassword = passwordEncoder.encode(data.senha());</span>
 
-<span class="fc" id="L66">        Usuario newUser = new Usuario();</span>
-<span class="fc" id="L67">        newUser.setNome(data.nome());</span>
-<span class="fc" id="L68">        newUser.setDataNascimento(data.dataNascimento());</span>
-<span class="fc" id="L69">        newUser.setCpf(data.cpf());</span>
-<span class="fc" id="L70">        newUser.setEmail(data.email());</span>
-<span class="fc" id="L71">        newUser.setTelefone(data.telefone());</span>
-<span class="fc" id="L72">        newUser.setGenero(data.genero());</span>
-<span class="fc" id="L73">        newUser.setSenha(encryptedPassword); </span>
-<span class="fc" id="L74">        newUser.setImagemUrl(data.imagemUrl());</span>
-<span class="fc" id="L75">        this.usuarioRepository.save(newUser);</span>
+<span class="fc" id="L117">        Usuario newUser = new Usuario();</span>
+<span class="fc" id="L118">        newUser.setNome(data.nome());</span>
+<span class="fc" id="L119">        newUser.setDataNascimento(data.dataNascimento());</span>
+<span class="fc" id="L120">        newUser.setCpf(data.cpf());</span>
+<span class="fc" id="L121">        newUser.setEmail(data.email());</span>
+<span class="fc" id="L122">        newUser.setTelefone(data.telefone());</span>
+<span class="fc" id="L123">        newUser.setGenero(data.genero());</span>
+<span class="fc" id="L124">        newUser.setSenha(encryptedPassword);</span>
+<span class="fc" id="L125">        newUser.setImagemUrl(data.imagemUrl());</span>
+<span class="fc" id="L126">        this.usuarioRepository.save(newUser);</span>
 
-<span class="fc" id="L77">        return ResponseEntity.status(HttpStatus.CREATED).build();</span>
+<span class="fc" id="L128">        return ResponseEntity.status(HttpStatus.CREATED).build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
