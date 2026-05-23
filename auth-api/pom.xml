@@ -103,6 +103,7 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			
 
 			<!-- Spring Boot -->
 			<plugin>
