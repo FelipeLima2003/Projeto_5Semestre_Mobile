@@ -71,12 +71,19 @@
 		</dependency>
 
 		<!-- PostgreSQL -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-
+		</dependency> -->
+		
+		<!-- H2 - Banco de dados em mémoria para os testes -->
+		<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>test</scope>
+	</dependency>
+	
 		<!-- Ant -->
 		<dependency>
 			<groupId>org.apache.ant</groupId>
