@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/rprnwhq38n"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- HEADER (Igual) -->
+            <LinearLayout
+                android:id="@+id/header_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#212121"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="11dp">
+
+                <ImageView
+                    android:id="@+id/icon_voltar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="13dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/seta_voltar"
+                    android:contentDescription="@string/voltar"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/text_voltar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/voltar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
+
+            <!-- ÁREA DA FOTO -->
+            <LinearLayout
+                android:id="@+id/rhwlqudtvd4m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <!-- A Imagem de Perfil -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:elevation="0dp"
+                        app:cardCornerRadius="75dp">
+
+                        <ImageView
+                            android:id="@+id/img_logo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/logo" />
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/btn_adicionar_foto"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignBottom="@id/img_logo"
+                        android:layout_alignEnd="@id/img_logo"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/circle_background_blue"
+                        android:padding="8dp"
+                        android:src="@android:drawable/ic_menu_camera"
+                        android:contentDescription="@string/cadastro_desc_foto"
+                        android:elevation="4dp"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cadastro_hint_foto_camera"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <!-- NOME -->
+            <TextView
+                android:id="@+id/txt_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="7dp"
+                android:text="@string/cadastro_hint_nome"
+                android:labelFor="@id/edit_nome"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_nome"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/stroke_black"
+                android:paddingHorizontal="10dp"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- NASCIMENTO -->
+            <TextView
+                android:id="@+id/txt_nascimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="7dp"
+                android:text="@string/cadastro_hint_nascimento"
+                android:labelFor="@id/edit_nascimento"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_nascimento"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/stroke_black"
+                android:paddingHorizontal="10dp"
+                android:inputType="date"
+                android:singleLine="true"
+                android:hint="@string/cadastro_erro_data_msg"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- CPF -->
+            <TextView
+                android:id="@+id/txt_cpf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/cadastro_hint_cpf"
+                android:labelFor="@id/edit_cpf"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/stroke_black"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="25dp"
+                android:paddingHorizontal="10dp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:hint="000.000.000-00"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- EMAIL -->
+            <TextView
+                android:id="@+id/txt_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/cadastro_hint_email"
+                android:labelFor="@id/edit_email"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/stroke_black"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:paddingHorizontal="10dp"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- TELEFONE -->
+            <TextView
+                android:id="@+id/txt_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/cadastro_hint_telefone"
+                android:labelFor="@id/edit_telefone"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/stroke_black"
+                android:layout_marginBottom="4dp"
+                android:layout_marginHorizontal="25dp"
+                android:paddingHorizontal="10dp"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:hint="(XX) XXXXX-XXXX"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- GÊNERO -->
+            <TextView
+                android:id="@+id/txt_genero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/cadastro_erro_genero"
+                android:labelFor="@id/rg_genero"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <RadioGroup
+                android:id="@+id/rg_genero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="25dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_masculino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genero_masculino"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginEnd="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_feminino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genero_feminino"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginEnd="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_outro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genero_outro"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+            </RadioGroup>
+
+            <!-- SENHA COM ÍCONE -->
+            <TextView
+                android:id="@+id/txt_senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/cadastro_hint_senha"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginBottom="12dp">
+
+                <EditText
+                    android:id="@+id/edit_senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@drawable/stroke_black"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="40dp"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:textColorHint="#424242"/>
+
+                <!-- ÍCONE DO OLHO (VISIBILITY) -->
+                <ImageView
+                    android:id="@+id/btn_ver_senha"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_visibility"
+                    android:alpha="0.6"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Ver senha"/>
+            </FrameLayout>
+
+            <!-- CONFIRMAR SENHA -->
+            <TextView
+                android:id="@+id/txt_confirma_senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/cadastro_hint_confirma_senha"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_confirma_senha"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/stroke_black"
+                android:paddingHorizontal="10dp"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textColorHint="#424242"/>
+
+            <!-- BOTÃO CADASTRAR -->
+            <LinearLayout
+                android:id="@+id/containerButtonConfirmar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="90dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/button_confirm_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cadastro_btn_confirmar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
