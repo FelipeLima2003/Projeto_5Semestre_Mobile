@@ -47,7 +47,7 @@ class UsuarioAdapter(
             onProfileClick: (UsuarioPublicoResponse) -> Unit
         ) {
             userName.text = usuario.nome
-            userHandle.text = "@${usuario.nome.toLowerCase().replace(" ", "")}"
+            userHandle.text = "@${usuario.nome.lowercase().replace(" ", "")}"
 
 
             com.bumptech.glide.Glide.with(itemView.context)

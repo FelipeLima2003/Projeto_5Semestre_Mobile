@@ -37,6 +37,11 @@ object RetrofitClient {
         }
     }
 
+    fun clearAuthToken() {
+        authToken = null
+        Log.d("RetrofitClient", "Token removido da memória.")
+    }
+
     private val client: OkHttpClient by lazy {
 
         val logging = HttpLoggingInterceptor()
@@ -47,12 +52,13 @@ object RetrofitClient {
             .addInterceptor { chain ->
                 val originalRequest = chain.request()
                 val requestBuilder = originalRequest.newBuilder()
+                    .header("User-Agent", "Android/RunConnect")
+                    .header("Accept", "application/json")
 
-                if (!authToken.isNullOrBlank()) {
+                val isAuthRoute = originalRequest.url.toString().contains("/auth/")
+
+                if (!authToken.isNullOrBlank() && !isAuthRoute) {
                     requestBuilder.header("Authorization", "Bearer $authToken")
-                    Log.d("RetrofitClient", "Auth Header adicionado para: ${originalRequest.url}")
-                } else {
-                    Log.e("RetrofitClient", "ERRO: Sem Token para ${originalRequest.url}!")
                 }
 
                 val newRequest = requestBuilder.build()
