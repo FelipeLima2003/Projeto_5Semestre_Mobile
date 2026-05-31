@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -63,13 +64,49 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
             pararCorrida()
         }
 
-        iniciarServico()
+        verificarPermissoesEIniciar()
         observarDadosDoServico()
+    }
+
+    private fun verificarPermissoesEIniciar() {
+        val permissoes = mutableListOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissoes.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        val permissoesNegadas = permissoes.filter {
+            ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (permissoesNegadas.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissoesNegadas.toTypedArray(), 100)
+        } else {
+            iniciarServico()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100) {
+            val fineLocationGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            val coarseLocationGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+            if (fineLocationGranted || coarseLocationGranted) {
+                iniciarServico()
+            } else {
+                Toast.makeText(this, "Permissão de localização é necessária para rastrear a corrida.", Toast.LENGTH_LONG).show()
+                finish()
+            }
+        }
     }
 
     private fun iniciarServico() {
         val intent = Intent(this, LocationService::class.java)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent)
         } else {
             startService(intent)
@@ -78,10 +115,12 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun observarDadosDoServico() {
         LocationService.locationData.observe(this) { location ->
-            val newPoint = LatLng(location.latitude, location.longitude)
-            pathPoints.add(newPoint)
-            desenharTrajetoria()
-            moverCamera(newPoint)
+            location?.let {
+                val newPoint = LatLng(it.latitude, it.longitude)
+                pathPoints.add(newPoint)
+                desenharTrajetoria()
+                moverCamera(newPoint)
+            }
         }
 
         LocationService.distanceData.observe(this) { distance ->

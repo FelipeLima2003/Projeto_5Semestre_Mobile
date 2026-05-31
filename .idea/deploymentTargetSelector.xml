@@ -22,21 +22,17 @@
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="CadastroSucessoTest">
+      <SelectionState runConfigName="MainActivity (3)">
         <option name="selectionMode" value="DROPDOWN" />
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="MainActivity (1)">
+      <SelectionState runConfigName="LocationServiceTest">
         <option name="selectionMode" value="DROPDOWN" />
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="PerfilUpdateTest">
+      <SelectionState runConfigName="GoogleMapsIntegrationTest">
         <option name="selectionMode" value="DROPDOWN" />
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="MainActivity (2)">
+      <SelectionState runConfigName="UsabilityUiTest">
         <option name="selectionMode" value="DROPDOWN" />
-        <DialogSelection />
       </SelectionState>
     </selectionStates>
   </component>
