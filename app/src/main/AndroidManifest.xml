@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.projetointegrador"
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Necessário para o Foreground Service em versões mais novas do Android -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
@@ -21,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="34">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -30,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".CadastroActivity" />
         <activity android:name=".ConsultaActivity" />
         <activity android:name=".SobreNosActivity" />
@@ -40,6 +45,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAgANmempheeWRK16sEZ-iCssW2QouRc0o"/>
@@ -47,10 +53,8 @@
         <service
             android:name=".LocationService"
             android:foregroundServiceType="location"
-            android:exported="false"/>
+            android:exported="false" />
 
     </application>
-
-
 
 </manifest>
