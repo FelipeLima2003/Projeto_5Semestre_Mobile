@@ -1,2 +1,71 @@
 
 .vscode/
+
+# ==========================================
+# 1. Sistema Operacional
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# 2. IDEs (Android Studio, IntelliJ, VS Code)
+# ==========================================
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+.settings/
+.classpath
+.project
+
+# ==========================================
+# 3. Backend (Java / Spring Boot / Maven)
+# ==========================================
+target/
+auth-api/target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+jacoco.exec
+hs_err_pid*
+replay_pid*
+
+# ==========================================
+# 4. Frontend (Android / Kotlin / Gradle)
+# ==========================================
+.gradle/
+build/
+app/build/
+local.properties
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# Artefatos Android (Nunca subir o app compilado para o GitHub)
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# ==========================================
+# 5. Segurança e Chaves (MUITO IMPORTANTE)
+# ==========================================
+# Ignora arquivos de chave de assinatura do Android
+*.jks
+*.keystore
+*.p12
+*.key
+
+# Ignora arquivos de variáveis de ambiente com senhas locais (se houver)
+.env
+.env.local

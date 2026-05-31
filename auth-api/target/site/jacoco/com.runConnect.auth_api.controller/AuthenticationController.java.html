@@ -93,8 +93,8 @@ import jakarta.validation.Valid;
 <span class="fc" id="L93">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
                     &quot;Data de nascimento é obrigatória&quot;);
         }
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (data.genero() == null) {</span>
-<span class="nc" id="L97">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (data.genero() == null) {</span>
+<span class="fc" id="L97">            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,</span>
                     &quot;Gênero é obrigatório&quot;);
         }
 <span class="fc" id="L100">    }</span>

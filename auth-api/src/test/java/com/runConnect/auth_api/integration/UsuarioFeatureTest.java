@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UsuarioFeatureTest {
     
      @Autowired
-    private MockMvc mockMvc;             // ← simula requisições HTTP reais
+    private MockMvc mockMvc;         
  
     @Autowired
     private UsuarioRepository usuarioRepository;

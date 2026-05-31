@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = &quot;SENHA&quot;, nullable = false)
-<span class="nc" id="L51">    private String senha;</span>
+<span class="fc" id="L51">    private String senha;</span>
 
     @Column(name = &quot;IMAGEM_URL&quot;)
 <span class="fc" id="L54">    private String imagemUrl;</span>
@@ -66,16 +66,16 @@ public class Usuario implements UserDetails {
 <span class="fc" id="L66">        return List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
     }
     @Override
-<span class="nc" id="L69">    public String getPassword() { return senha; }</span>
+<span class="fc" id="L69">    public String getPassword() { return senha; }</span>
     @Override
-<span class="nc" id="L71">    public String getUsername() { return email; }</span>
+<span class="fc" id="L71">    public String getUsername() { return email; }</span>
     @Override
-<span class="nc" id="L73">    public boolean isAccountNonExpired() { return true; }</span>
+<span class="fc" id="L73">    public boolean isAccountNonExpired() { return true; }</span>
     @Override
-<span class="nc" id="L75">    public boolean isAccountNonLocked() { return true; }</span>
+<span class="fc" id="L75">    public boolean isAccountNonLocked() { return true; }</span>
     @Override
-<span class="nc" id="L77">    public boolean isCredentialsNonExpired() { return true; }</span>
+<span class="fc" id="L77">    public boolean isCredentialsNonExpired() { return true; }</span>
     @Override
-<span class="nc" id="L79">    public boolean isEnabled() { return true; }</span>
+<span class="fc" id="L79">    public boolean isEnabled() { return true; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

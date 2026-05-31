@@ -1,4 +1,4 @@
-package com.runConnect.auth_api.Controller;
+package com.runConnect.auth_api.controller;
 
 import com.runConnect.auth_api.dto.CadastroRequestDTO;
 import com.runConnect.auth_api.dto.LoginRequestDTO;
@@ -289,23 +289,23 @@ class AuthenticationControllerTest {
             assertCampoNuloNaoSalva(dto);
         }
 
-        // @Test
-        // @DisplayName("Não deve salvar quando gênero é nulo")
-        // void cadastrar_GeneroNulo_NaoDevePersistir() {
-        //     CadastroRequestDTO dto = new CadastroRequestDTO(
-        //             "Sem Genero",
-        //             "semgenero@runconnect.com",
-        //             "Senha@789",
-        //             "600.600.600-00",
-        //             "(11) 22222-2222",
-        //             LocalDate.of(1995, 1, 1),
-        //             null,
-        //             null // ← campo ausente
-        //     );
-        //     when(usuarioRepository.findByEmail(dto.email())).thenReturn(Optional.empty());
-        //     // when(passwordEncoder.encode(any())).thenReturn("hash");
-        //     assertCampoNuloNaoSalva(dto);
-        // }
+        @Test
+        @DisplayName("Não deve salvar quando gênero é nulo")
+        void cadastrar_GeneroNulo_NaoDevePersistir() {
+            CadastroRequestDTO dto = new CadastroRequestDTO(
+                    "Sem Genero",
+                    "semgenero@runconnect.com",
+                    "Senha@789",
+                    "600.600.600-00",
+                    "(11) 22222-2222",
+                    LocalDate.of(1995, 1, 1),
+                    null,
+                    null // ← campo ausente
+            );
+            when(usuarioRepository.findByEmail(dto.email())).thenReturn(Optional.empty());
+            // when(passwordEncoder.encode(any())).thenReturn("hash");
+            assertCampoNuloNaoSalva(dto);
+        }
     }
 
     // Cadastro bem-sucedido

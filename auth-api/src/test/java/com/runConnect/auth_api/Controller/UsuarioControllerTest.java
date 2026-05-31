@@ -1,4 +1,4 @@
-package com.runConnect.auth_api.Controller;
+package com.runConnect.auth_api.controller;
 import com.runConnect.auth_api.controller.UsuarioController;
 import com.runConnect.auth_api.dto.UsuarioPublicoDTO;
 import com.runConnect.auth_api.model.Seguidores;

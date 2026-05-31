@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Component
-<span class="nc" id="L21">public class SecurityFilter extends OncePerRequestFilter {</span>
+<span class="fc" id="L21">public class SecurityFilter extends OncePerRequestFilter {</span>
 
     @Autowired
     TokenService tokenService;
@@ -28,9 +28,9 @@ import java.util.Optional;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-<span class="nc" id="L31">        var token = recuperarToken(request);</span>
+<span class="fc" id="L31">        var token = recuperarToken(request);</span>
 
-<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (token != null) {</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (token != null) {</span>
 <span class="nc" id="L34">            var email = tokenService.validarToken(token);</span>
 <span class="nc" id="L35">            Optional&lt;Usuario&gt; user = usuarioRepository.findByEmail(email);</span>
 
@@ -41,12 +41,12 @@ import java.util.Optional;
             }
         }
        
-<span class="nc" id="L44">        filterChain.doFilter(request, response);</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L44">        filterChain.doFilter(request, response);</span>
+<span class="fc" id="L45">    }</span>
 
     private String recuperarToken(HttpServletRequest request) {
-<span class="nc" id="L48">        var authHeader = request.getHeader(&quot;Authorization&quot;);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (authHeader == null) return null;</span>
+<span class="fc" id="L48">        var authHeader = request.getHeader(&quot;Authorization&quot;);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (authHeader == null) return null;</span>
         
 <span class="nc" id="L51">        return authHeader.replace(&quot;Bearer &quot;, &quot;&quot;);</span>
     }

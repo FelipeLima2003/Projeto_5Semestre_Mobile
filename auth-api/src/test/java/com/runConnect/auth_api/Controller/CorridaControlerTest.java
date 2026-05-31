@@ -1,4 +1,4 @@
-package com.runConnect.auth_api.Controller;
+package com.runConnect.auth_api.controller;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

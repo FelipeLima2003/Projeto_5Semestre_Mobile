@@ -78,12 +78,12 @@
 		</dependency>
 		
 		<!-- H2 - Banco de dados em mémoria para os testes -->
-		<!-- <dependency>
+		<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
 		<scope>test</scope>
 	</dependency>
-	 -->
+	
 		<!-- Ant -->
 		<dependency>
 			<groupId>org.apache.ant</groupId>

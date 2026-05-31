@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-<span class="nc" id="L16">public class TokenService {</span>
+<span class="fc" id="L16">public class TokenService {</span>
     
     @Value(&quot;${api.security.token.secret}&quot;)
     private String secret;
@@ -21,12 +21,12 @@ import java.time.ZoneOffset;
     public String gerarToken(Usuario usuario) {
        
         try {
-<span class="nc" id="L24">            Algorithm algorithm = Algorithm.HMAC256(secret);</span>
-<span class="nc" id="L25">            return JWT.create()</span>
-<span class="nc" id="L26">                .withIssuer(&quot;runconnect-api&quot;)</span>
-<span class="nc" id="L27">                .withSubject(usuario.getEmail())</span>
-<span class="nc" id="L28">                .withExpiresAt(getExpirationDate())</span>
-<span class="nc" id="L29">                .sign(algorithm);</span>
+<span class="fc" id="L24">            Algorithm algorithm = Algorithm.HMAC256(secret);</span>
+<span class="fc" id="L25">            return JWT.create()</span>
+<span class="fc" id="L26">                .withIssuer(&quot;runconnect-api&quot;)</span>
+<span class="fc" id="L27">                .withSubject(usuario.getEmail())</span>
+<span class="fc" id="L28">                .withExpiresAt(getExpirationDate())</span>
+<span class="fc" id="L29">                .sign(algorithm);</span>
 <span class="nc" id="L30">        } catch (JWTCreationException exception) {</span>
 <span class="nc" id="L31">            throw new RuntimeException(&quot;Erro ao gerar o token JWT&quot;, exception);</span>
         }
@@ -36,20 +36,20 @@ import java.time.ZoneOffset;
 
     public String validarToken(String token){
         try {
-<span class="nc" id="L39">             Algorithm algorithm = Algorithm.HMAC256(secret);</span>
-<span class="nc" id="L40">            return JWT.require(algorithm)</span>
-<span class="nc" id="L41">                .withIssuer(&quot;runconnect-api&quot;)</span>
-<span class="nc" id="L42">                .build()</span>
-<span class="nc" id="L43">                .verify(token)</span>
-<span class="nc" id="L44">                .getSubject();</span>
-<span class="nc" id="L45">        }catch (JWTVerificationException  exception) {</span>
-<span class="nc" id="L46">            return &quot;&quot;;</span>
+<span class="fc" id="L39">             Algorithm algorithm = Algorithm.HMAC256(secret);</span>
+<span class="fc" id="L40">            return JWT.require(algorithm)</span>
+<span class="fc" id="L41">                .withIssuer(&quot;runconnect-api&quot;)</span>
+<span class="fc" id="L42">                .build()</span>
+<span class="fc" id="L43">                .verify(token)</span>
+<span class="fc" id="L44">                .getSubject();</span>
+<span class="fc" id="L45">        }catch (JWTVerificationException  exception) {</span>
+<span class="fc" id="L46">            return &quot;&quot;;</span>
         }
     }
 
     // O token expira em 2 horas
     private Instant getExpirationDate() {
-<span class="nc" id="L52">        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of(&quot;-03:00&quot;));</span>
+<span class="fc" id="L52">        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of(&quot;-03:00&quot;));</span>
     }
 
 }

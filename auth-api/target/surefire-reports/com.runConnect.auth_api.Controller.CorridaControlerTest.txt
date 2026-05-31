@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.runConnect.auth_api.Controller.CorridaControlerTest
+Test set: com.runConnect.auth_api.controller.CorridaControlerTest
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.228 s -- in com.runConnect.auth_api.Controller.CorridaControlerTest
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.369 s -- in com.runConnect.auth_api.controller.CorridaControlerTest

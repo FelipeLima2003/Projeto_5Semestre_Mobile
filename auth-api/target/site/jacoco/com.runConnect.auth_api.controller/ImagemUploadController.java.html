@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(&quot;/uploads&quot;)
-<span class="nc" id="L19">public class ImagemUploadController {</span>
+<span class="fc" id="L19">public class ImagemUploadController {</span>
 
    
     @Value(&quot;${file.upload-dir}&quot;)
@@ -24,43 +24,43 @@ import java.util.UUID;
 
     @PostMapping(&quot;/imagem&quot;)
     public ResponseEntity&lt;String&gt; uploadImagem(@RequestParam(&quot;file&quot;) MultipartFile file) {
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (file.isEmpty()) {</span>
-<span class="nc" id="L28">            return ResponseEntity.badRequest().body(&quot;Por favor, selecione um ficheiro para fazer upload.&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (file.isEmpty()) {</span>
+<span class="fc" id="L28">            return ResponseEntity.badRequest().body(&quot;Por favor, selecione um ficheiro para fazer upload.&quot;);</span>
         }
 
         try {
             
-<span class="nc" id="L33">            Path uploadPath = Paths.get(uploadDir);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (!Files.exists(uploadPath)) {</span>
+<span class="fc" id="L33">            Path uploadPath = Paths.get(uploadDir);</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">            if (!Files.exists(uploadPath)) {</span>
 <span class="nc" id="L35">                Files.createDirectories(uploadPath);</span>
             }
 
            
-<span class="nc" id="L39">            String originalFileName = file.getOriginalFilename();</span>
-<span class="nc" id="L40">            String fileExtension = &quot;&quot;;</span>
-<span class="nc bnc" id="L41" title="All 4 branches missed.">            if (originalFileName != null &amp;&amp; originalFileName.contains(&quot;.&quot;)) {</span>
-<span class="nc" id="L42">                fileExtension = originalFileName.substring(originalFileName.lastIndexOf(&quot;.&quot;));</span>
+<span class="fc" id="L39">            String originalFileName = file.getOriginalFilename();</span>
+<span class="fc" id="L40">            String fileExtension = &quot;&quot;;</span>
+<span class="pc bpc" id="L41" title="2 of 4 branches missed.">            if (originalFileName != null &amp;&amp; originalFileName.contains(&quot;.&quot;)) {</span>
+<span class="fc" id="L42">                fileExtension = originalFileName.substring(originalFileName.lastIndexOf(&quot;.&quot;));</span>
             }
-<span class="nc" id="L44">            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;</span>
+<span class="fc" id="L44">            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;</span>
 
             
-<span class="nc" id="L47">            Path destinationFile = uploadPath.resolve(uniqueFileName).normalize().toAbsolutePath();</span>
+<span class="fc" id="L47">            Path destinationFile = uploadPath.resolve(uniqueFileName).normalize().toAbsolutePath();</span>
 
             
-<span class="nc" id="L50">            Files.copy(file.getInputStream(), destinationFile, StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="fc" id="L50">            Files.copy(file.getInputStream(), destinationFile, StandardCopyOption.REPLACE_EXISTING);</span>
 
            
-<span class="nc" id="L53">            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()</span>
-<span class="nc" id="L54">                    .path(&quot;/uploads/&quot;) </span>
-<span class="nc" id="L55">                    .path(uniqueFileName)</span>
-<span class="nc" id="L56">                    .toUriString();</span>
+<span class="fc" id="L53">            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()</span>
+<span class="fc" id="L54">                    .path(&quot;/uploads/&quot;) </span>
+<span class="fc" id="L55">                    .path(uniqueFileName)</span>
+<span class="fc" id="L56">                    .toUriString();</span>
 
           
-<span class="nc" id="L59">            return ResponseEntity.ok(fileDownloadUri);</span>
+<span class="fc" id="L59">            return ResponseEntity.ok(fileDownloadUri);</span>
 
-<span class="nc" id="L61">        } catch (IOException ex) {</span>
+<span class="fc" id="L61">        } catch (IOException ex) {</span>
          
-<span class="nc" id="L63">            return ResponseEntity.status(500).body(&quot;Não foi possível fazer o upload do ficheiro. Erro: &quot; + ex.getMessage());</span>
+<span class="fc" id="L63">            return ResponseEntity.status(500).body(&quot;Não foi possível fazer o upload do ficheiro. Erro: &quot; + ex.getMessage());</span>
         }
     }
 }
