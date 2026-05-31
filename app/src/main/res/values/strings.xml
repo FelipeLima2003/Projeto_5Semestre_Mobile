@@ -42,6 +42,7 @@
     <string name="cadastro_erro_data_msg">Use o formato DD/MM/AAAA</string>
     <string name="cadastro_sucesso">Cadastro realizado com sucesso!</string>
     <string name="cadastro_erro_prefixo">Erro ao cadastrar:</string>
+    <string name="cadastro_erro_email_duplicado">email ja cadastrado por favor fazer login</string>
 
     <!-- CADASTRO - FOTO -->
     <string name="cadastro_hint_foto_camera">Toque na câmera para adicionar foto</string>
