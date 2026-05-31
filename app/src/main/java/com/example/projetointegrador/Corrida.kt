@@ -115,8 +115,8 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun observarDadosDoServico() {
         LocationService.locationData.observe(this) { location ->
-            location?.let {
-                val newPoint = LatLng(it.latitude, it.longitude)
+            location?.let { loc ->
+                val newPoint = LatLng(loc.latitude, loc.longitude)
                 pathPoints.add(newPoint)
                 desenharTrajetoria()
                 moverCamera(newPoint)
@@ -124,16 +124,16 @@ class CorridaActivity : BaseActivity(), OnMapReadyCallback {
         }
 
         LocationService.distanceData.observe(this) { distance ->
-            finalDistance = distance
-            val distanceKm = distance / 1000.0
+            finalDistance = distance ?: 0.0
+            val distanceKm = finalDistance / 1000.0
             txtDistancia.text = String.format("Distância: %.2f km", distanceKm)
         }
 
         LocationService.durationData.observe(this) { duration ->
-            finalDuration = duration
-            val hours = TimeUnit.MILLISECONDS.toHours(duration)
-            val minutes = TimeUnit.MILLISECONDS.toMinutes(duration) % 60
-            val seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60
+            finalDuration = duration ?: 0L
+            val hours = TimeUnit.MILLISECONDS.toHours(finalDuration)
+            val minutes = TimeUnit.MILLISECONDS.toMinutes(finalDuration) % 60
+            val seconds = TimeUnit.MILLISECONDS.toSeconds(finalDuration) % 60
             txtTempo.text = String.format("Tempo: %02d:%02d:%02d", hours, minutes, seconds)
         }
     }
