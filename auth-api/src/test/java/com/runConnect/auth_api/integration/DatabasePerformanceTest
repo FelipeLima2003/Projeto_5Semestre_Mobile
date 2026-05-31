@@ -1,0 +1,51 @@
+package com.runConnect.auth_api.integration;
+
+import com.runConnect.auth_api.model.Usuario;
+import com.runConnect.auth_api.model.enums.Genero;
+import com.runConnect.auth_api.repository.UsuarioRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.StopWatch;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest
+@ActiveProfiles("test") // Garante que usa o banco de testes (H2 em memória)
+public class DatabasePerformanceTest {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Test
+    public void testDesempenhoInsercaoEBuscaEmLote() {
+        StopWatch stopWatch = new StopWatch();
+        int numeroDeRegistos = 500; // Quantidade de operações para testar a carga
+
+        // Testar tempo de INSERÇÃO
+        stopWatch.start("Inserção de " + numeroDeRegistos + " utilizadores");
+        for (int i = 0; i < numeroDeRegistos; i++) {
+            Usuario u = new Usuario();
+            u.setNome("User Performance " + i);
+            u.setEmail("perf" + i + "@teste.com");
+            u.setSenha("SenhaForte123");
+            u.setCpf("000000000" + (i % 10)); // CPF fictício
+            u.setGenero(Genero.MASCULINO);
+            usuarioRepository.save(u);
+        }
+        stopWatch.stop();
+
+        // Testar tempo de BUSCA
+        stopWatch.start("Busca de " + numeroDeRegistos + " utilizadores");
+        long totalUsuarios = usuarioRepository.count();
+        stopWatch.stop();
+
+        // Imprimir relatório no terminal
+        System.out.println(stopWatch.prettyPrint());
+
+        // O teste passa se a inserção de 500 registos demorar menos de 3 segundos (3000ms)
+        // Ajuste este valor conforme a capacidade da máquina
+        assertTrue(stopWatch.getTotalTimeMillis() < 3000, "O banco de dados está muito lento!");
+    }
+}
