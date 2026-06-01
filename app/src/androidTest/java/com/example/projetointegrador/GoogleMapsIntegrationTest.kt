@@ -20,10 +20,8 @@ class GoogleMapsIntegrationTest {
 
     @Test
     fun verificarSeInterfaceDeCorridaEMapaCarregamCorretamente() {
-        // Verifica se o SupportMapFragment está visível
         onView(withId(R.id.map)).check(matches(isDisplayed()))
 
-        // Verifica se os campos de telemetria exibem os rótulos corretos
         onView(withId(R.id.txt_tempo))
             .check(matches(isDisplayed()))
             .check(matches(withText(containsString("Tempo:"))))
@@ -32,20 +30,18 @@ class GoogleMapsIntegrationTest {
             .check(matches(isDisplayed()))
             .check(matches(withText(containsString("Distância:"))))
 
-        // Verifica se o botão de controle está visível
+
         onView(withId(R.id.btn_parar_corrida))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun verificarEstadoInicialDoServicoDeLocalizacao() {
-        // Damos um tempo pequeno para o serviço postar os valores iniciais se necessário
         Thread.sleep(500)
 
         val distancia = LocationService.distanceData.value
         val duracao = LocationService.durationData.value
 
-        // Validações com mensagens claras
         assertNotNull("O dado de distância não deve ser nulo. Verifique se o LocationService inicializa distanceData.", distancia)
         assertNotNull("O dado de duração não deve ser nulo. Verifique se o LocationService inicializa durationData.", duracao)
         

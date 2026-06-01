@@ -63,7 +63,6 @@ class CadastroActivityTest {
             onView(withId(R.id.edit_nascimento)).perform(scrollTo(), clearText(), typeText("01/01/2000"), closeSoftKeyboard())
             onView(withId(R.id.edit_cpf)).perform(scrollTo(), clearText(), typeText("000.000.000-00"), closeSoftKeyboard())
 
-            // Garantindo que o e-mail foi digitado corretamente
             onView(withId(R.id.edit_email)).perform(scrollTo(), clearText(), typeText(emailFixo), closeSoftKeyboard())
             onView(withId(R.id.edit_email)).check(matches(withText(emailFixo)))
 

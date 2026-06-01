@@ -14,10 +14,6 @@ import org.junit.Before
 import java.util.UUID
 import kotlin.random.Random
 
-/**
- * Teste de integração para validar o fluxo de cadastro com sucesso.
- * Garante unicidade absoluta de Email, CPF e Telefone em cada rodada para evitar conflitos na API.
- */
 @RunWith(AndroidJUnit4::class)
 class CadastroSucessoTest {
 
@@ -26,7 +22,6 @@ class CadastroSucessoTest {
 
     @Before
     fun setup() {
-        // Garante que o estado de autenticação esteja limpo
         RetrofitClient.clearAuthToken()
     }
 
@@ -36,15 +31,14 @@ class CadastroSucessoTest {
         Log.d(TAG, "--- INICIANDO TESTE: Cadastro de usuário válido ---")
 
         try {
-            // 1. GERAÇÃO DE DADOS 100% ÚNICOS
-            // Usamos um UUID completo para o email para garantir que nunca se repita entre as execuções
+
             val randomUuid = UUID.randomUUID().toString().replace("-", "").take(12)
             val emailDinamico = "user_$randomUuid@automacao.com"
             
-            // CPF aleatório de 11 dígitos para evitar restrições de duplicidade no banco
+
             val cpfDinamico = (1..11).map { Random.nextInt(0, 10) }.joinToString("")
             
-            // Telefone aleatório (119 + 8 dígitos aleatórios)
+
             val telefoneDinamico = "119" + (1..8).map { Random.nextInt(0, 10) }.joinToString("")
 
             Log.i(TAG, "DADOS ÚNICOS GERADOS PARA ESTA EXECUÇÃO:")
@@ -52,10 +46,9 @@ class CadastroSucessoTest {
             Log.i(TAG, "CPF: $cpfDinamico")
             Log.i(TAG, "Telefone: $telefoneDinamico")
 
-            // 2. PREENCHIMENTO DO FORMULÁRIO COM DADOS INÉDITOS
+
             onView(withId(R.id.edit_nome)).perform(replaceText("Tester $randomUuid"), closeSoftKeyboard())
-            
-            // Data de nascimento - Formato DD/MM/AAAA (necessário para a lógica de split("/") da Activity)
+
             onView(withId(R.id.edit_nascimento)).perform(replaceText("15/05/1990"), closeSoftKeyboard())
             
             onView(withId(R.id.edit_cpf)).perform(replaceText(cpfDinamico), closeSoftKeyboard())
@@ -66,17 +59,15 @@ class CadastroSucessoTest {
             onView(withId(R.id.edit_senha)).perform(replaceText("Senha@123"), closeSoftKeyboard())
             onView(withId(R.id.edit_confirma_senha)).perform(replaceText("Senha@123"), closeSoftKeyboard())
 
-            // 3. ENVIO E VALIDAÇÃO DA TRANSIÇÃO
+
             onView(withId(R.id.containerButtonConfirmar)).perform(scrollTo(), click())
 
             Log.d(TAG, "Aguardando resposta da API e navegação para tela de Login...")
             
             var navegou = false
-            // Tenta verificar a transição de tela por até 40 segundos
             for (i in 1..20) {
                 Thread.sleep(2000)
                 try {
-                    // Verifica se o link de cadastro da tela de Login (MainActivity) está visível
                     onView(withId(R.id.txt_ir_para_cadastro)).check(matches(isDisplayed()))
                     navegou = true
                     break
